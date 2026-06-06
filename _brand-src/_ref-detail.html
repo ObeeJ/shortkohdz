@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Corvus - shortkohdz</title><meta name="description" content="A network scanner that remembers."/>
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22-100%20-100%20200%20200%22%3E%0A%20%20%3Crect%20x%3D%22-100%22%20y%3D%22-100%22%20width%3D%22200%22%20height%3D%22200%22%20rx%3D%2246%22%20fill%3D%22%230B0F14%22%2F%3E%0A%20%20%3Cg%20fill%3D%22%23F4F0E8%22%3E%0A%20%20%20%20%3Cpolygon%20points%3D%22-7%2C-18%207%2C-18%203.5%2C-92%20-3.5%2C-92%22%2F%3E%0A%20%20%20%20%3Cpolygon%20points%3D%22-7%2C-18%207%2C-18%203.5%2C-92%20-3.5%2C-92%22%20transform%3D%22rotate(60)%22%2F%3E%0A%20%20%20%20%3Cpolygon%20points%3D%22-7%2C-18%207%2C-18%203.5%2C-92%20-3.5%2C-92%22%20transform%3D%22rotate(120)%22%2F%3E%0A%20%20%20%20%3Cpolygon%20points%3D%22-7%2C-18%207%2C-18%203.5%2C-92%20-3.5%2C-92%22%20transform%3D%22rotate(180)%22%2F%3E%0A%20%20%20%20%3Cpolygon%20points%3D%22-7%2C-18%207%2C-18%203.5%2C-92%20-3.5%2C-92%22%20transform%3D%22rotate(240)%22%2F%3E%0A%20%20%20%20%3Cpolygon%20points%3D%22-7%2C-18%207%2C-18%203.5%2C-92%20-3.5%2C-92%22%20transform%3D%22rotate(300)%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Ccircle%20r%3D%2210%22%20fill%3D%22%23FF553D%22%2F%3E%0A%3C%2Fsvg%3E%0A"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>/* ============================================================
+   shortkohdz - design system
+   type: Sora / JetBrains Mono / Instrument Serif
+   palette: ink / paper / accent  (maintained from brand identity)
+   ============================================================ */
+:root{
+  --ink:#0B0F14; --ink-2:#131820; --ink-3:#0E131A;
+  --paper:#F4F0E8; --paper-2:#EBE6DC;
+  --accent:#FF553D; --accent-soft:rgba(255,85,61,.14);
+  --line:rgba(244,240,232,.10); --line-2:rgba(244,240,232,.06);
+  --muted:rgba(244,240,232,.56); --faint:rgba(244,240,232,.38);
+  --line-d:rgba(11,15,20,.12); --muted-d:rgba(11,15,20,.58);
+  --maxw:1180px; --ease:cubic-bezier(.22,.61,.36,1);
+}
+@view-transition{ navigation:auto; }
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--ink);color:var(--paper);
+  font-family:'Sora',system-ui,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+img,svg{display:block}
+::selection{background:var(--accent);color:var(--ink)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+.wordmark{font-family:'Sora',sans-serif;font-weight:600;letter-spacing:-.035em;line-height:.9}
+.accent{color:var(--accent)}
+.mark .arm{fill:currentColor}.mark .core{fill:var(--accent)}
+
+/* focus + a11y */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:14px;z-index:200;background:var(--accent);color:var(--ink);padding:10px 16px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12px}
+
+/* ---------- nav: logomark + menu ---------- */
+header.bar{position:sticky;top:0;z-index:60;background:rgba(11,15,20,.66);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logomark{width:30px;height:30px;color:var(--paper);transition:transform .5s var(--ease)}
+.logomark:hover{transform:rotate(60deg)}
+.navlinks{display:flex;align-items:center;gap:26px}
+.navlinks a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;text-transform:lowercase;color:var(--muted);position:relative;transition:color .2s var(--ease)}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:-5px;height:1px;width:0;background:var(--accent);transition:width .25s var(--ease)}
+.navlinks a:hover,.navlinks a.on{color:var(--paper)}
+.navlinks a:hover::after,.navlinks a.on::after{width:100%}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--paper)}
+.menu-btn svg{width:18px;height:18px}
+.menu-overlay{position:fixed;inset:0;z-index:70;background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:0 32px;transform:translateY(-100%);transition:transform .45s var(--ease);visibility:hidden}
+.menu-overlay.open{transform:translateY(0);visibility:visible}
+.menu-overlay a{font-family:'Instrument Serif',serif;font-style:italic;font-size:44px;color:var(--paper);padding:14px 0;border-bottom:1px solid var(--line);transition:color .2s,padding-left .25s var(--ease)}
+.menu-overlay a:hover{color:var(--accent);padding-left:12px}
+.menu-close{position:absolute;top:18px;right:24px;background:none;border:none;color:var(--muted);font-size:26px;line-height:1}
+@media(max-width:720px){.navlinks{display:none}.menu-btn{display:inline-flex;align-items:center}}
+
+/* ---------- buttons ---------- */
+.btn{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:lowercase;letter-spacing:.04em;padding:13px 22px;border-radius:8px;display:inline-flex;align-items:center;gap:9px;transition:transform .18s var(--ease),background .2s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-acc{background:var(--accent);color:var(--ink);font-weight:500}
+.btn-ghost{border:1px solid var(--line);color:var(--paper)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn .arr{transition:transform .2s var(--ease)}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
+#flock{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 42%,transparent,var(--ink) 88%)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-top:60px;padding-bottom:60px}
+.hero .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:26px}
+.hero h1{font-family:'Sora',sans-serif;font-weight:600;letter-spacing:-.04em;line-height:.98;font-size:clamp(48px,9.5vw,118px);margin-bottom:28px}
+.hero h1 .it{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--accent)}
+.hero p.sub{font-size:clamp(16px,2.2vw,20px);color:var(--muted);max-width:560px;margin-bottom:38px}
+.hero .cta{display:flex;gap:13px;flex-wrap:wrap}
+
+/* ---------- section scaffolding ---------- */
+section.block{padding:96px 0;border-bottom:1px solid var(--line);position:relative}
+section.paper{background:var(--paper);color:var(--ink)}
+section.paper .rowhead h2{color:var(--muted-d)}
+section.paper .lead{color:var(--muted-d)}
+.rowhead{display:flex;align-items:baseline;gap:16px;margin-bottom:40px}
+.rowhead .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)}
+.rowhead h2{font-weight:400;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.display{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(30px,5.2vw,56px);line-height:1.08;max-width:880px;letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:640px;font-size:16px;margin-top:18px}
+
+/* ---------- the idea (tenets) ---------- */
+.tenets{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:46px}
+.tenet{background:var(--ink-2);padding:30px 26px;min-height:200px;display:flex;flex-direction:column;transition:background .3s var(--ease)}
+.tenet:hover{background:var(--ink-3)}
+.tenet .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-transform:uppercase;margin-bottom:auto}
+.tenet h3{font-weight:500;font-size:20px;letter-spacing:-.01em;margin:26px 0 10px}
+.tenet p{font-size:14px;color:var(--muted)}
+@media(max-width:900px){.tenets{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.tenets{grid-template-columns:1fr}}
+
+/* ---------- project cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:16px;background:var(--ink-2);padding:26px;display:flex;flex-direction:column;min-height:236px;position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s var(--ease),background .25s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 0% 0%,var(--accent-soft),transparent 60%);opacity:0;transition:opacity .3s var(--ease)}
+.card:hover{transform:translateY(-5px);border-color:var(--accent)}
+.card:hover::before{opacity:1}
+.card>*{position:relative}
+.card .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.card .ind{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.card .tagchip{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink);background:var(--paper-2);border-radius:5px;padding:3px 7px;letter-spacing:.04em}
+.card .tagchip.go{background:#00ADD8}
+.card .tagchip.rust{background:#DEA584}
+.card h3{font-weight:600;font-size:24px;letter-spacing:-.02em;margin-bottom:8px}
+.card .tl{font-size:13.5px;color:var(--muted);margin-bottom:18px}
+.card .st{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px}
+.card .st span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:4px 8px}
+.card .more{margin-top:15px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:6px}
+.card:hover .more{color:var(--accent)}
+.dot{width:6px;height:6px;border-radius:50%}
+.d-ship{background:#3dd7c0}.d-wip{background:var(--accent)}.d-full{background:#00ADD8}
+
+/* ---------- filters (work page) ---------- */
+.filters{border-bottom:1px solid var(--line);padding:22px 0;position:sticky;top:62px;background:rgba(11,15,20,.92);backdrop-filter:blur(10px);z-index:50}
+.frow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.frow:last-of-type{margin-bottom:0}
+.frow .fl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.12em;width:62px;flex-shrink:0}
+.pill{font-family:'JetBrains Mono',monospace;font-size:11.5px;border:1px solid var(--line);border-radius:20px;padding:7px 14px;color:var(--muted);background:transparent;text-transform:lowercase;transition:all .15s var(--ease)}
+.pill:hover{border-color:var(--muted);color:var(--paper)}
+.pill.active{background:var(--accent);border-color:var(--accent);color:var(--ink);font-weight:500}
+.count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:14px;text-transform:uppercase;letter-spacing:.05em}
+
+/* ---------- project detail page ---------- */
+.detail{padding-top:60px}
+.back{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:lowercase;display:inline-flex;gap:7px;align-items:center;margin-bottom:30px;transition:color .2s}
+.back:hover{color:var(--accent)}
+.detail .ind{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.detail h1{font-weight:600;font-size:clamp(40px,7vw,72px);letter-spacing:-.03em;line-height:1;margin-bottom:14px}
+.detail .tag{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(20px,3vw,26px);color:var(--paper);max-width:680px;margin-bottom:26px}
+.detail .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:48px}
+.detail .chips span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:6px 11px}
+.dgrid{display:grid;grid-template-columns:1.55fr 1fr;gap:48px}
+@media(max-width:840px){.dgrid{grid-template-columns:1fr;gap:36px}}
+.dblock{margin-bottom:30px}
+.dblock .bk{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.dblock p{font-size:15.5px;color:var(--paper);opacity:.92;line-height:1.7}
+.dblock.sub p{color:var(--muted);opacity:1;font-size:15px}
+.aside{border:1px solid var(--line);border-radius:14px;background:var(--ink-2);padding:26px;align-self:start;position:sticky;top:96px}
+.aside .bk{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.metrics{list-style:none;margin-bottom:24px}
+.metrics li{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);padding:10px 0;border-bottom:1px dashed var(--line);line-height:1.5}
+.metrics li:last-child{border-bottom:none}
+.alinks{display:flex;flex-direction:column;gap:9px}
+.alinks a{font-family:'JetBrains Mono',monospace;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:12px 15px;text-align:center;transition:border-color .2s,color .2s,background .2s}
+.alinks a:hover{border-color:var(--accent);color:var(--accent)}
+.alinks a.live{background:var(--accent);border-color:var(--accent);color:var(--ink);font-weight:500}
+.alinks a.live:hover{color:var(--ink);filter:brightness(1.05)}
+.pnote{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--faint);text-transform:none;letter-spacing:.02em;margin-top:16px;line-height:1.5}
+.nextproj{border-top:1px solid var(--line);margin-top:20px;padding:50px 0 0;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.nextproj .nx{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.nextproj a{font-family:'Instrument Serif',serif;font-style:italic;font-size:34px;color:var(--paper);transition:color .2s}
+.nextproj a:hover{color:var(--accent)}
+
+/* ---------- footer ---------- */
+footer{padding:70px 0 80px;border-top:1px solid var(--line)}
+footer .display{margin-bottom:24px}
+.links{display:flex;flex-wrap:wrap;gap:12px}
+.links a{font-family:'JetBrains Mono',monospace;font-size:12.5px;border:1px solid var(--line);border-radius:8px;padding:12px 18px;text-transform:lowercase;transition:border-color .2s,color .2s}
+.links a:hover{border-color:var(--accent);color:var(--accent)}
+.colo{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--faint);margin-top:42px;text-transform:uppercase;letter-spacing:.05em}
+
+/* ---------- reveal motion ---------- */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.stagger>*{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.stagger.in>*{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal,.stagger>*{opacity:1;transform:none}
+  #flock{display:none}
+}
+</style></head><body>
+<a class="skip" href="#main">skip to content</a><header class="bar"><div class="wrap bar-in">
+  <a href="../index.html" aria-label="shortkohdz home"><svg class="logomark mark" viewBox="-100 -100 200 200" aria-hidden="true"><g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92"/><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" transform="rotate(60)"/><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" transform="rotate(120)"/><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" transform="rotate(180)"/><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" transform="rotate(240)"/><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" transform="rotate(300)"/><circle class="core" r="10"/></g></svg></a>
+  <nav class="navlinks" aria-label="primary">
+    <a href="../index.html">home</a>
+    <a href="../work.html" class="on" aria-current="page">work</a>
+    <a href="../index.html#contact">contact</a>
+  </nav>
+  <button class="menu-btn" aria-label="open menu" aria-haspopup="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="14" x2="21" y2="14"/></svg>
+  </button>
+</div></header>
+<div class="menu-overlay" role="dialog" aria-modal="true" aria-label="menu">
+  <button class="menu-close" aria-label="close menu">&times;</button>
+  <a href="../index.html">home</a>
+  <a href="../work.html">work</a>
+  <a href="../index.html#contact">contact</a>
+</div><main id="main"><div class="wrap detail">
+  <a class="back" href="../work.html"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> all work</a>
+  <div class="ind">Security &middot; go &middot; <span style="color:var(--muted)"><span class="dot d-full" style="display:inline-block;margin-right:5px;vertical-align:middle"></span>full-stack</span></div>
+  <h1 style="view-transition-name:card-corvus">Corvus</h1>
+  <p class="tag">A network scanner that remembers.</p>
+  <div class="chips"><span>Go 1.25</span><span>Fiber</span><span>WebSocket</span><span>bbolt</span><span>Next.js 16</span><span>NaCl mesh</span></div>
+  <div class="dgrid">
+    <div class="reveal">
+      <div class="dblock"><div class="bk">the problem</div><p>nmap, masscan and rustscan answer one question, what is open right now, then throw the state away. In security the signal that matters is the change: what appeared, what vanished, when, and why.</p></div>
+      <div class="dblock"><div class="bk">the solution</div><p>A stateful network intelligence engine. Corvus versions every host, port and service observation as a time series, diffs each scan against history, fuses passive intelligence before scanning, surfaces anomalies, correlates CVEs, and answers questions in plain English. Solo-built full-stack: 10.7k lines of Go across 24 packages plus a 7.6k-line Next.js dashboard.</p></div>
+      <div class="dblock sub"><div class="bk">system design</div><p>One Go binary exposes a CLI, a Bubble Tea TUI, and a Fiber REST API with WebSocket streaming. Observations persist in an embedded bbolt store. Nodes coordinate over an encrypted UDP gossip mesh. The Next.js 16 frontend renders scans, host history, the mesh, and the natural-language ask view.</p></div>
+      <div class="dblock sub"><div class="bk">data structures &amp; algorithms</div><p>Temporal records are keyed by big-endian timestamps, so the store's natural key order is chronological and history range-scans become a single cursor seek. The diff engine is a set reconciliation of ports seen this scan against ports the store believes open, which is how closed ports get detected. Token-bucket rate limiting governs scan rate, and worker pools fan out the scanning.</p></div>
+      <div class="dblock"><div class="bk">why this stack</div><p>Go gives a single static binary, goroutine-driven concurrency for scanning thousands of endpoints at once, and a first-class network stack. Next.js carries the streaming dashboard.</p></div>
+      <div class="dblock"><div class="bk">the innovation</div><p>Change is a first-class event, not a diff you compute by hand. Predictive intelligence scores a target from DNS, ASN and certificate-transparency data before a single packet is sent, so scanning starts smart instead of brute-forcing 65,535 ports.</p></div>
+      <div class="dblock"><div class="bk">potential</div><p>Continuous attack-surface monitoring and cloud-drift detection as a product. The temporal core is a moat competitors structurally lack.</p></div>
+    </div>
+    <aside class="aside reveal">
+      <div class="bk">projected metrics</div>
+      <ul class="metrics"><li>thousands of hosts scanned concurrently per node</li><li>sub-second delta detection per scan cycle</li><li>horizontal scaling via a leaderless mesh</li><li>race-tested CI on every push</li></ul>
+      <div class="bk">links</div>
+      <div class="alinks">
+        
+        <a href="https://github.com/ObeeJ/corvus" target="_blank" rel="noopener">full-stack &nearr;</a><a href="https://github.com/ObeeJ/corvus-serverside" target="_blank" rel="noopener">backend engine &nearr;</a>
+      </div>
+      
+    </aside>
+  </div>
+  <div class="nextproj">
+    <div><div class="nx">next</div><a href="gopayrollengine.html">go-payroll-engine &rarr;</a></div>
+    <a class="btn btn-ghost" href="../work.html">all work</a>
+  </div>
+</div></main><footer id="contact"><div class="wrap reveal">
+  <div class="rowhead"><span class="num">*</span><h2>contact</h2></div>
+  <p class="display">build something worth building.</p>
+  <p class="lead">Open to partners, problems worth solving, and roles where the work reaches people.</p>
+  <div class="links" style="margin-top:26px">
+    <a href="https://github.com/ObeeJ" target="_blank" rel="noopener">github</a>
+    <a href="https://linkedin.com/in/obanijesuajayi" target="_blank" rel="noopener">linkedin</a>
+    <a href="work.html">the work</a>
+  </div>
+  <div class="colo">&copy; 2026 shortkohdz &middot; built to bring relief at scale</div>
+</div></footer><script>/* shortkohdz - shared behavior across all pages */
+(function () {
+  /* ---- menu overlay ---- */
+  var btn = document.querySelector('.menu-btn');
+  var overlay = document.querySelector('.menu-overlay');
+  if (btn && overlay) {
+    var open = function () { overlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    var close = function () { overlay.classList.remove('open'); document.body.style.overflow = ''; };
+    btn.addEventListener('click', open);
+    overlay.querySelectorAll('a, .menu-close').forEach(function (el) { el.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
+  /* ---- scroll reveals ---- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        var el = e.target;
+        if (el.classList.contains('stagger')) {
+          Array.prototype.forEach.call(el.children, function (child, i) {
+            child.style.transitionDelay = (i * 70) + 'ms';
+          });
+        }
+        el.classList.add('in');
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .stagger').forEach(function (el) { io.observe(el); });
+
+  /* ---- work page: filter by industry + stack ---- */
+  var grid = document.getElementById('grid');
+  var filters = document.getElementById('filters');
+  if (!grid || !filters) return;
+
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  var industries = ['all'], stacks = ['all', 'Go', 'Rust', 'React', 'Python', '.NET', 'Cloud/IaC'];
+  cards.forEach(function (c) {
+    var ind = c.getAttribute('data-industry');
+    if (industries.indexOf(ind) === -1) industries.push(ind);
+  });
+  var state = { industry: 'all', stack: 'all' };
+  var iRow = document.getElementById('iRow'), sRow = document.getElementById('sRow'), count = document.getElementById('count');
+
+  function pill(text, group) {
+    var b = document.createElement('button');
+    b.className = 'pill' + (state[group] === text ? ' active' : '');
+    b.textContent = text.toLowerCase();
+    b.setAttribute('aria-pressed', state[group] === text);
+    b.addEventListener('click', function () { state[group] = text; apply(); });
+    return b;
+  }
+  function buildPills() {
+    iRow.querySelectorAll('.pill').forEach(function (p) { p.remove(); });
+    sRow.querySelectorAll('.pill').forEach(function (p) { p.remove(); });
+    industries.forEach(function (i) { iRow.appendChild(pill(i, 'industry')); });
+    stacks.forEach(function (s) { sRow.appendChild(pill(s, 'stack')); });
+  }
+  function apply() {
+    buildPills();
+    var shown = 0;
+    cards.forEach(function (c) {
+      var okI = state.industry === 'all' || c.getAttribute('data-industry') === state.industry;
+      var okS = state.stack === 'all' || (c.getAttribute('data-stacks') || '').split('|').indexOf(state.stack) !== -1;
+      var show = okI && okS;
+      c.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+    if (count) count.textContent = shown + ' / ' + cards.length + ' systems';
+  }
+  buildPills(); apply();
+})();
+</script></body></html>

@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+/* ============================================================
+   shortkohdz — design tokens (ported from brand identity v1)
+   ink / paper / coral · Sora / JetBrains Mono / Instrument Serif
+   ============================================================ */
+@theme {
+  --color-ink: #0b0f14;
+  --color-ink-2: #131820;
+  --color-ink-3: #0e131a;
+  --color-paper: #f4f0e8;
+  --color-paper-2: #ebe6dc;
+  --color-accent: #ff553d;
+
+  --font-sans: var(--font-sora);
+  --font-mono: var(--font-jetbrains);
+  --font-serif: var(--font-instrument);
+}
+
+:root {
+  --ink: #0b0f14;
+  --ink-2: #131820;
+  --ink-3: #0e131a;
+  --paper: #f4f0e8;
+  --paper-2: #ebe6dc;
+  --accent: #ff553d;
+  --accent-soft: rgba(255, 85, 61, 0.14);
+  --line: rgba(244, 240, 232, 0.1);
+  --line-2: rgba(244, 240, 232, 0.06);
+  --muted: rgba(244, 240, 232, 0.56);
+  --faint: rgba(244, 240, 232, 0.38);
+  --line-d: rgba(11, 15, 20, 0.12);
+  --muted-d: rgba(11, 15, 20, 0.58);
+  --maxw: 1180px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+img,
+svg {
+  display: block;
+}
+::selection {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---- type helpers ---- */
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+.mono {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.serif {
+  font-family: var(--font-serif), serif;
+  font-style: italic;
+  font-weight: 400;
+}
+.wordmark {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+}
+.accent {
+  color: var(--accent);
+}
+
+.mark .arm {
+  fill: currentColor;
+}
+.mark .core {
+  fill: var(--accent);
+}
+
+/* ---- buttons ---- */
+.btn {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  padding: 13px 22px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: transform 0.18s var(--ease), background 0.2s, border-color 0.2s,
+    color 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-acc {
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 500;
+}
+.btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--paper);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn .arr {
+  transition: transform 0.2s var(--ease);
+}
+.btn:hover .arr {
+  transform: translateX(3px);
+}
+
+/* ---- section scaffolding ---- */
+section.block {
+  padding: 96px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+section.paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+section.paper .lead {
+  color: var(--muted-d);
+}
+.rowhead {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.rowhead .num {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  color: var(--accent);
+}
+.rowhead h2 {
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+section.paper .rowhead h2 {
+  color: var(--muted-d);
+}
+.display {
+  font-family: var(--font-serif), serif;
+  font-style: italic;
+  font-size: clamp(30px, 5.2vw, 56px);
+  line-height: 1.08;
+  max-width: 880px;
+  letter-spacing: -0.01em;
+}
+.lead {
+  color: var(--muted);
+  max-width: 640px;
+  font-size: 16px;
+  margin-top: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

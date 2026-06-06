@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>shortkohdz — brand identity v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0B0F14;
+    --ink-2: #131820;
+    --paper: #F4F0E8;
+    --paper-2: #EBE6DC;
+    --accent: #FF553D;
+    --line-on-ink: rgba(244, 240, 232, 0.10);
+    --line-on-paper: rgba(11, 15, 20, 0.10);
+    --muted-on-ink: rgba(244, 240, 232, 0.55);
+    --muted-on-paper: rgba(11, 15, 20, 0.55);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--ink); color: var(--paper); font-family: 'Sora', sans-serif; -webkit-font-smoothing: antialiased; }
+  body { overflow-x: hidden; }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+
+  /* ---------- layout ---------- */
+  section {
+    padding: 88px 32px;
+    border-bottom: 1px solid var(--line-on-ink);
+  }
+  section.paper { background: var(--paper); color: var(--ink); border-color: var(--line-on-paper); }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 56px; }
+  .row .num { color: var(--muted-on-ink); }
+  section.paper .row .num { color: var(--muted-on-paper); }
+  .row h2 { font-weight: 400; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 32px;
+    position: relative;
+  }
+  .hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .hero-top .left, .hero-top .right { display: flex; flex-direction: column; gap: 4px; }
+  .hero-top .right { text-align: right; }
+  .hero-center { display: flex; flex-direction: column; align-items: center; gap: 36px; padding: 24px 0; }
+  .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .hero-bottom p { max-width: 420px; font-size: 14px; line-height: 1.6; color: var(--muted-on-ink); }
+  .ticker { color: var(--accent); }
+
+  /* ---------- mark ---------- */
+  .mark { display: block; }
+  .mark .arm { fill: currentColor; }
+  .mark .core { fill: var(--accent); }
+
+  .wordmark {
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.9;
+    color: currentColor;
+  }
+
+  .lockup-h { display: flex; align-items: center; gap: 22px; }
+  .lockup-v { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+
+  /* ---------- anatomy ---------- */
+  .anatomy {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px;
+    align-items: center;
+  }
+  .anatomy .canvas {
+    aspect-ratio: 1; background: var(--paper-2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; border-radius: 2px;
+  }
+  .anatomy .canvas .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(11,15,20,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11,15,20,0.06) 1px, transparent 1px);
+    background-size: 8.333% 8.333%;
+  }
+  .anatomy .canvas .axes {
+    position: absolute; inset: 0;
+  }
+  .anatomy .canvas svg { position: relative; width: 70%; height: 70%; }
+  .notes { display: flex; flex-direction: column; gap: 32px; }
+  .note { display: grid; grid-template-columns: 32px 1fr; gap: 16px; }
+  .note .k { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding-top: 4px; }
+  .note h3 { font-weight: 500; font-size: 15px; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .note p { font-size: 14px; line-height: 1.6; color: var(--muted-on-paper); }
+
+  /* ---------- lockups grid ---------- */
+  .lockups {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  .tile {
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; border-radius: 2px;
+    overflow: hidden;
+  }
+  .tile.ink { background: var(--ink); color: var(--paper); }
+  .tile.paper-tile { background: var(--paper); color: var(--ink); }
+  .tile.accent { background: var(--accent); color: var(--ink); }
+  .tile .label { position: absolute; bottom: 14px; left: 16px; }
+  .tile .label-r { position: absolute; top: 14px; right: 16px; }
+  .tile.ink .label, .tile.ink .label-r { color: var(--muted-on-ink); }
+  .tile.paper-tile .label, .tile.paper-tile .label-r { color: var(--muted-on-paper); }
+  .tile.accent .label, .tile.accent .label-r { color: rgba(11,15,20,0.7); }
+
+  /* ---------- scale ---------- */
+  .scale {
+    display: flex; align-items: flex-end; justify-content: center; gap: 56px;
+    padding: 64px 0;
+  }
+  .scale > div { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .scale .px { color: var(--muted-on-paper); }
+
+  /* ---------- ventures ---------- */
+  .ventures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-on-ink); border: 1px solid var(--line-on-ink); }
+  .venture {
+    background: var(--ink);
+    padding: 32px 24px;
+    display: flex; flex-direction: column; gap: 10px;
+    min-height: 180px;
+  }
+  .venture .v-mark { display: flex; align-items: center; gap: 10px; color: var(--paper); }
+  .venture .v-name { font-family: 'Sora'; font-weight: 600; letter-spacing: -0.02em; font-size: 22px; }
+  .venture .v-desc { color: var(--muted-on-ink); font-size: 13px; line-height: 1.55; margin-top: auto; }
+  .venture .micro-mark svg { width: 14px; height: 14px; color: var(--accent); }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 48px 32px;
+    color: var(--muted-on-ink);
+  }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px) {
+    section { padding: 64px 20px; }
+    .hero { padding: 20px; }
+    .anatomy { grid-template-columns: 1fr; gap: 32px; }
+    .lockups { grid-template-columns: 1fr; }
+    .ventures { grid-template-columns: 1fr; }
+    .scale { gap: 28px; flex-wrap: wrap; }
+    .row { flex-direction: column; gap: 4px; align-items: flex-start; margin-bottom: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="hero-top">
+    <div class="left">
+      <div class="mono">[ identity / v1 ]</div>
+      <div class="mono ticker">*shortkohdz#</div>
+    </div>
+    <div class="right">
+      <div class="mono">parent · holdco</div>
+      <div class="mono">2026 — present</div>
+    </div>
+  </div>
+
+  <div class="hero-center">
+    <!-- the mark -->
+    <svg class="mark" viewBox="-100 -100 200 200" width="180" height="180" aria-hidden="true">
+      <g style="color: var(--paper);">
+        <!-- 6 tapered arms, rotated 60° each. Arm path: a kite from inner to outer with slight taper. -->
+        <g>
+          <polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" />
+        </g>
+        <g transform="rotate(60)">
+          <polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" />
+        </g>
+        <g transform="rotate(120)">
+          <polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" />
+        </g>
+        <g transform="rotate(180)">
+          <polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" />
+        </g>
+        <g transform="rotate(240)">
+          <polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" />
+        </g>
+        <g transform="rotate(300)">
+          <polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" />
+        </g>
+        <!-- center / dial-in point -->
+        <circle class="core" r="10" />
+      </g>
+    </svg>
+
+    <div class="wordmark" style="font-size: clamp(40px, 9vw, 92px);">shortkohdz</div>
+
+    <div class="mono" style="color: var(--muted-on-ink); text-align: center; max-width: 520px;">
+      solutions, on dial — a parent company shipping ventures<br />
+      across fintech, commerce, logistics, health & culture.
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <p>
+      The asterisk is the universal first keystroke of every USSD code — the moment
+      a person says <em class="serif">i need a direct line to a solution</em>.
+      It's the brand's thesis, drawn.
+    </p>
+    <div class="mono" style="color: var(--muted-on-ink);">scroll ↓ for the system</div>
+  </div>
+</section>
+
+
+<!-- ============== CONCEPT ============== -->
+<section class="paper">
+  <div class="wrap">
+    <div class="row">
+      <h2>01 · concept</h2>
+      <span class="mono num">a — c</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;" class="concept-grid">
+      <div>
+        <div class="mono" style="color: var(--accent); margin-bottom: 12px;">a — origin</div>
+        <p style="font-size: 15px; line-height: 1.65;">
+          When the network drops, when the data plan is empty, when the app is broken —
+          a shortcode still works. Dial <span class="mono" style="font-size: 13px; background: var(--paper-2); padding: 2px 6px;">*123#</span>
+          and you reach what you need. It's the most reliable line to a solution we have.
+        </p>
+      </div>
+      <div>
+        <div class="mono" style="color: var(--accent); margin-bottom: 12px;">b — thesis</div>
+        <p style="font-size: 15px; line-height: 1.65;">
+          shortkohdz exists to be that line, scaled. A holding company whose
+          ventures are direct paths to real solutions for real pain points —
+          <em class="serif">access first, friction last</em>.
+        </p>
+      </div>
+      <div>
+        <div class="mono" style="color: var(--accent); margin-bottom: 12px;">c — symbol</div>
+        <p style="font-size: 15px; line-height: 1.65;">
+          The asterisk is the syntax. We took it back from the keyboard and drew
+          it as the master mark — six radii, one hot point. Each arm is a venture.
+          The center is where you dial in.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== ANATOMY ============== -->
+<section class="paper" style="border-top: 1px solid var(--line-on-paper);">
+  <div class="wrap">
+    <div class="row">
+      <h2>02 · the mark — anatomy</h2>
+      <span class="mono num">geometry</span>
+    </div>
+
+    <div class="anatomy">
+      <div class="canvas">
+        <div class="grid"></div>
+        <svg class="mark" viewBox="-100 -100 200 200" aria-hidden="true">
+          <!-- guide circles -->
+          <circle cx="0" cy="0" r="92" fill="none" stroke="rgba(255,85,61,0.35)" stroke-width="0.5" stroke-dasharray="2 3" />
+          <circle cx="0" cy="0" r="18" fill="none" stroke="rgba(255,85,61,0.35)" stroke-width="0.5" stroke-dasharray="2 3" />
+          <line x1="-95" y1="0" x2="95" y2="0" stroke="rgba(11,15,20,0.18)" stroke-width="0.4" />
+          <line x1="0" y1="-95" x2="0" y2="95" stroke="rgba(11,15,20,0.18)" stroke-width="0.4" />
+
+          <g style="color: var(--ink);">
+            <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <circle class="core" r="10" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="notes">
+        <div class="note">
+          <div class="k">01</div>
+          <div>
+            <h3>Six tapered radii</h3>
+            <p>Six arms — wider at the root, narrower at the tip — set on 60° increments. Six because it's the count of current ventures (Bukr, LuxeBeau, SpeedPlus, Cedar, Sozo, +1) and a balanced figure that scales narratively as the holdco grows.</p>
+          </div>
+        </div>
+        <div class="note">
+          <div class="k">02</div>
+          <div>
+            <h3>The dial-in core</h3>
+            <p>A single coral dot at the centre — the only break in the monochrome. It's the literal "you are here" of a USSD session, and the only place the brand colour shows in the mark itself.</p>
+          </div>
+        </div>
+        <div class="note">
+          <div class="k">03</div>
+          <div>
+            <h3>Inner safe ring</h3>
+            <p>A 18-unit clear zone around the core keeps the dot legible at favicon scale and prevents the arms from collapsing into a solid star. The mark holds at 16px.</p>
+          </div>
+        </div>
+        <div class="note">
+          <div class="k">04</div>
+          <div>
+            <h3>Drawn, not typed</h3>
+            <p>This is not the typographic asterisk. The taper, the spacing, the proportion of arm-to-core are tuned — so the mark reads as a deliberate symbol, not a punctuation glyph.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== WORDMARK ============== -->
+<section>
+  <div class="wrap">
+    <div class="row">
+      <h2 style="color: var(--paper);">03 · wordmark</h2>
+      <span class="mono num" style="color: var(--muted-on-ink);">type · sora 600</span>
+    </div>
+
+    <div style="text-align: center; padding: 64px 0;">
+      <div class="wordmark" style="font-size: clamp(48px, 14vw, 156px); color: var(--paper);">shortkohdz</div>
+      <div class="mono" style="margin-top: 24px; color: var(--muted-on-ink);">
+        s · h · o · r · t · k · o · h · d · z
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px;" class="concept-grid">
+      <div>
+        <div class="mono" style="color: var(--accent); margin-bottom: 8px;">case</div>
+        <p style="font-size: 14px; line-height: 1.6; color: var(--muted-on-ink);">All-lowercase. Reads as command-line / USSD syntax — humble, direct, at-your-service. Never set in caps.</p>
+      </div>
+      <div>
+        <div class="mono" style="color: var(--accent); margin-bottom: 8px;">tracking</div>
+        <p style="font-size: 14px; line-height: 1.6; color: var(--muted-on-ink);">Tightened to −0.035em. The letters lean in close — a single utterance, not a typed-out word.</p>
+      </div>
+      <div>
+        <div class="mono" style="color: var(--accent); margin-bottom: 8px;">no italic, no bold</div>
+        <p style="font-size: 14px; line-height: 1.6; color: var(--muted-on-ink);">One weight, one cut. The mark carries the personality so the wordmark stays the calm, steady half.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== LOCKUPS ============== -->
+<section>
+  <div class="wrap">
+    <div class="row">
+      <h2 style="color: var(--paper);">04 · lockups</h2>
+      <span class="mono num" style="color: var(--muted-on-ink);">primary · stacked · alt</span>
+    </div>
+
+    <div class="lockups">
+      <!-- horizontal on ink -->
+      <div class="tile ink">
+        <div class="lockup-h">
+          <svg class="mark" viewBox="-100 -100 200 200" width="56" height="56" style="color: var(--paper);">
+            <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <circle class="core" r="10" />
+          </svg>
+          <div class="wordmark" style="font-size: 38px;">shortkohdz</div>
+        </div>
+        <div class="label mono">primary · horizontal</div>
+        <div class="label-r mono">a</div>
+      </div>
+
+      <!-- stacked on paper -->
+      <div class="tile paper-tile">
+        <div class="lockup-v">
+          <svg class="mark" viewBox="-100 -100 200 200" width="68" height="68" style="color: var(--ink);">
+            <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <circle class="core" r="10" />
+          </svg>
+          <div class="wordmark" style="font-size: 30px;">shortkohdz</div>
+        </div>
+        <div class="label mono">stacked · light</div>
+        <div class="label-r mono">b</div>
+      </div>
+
+      <!-- mark only on paper, with USSD wrap -->
+      <div class="tile paper-tile">
+        <div style="display: flex; align-items: center; gap: 18px;">
+          <div class="mono" style="font-size: 26px; color: var(--ink);">*</div>
+          <svg class="mark" viewBox="-100 -100 200 200" width="76" height="76" style="color: var(--ink);">
+            <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <circle class="core" r="10" />
+          </svg>
+          <div class="mono" style="font-size: 26px; color: var(--ink);">#</div>
+        </div>
+        <div class="label mono">mark, in syntax</div>
+        <div class="label-r mono">c</div>
+      </div>
+
+      <!-- accent block, mark in ink -->
+      <div class="tile accent">
+        <div class="lockup-h">
+          <svg class="mark" viewBox="-100 -100 200 200" width="56" height="56" style="color: var(--ink);">
+            <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+            <circle class="core" r="10" style="fill: var(--ink);" />
+          </svg>
+          <div class="wordmark" style="font-size: 38px;">shortkohdz</div>
+        </div>
+        <div class="label mono">accent · signal</div>
+        <div class="label-r mono">d</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== SCALE ============== -->
+<section class="paper">
+  <div class="wrap">
+    <div class="row">
+      <h2>05 · scale</h2>
+      <span class="mono num">16 → 192</span>
+    </div>
+
+    <div class="scale">
+      <div>
+        <svg class="mark" viewBox="-100 -100 200 200" width="16" height="16" style="color: var(--ink);">
+          <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <circle class="core" r="10" />
+        </svg>
+        <div class="mono px">16 · favicon</div>
+      </div>
+      <div>
+        <svg class="mark" viewBox="-100 -100 200 200" width="32" height="32" style="color: var(--ink);">
+          <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <circle class="core" r="10" />
+        </svg>
+        <div class="mono px">32 · ui</div>
+      </div>
+      <div>
+        <svg class="mark" viewBox="-100 -100 200 200" width="64" height="64" style="color: var(--ink);">
+          <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <circle class="core" r="10" />
+        </svg>
+        <div class="mono px">64 · header</div>
+      </div>
+      <div>
+        <svg class="mark" viewBox="-100 -100 200 200" width="120" height="120" style="color: var(--ink);">
+          <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <circle class="core" r="10" />
+        </svg>
+        <div class="mono px">120 · marketing</div>
+      </div>
+      <div>
+        <svg class="mark" viewBox="-100 -100 200 200" width="192" height="192" style="color: var(--ink);">
+          <g><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(60)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(120)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(180)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(240)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <g transform="rotate(300)"><polygon class="arm" points="-7,-18 7,-18 3.5,-92 -3.5,-92" /></g>
+          <circle class="core" r="10" />
+        </svg>
+        <div class="mono px">192 · hero</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== VENTURES ============== -->
+<section>
+  <div class="wrap">
+    <div class="row">
+      <h2 style="color: var(--paper);">06 · the family — endorsement model</h2>
+      <span class="mono num" style="color: var(--muted-on-ink);">parent → ventures</span>
+    </div>
+
+    <p style="color: var(--muted-on-ink); max-width: 620px; margin-bottom: 40px; font-size: 14px; line-height: 1.7;">
+      Each venture keeps its own identity and colour — the parent mark sits as a quiet endorsement, never a takeover. Below: how shortkohdz reads as the silent author of every venture's footer.
+    </p>
+
+    <div class="ventures">
+      <div class="venture">
+        <div class="v-mark">
+          <span class="micro-mark">
+            <svg viewBox="-100 -100 200 200">
+              <g><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(60)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(120)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(180)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(240)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(300)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+            </svg>
+          </span>
+          <span class="mono" style="color: var(--muted-on-ink);">a shortkohdz venture</span>
+        </div>
+        <div class="v-name">bukr</div>
+        <div class="v-desc">Event ticketing, built for Nigerian price-sensitivity. Hybrid smart pricing, gross-up Paystack handling, organiser-first fees.</div>
+      </div>
+
+      <div class="venture">
+        <div class="v-mark">
+          <span class="micro-mark">
+            <svg viewBox="-100 -100 200 200">
+              <g><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(60)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(120)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(180)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(240)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(300)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+            </svg>
+          </span>
+          <span class="mono" style="color: var(--muted-on-ink);">a shortkohdz venture</span>
+        </div>
+        <div class="v-name">luxebeau</div>
+        <div class="v-desc">Africa-first unisex beauty commerce — buyer, seller, beautician, admin. PWA. Purple/teal identity, lives on its own.</div>
+      </div>
+
+      <div class="venture">
+        <div class="v-mark">
+          <span class="micro-mark">
+            <svg viewBox="-100 -100 200 200">
+              <g><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(60)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(120)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(180)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(240)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(300)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+            </svg>
+          </span>
+          <span class="mono" style="color: var(--muted-on-ink);">a shortkohdz venture</span>
+        </div>
+        <div class="v-name">speedplus</div>
+        <div class="v-desc">Logistics & last-mile delivery — direct from sender to door, network-redundant by design.</div>
+      </div>
+
+      <div class="venture">
+        <div class="v-mark">
+          <span class="micro-mark">
+            <svg viewBox="-100 -100 200 200">
+              <g><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(60)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(120)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(180)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(240)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(300)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+            </svg>
+          </span>
+          <span class="mono" style="color: var(--muted-on-ink);">a shortkohdz venture</span>
+        </div>
+        <div class="v-name">cedar</div>
+        <div class="v-desc">Fintech rails. Money that moves where the network can't always reach.</div>
+      </div>
+
+      <div class="venture">
+        <div class="v-mark">
+          <span class="micro-mark">
+            <svg viewBox="-100 -100 200 200">
+              <g><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(60)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(120)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(180)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(240)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(300)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+            </svg>
+          </span>
+          <span class="mono" style="color: var(--muted-on-ink);">a shortkohdz venture</span>
+        </div>
+        <div class="v-name">sozo</div>
+        <div class="v-desc">Where health meets finance — care that doesn't break the household budget.</div>
+      </div>
+
+      <div class="venture" style="background: var(--ink-2);">
+        <div class="v-mark">
+          <span class="micro-mark" style="opacity: 0.6;">
+            <svg viewBox="-100 -100 200 200">
+              <g><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(60)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(120)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(180)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(240)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+              <g transform="rotate(300)"><polygon points="-7,-18 7,-18 3.5,-92 -3.5,-92" fill="currentColor" /></g>
+            </svg>
+          </span>
+          <span class="mono" style="color: var(--muted-on-ink);">future venture</span>
+        </div>
+        <div class="v-name" style="color: var(--muted-on-ink); font-style: italic;">tba</div>
+        <div class="v-desc">The asterisk has room.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="wrap">
+    <div class="mono">© shortkohdz · identity v1 · 2026</div>
+    <div class="mono ticker">*shortkohdz#</div>
+  </div>
+</footer>
+
+</body>
+</html>
