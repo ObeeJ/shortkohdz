@@ -94,8 +94,11 @@ export function Nav() {
             style={{ display: "flex", alignItems: "center", gap: 12 }}
           >
             <Mark size={30} />
-            <span className="mono" style={{ color: "var(--accent)", fontSize: 12 }}>
-              *shortkohdz#
+            <span
+              className="wordmark"
+              style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-.035em" }}
+            >
+              shortkohdz
             </span>
           </Link>
 
@@ -222,13 +225,13 @@ export function Footer() {
     >
       <div className="wrap">
         <div className="rowhead">
-          <span className="num">*</span>
+          <span className="num">03</span>
           <h2>contact</h2>
         </div>
         <p className="display">a direct line to a solution.</p>
         <p className="lead">
           Open to partners, problems worth solving, and roles where the work
-          reaches people — on the worst day, not just the best.
+          reaches people, on the worst day, not just the best.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 26 }}>
           {[
@@ -266,7 +269,7 @@ export function Footer() {
           }}
         >
           <span>© 2026 shortkohdz · solutions, on dial</span>
-          <span style={{ color: "var(--accent)" }}>*shortkohdz#</span>
+          <span className="wordmark" style={{ color: "var(--accent)", letterSpacing: "-.035em" }}>shortkohdz</span>
         </div>
       </div>
     </footer>

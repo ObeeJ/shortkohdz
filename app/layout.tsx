@@ -35,9 +35,9 @@ const MARK_FAVICON =
   );
 
 export const metadata: Metadata = {
-  title: "shortkohdz — solutions, on dial",
+  title: "shortkohdz · solutions, on dial",
   description:
-    "shortkohdz is a parent company shipping ventures across fintech, commerce, logistics, health & culture — the direct line to a solution that works on the worst day.",
+    "shortkohdz is a parent company shipping ventures across fintech, commerce, logistics, health and culture. The direct line to a solution that works on the worst day.",
   icons: { icon: MARK_FAVICON },
 };
 

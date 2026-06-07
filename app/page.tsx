@@ -1,27 +1,28 @@
 import Link from "next/link";
 import { ventures } from "./lib/data";
-import { Mark, Murmuration, Reveal } from "./components/ui";
+import { Mark, Reveal } from "./components/ui";
+import { Hero3D } from "./components/Hero3D";
 
 const TENETS = [
   {
-    k: "a — the asterisk",
-    h: "the first keystroke",
-    p: "Every USSD code starts with *. It is the moment a person says: I need a direct line to a solution. We took the symbol back and made it the mark.",
+    k: "the line",
+    h: "a direct path to a solution",
+    p: "Type a short code and you reach what you need. We took that idea, the dial tone that still answers, and made it the way we build.",
   },
   {
-    k: "b — access first",
+    k: "access first",
     h: "works on the worst day",
-    p: "When the network drops, the data is empty, the app is broken — a shortcode still answers. Every venture is built to that standard.",
+    p: "When the network drops, the data is empty, the app is broken, a shortcode still answers. Every venture is built to that standard.",
   },
   {
-    k: "c — friction last",
+    k: "friction last",
     h: "heavy underneath, simple on top",
     p: "Ledgers, rails, redundancy, infrastructure. The hard engineering stays out of sight so what people touch stays simple.",
   },
   {
-    k: "d — one family",
+    k: "one family",
     h: "a parent that endorses",
-    p: "Each venture keeps its own name and colour. shortkohdz is the quiet author in the footer — six arms today, room for more.",
+    p: "Each venture keeps its own name and colour. shortkohdz is the quiet author in the footer, six arms today, room for more.",
   },
 ];
 
@@ -45,7 +46,7 @@ export default function Home() {
           borderBottom: "1px solid var(--line)",
         }}
       >
-        <Murmuration />
+        <Hero3D />
         <div
           aria-hidden
           style={{
@@ -54,7 +55,7 @@ export default function Home() {
             zIndex: 1,
             pointerEvents: "none",
             background:
-              "radial-gradient(ellipse 60% 50% at 50% 42%, transparent, var(--ink) 88%)",
+              "radial-gradient(ellipse 64% 56% at 50% 46%, transparent, var(--ink) 90%)",
           }}
         />
         <div
@@ -99,7 +100,7 @@ export default function Home() {
             }}
           >
             A parent company shipping ventures across fintech, commerce,
-            logistics, health & culture. The direct line to a solution — the one
+            logistics, health and culture. The direct line to a solution, the one
             that still works when nothing else will.
           </p>
           <div style={{ display: "flex", gap: 13, flexWrap: "wrap" }}>
@@ -121,11 +122,12 @@ export default function Home() {
             <h2>the thesis</h2>
           </div>
           <p className="display">
-            Dial <span className="accent">*123#</span> and you reach what you
-            need. shortkohdz exists to be that line, scaled.
+            Type a short code and you reach what you{" "}
+            <span className="accent">need</span>. shortkohdz exists to be that
+            line, scaled.
           </p>
           <p className="lead">
-            access first, friction last — across every venture in the family.
+            access first, friction last, across every venture in the family.
           </p>
           <div className="tenets">
             {TENETS.map((t) => (
@@ -147,7 +149,7 @@ export default function Home() {
             <h2>the family</h2>
           </div>
           <p className="display">
-            Six arms of the asterisk.{" "}
+            Six directions.{" "}
             <span className="serif accent">each a direct path to a real problem.</span>
           </p>
           <p className="lead">
