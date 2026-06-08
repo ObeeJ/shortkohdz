@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* enable class-based dark: variant (Tailwind v4) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================================
    shortkohdz — design tokens (ported from brand identity v1)
    ink / paper / coral · Sora / JetBrains Mono / Instrument Serif
@@ -15,9 +18,61 @@
   --font-sans: var(--font-sora);
   --font-mono: var(--font-jetbrains);
   --font-serif: var(--font-instrument);
+
+  /* shadcn/ui semantic tokens — mapped onto the ink/paper/coral system
+     so copy-pasted shadcn components (Button, etc.) render on-brand */
+  --color-background: #0b0f14;
+  --color-foreground: #f4f0e8;
+  --color-primary: #ff553d;
+  --color-primary-foreground: #0b0f14;
+  --color-secondary: #131820;
+  --color-secondary-foreground: #f4f0e8;
+  --color-muted: #131820;
+  --color-muted-foreground: rgba(244, 240, 232, 0.56);
+  --color-accent: #131820;
+  --color-accent-foreground: #f4f0e8;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #f4f0e8;
+  --color-border: rgba(244, 240, 232, 0.1);
+  --color-input: rgba(244, 240, 232, 0.1);
+  --color-ring: #ff553d;
 }
 
+/* ---- LIGHT theme (default) ----
+   Token names keep their meaning: --ink = page surface, --paper = text/fg.
+   In light mode those flip so the whole brand inverts cleanly. */
 :root {
+  --ink: #f4f0e8;
+  --ink-2: #ffffff;
+  --ink-3: #efe9dd;
+  --paper: #14181f;
+  --paper-2: #1c222b;
+  --accent: #ff553d;
+  --accent-soft: rgba(255, 85, 61, 0.12);
+  --line: rgba(11, 15, 20, 0.12);
+  --line-2: rgba(11, 15, 20, 0.06);
+  --muted: rgba(11, 15, 20, 0.6);
+  --faint: rgba(11, 15, 20, 0.42);
+  --line-d: rgba(244, 240, 232, 0.14);
+  --muted-d: rgba(244, 240, 232, 0.66);
+  --nav-bg: rgba(244, 240, 232, 0.72);
+  --maxw: 1180px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* shadcn semantic tokens — light */
+  --color-background: #f4f0e8;
+  --color-foreground: #14181f;
+  --color-secondary: #ebe6dc;
+  --color-secondary-foreground: #14181f;
+  --color-muted-foreground: rgba(11, 15, 20, 0.56);
+  --color-accent: #ebe6dc;
+  --color-accent-foreground: #14181f;
+  --color-border: rgba(11, 15, 20, 0.12);
+  --color-input: rgba(11, 15, 20, 0.12);
+}
+
+/* ---- DARK theme ---- */
+.dark {
   --ink: #0b0f14;
   --ink-2: #131820;
   --ink-3: #0e131a;
@@ -31,8 +86,18 @@
   --faint: rgba(244, 240, 232, 0.38);
   --line-d: rgba(11, 15, 20, 0.12);
   --muted-d: rgba(11, 15, 20, 0.58);
-  --maxw: 1180px;
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --nav-bg: rgba(11, 15, 20, 0.66);
+
+  /* shadcn semantic tokens — dark */
+  --color-background: #0b0f14;
+  --color-foreground: #f4f0e8;
+  --color-secondary: #131820;
+  --color-secondary-foreground: #f4f0e8;
+  --color-muted-foreground: rgba(244, 240, 232, 0.56);
+  --color-accent: #131820;
+  --color-accent-foreground: #f4f0e8;
+  --color-border: rgba(244, 240, 232, 0.1);
+  --color-input: rgba(244, 240, 232, 0.1);
 }
 
 @view-transition {
@@ -53,6 +118,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
 }
 a {
   color: inherit;
@@ -102,6 +168,18 @@ svg {
 }
 .accent {
   color: var(--accent);
+}
+/* wordmark with a brand-colour mix — reads in light and dark */
+.brandmark {
+  background: linear-gradient(
+    100deg,
+    var(--paper) 0%,
+    var(--accent) 52%,
+    var(--paper) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .mark .arm {
@@ -197,7 +275,33 @@ section.paper .rowhead h2 {
   margin-top: 18px;
 }
 
+/* ---- hero mark slow spin ---- */
+@keyframes skd-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin-slow {
+  animation: skd-spin 26s linear infinite;
+}
+
+/* ---- glass dock/background drift ---- */
+@keyframes moveBackground {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% -1000%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .spin-slow {
+    animation: none !important;
+  }
   * {
     animation: none !important;
     transition-duration: 0.001ms !important;

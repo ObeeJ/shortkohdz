@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
 
@@ -74,7 +75,7 @@ export function Nav() {
           position: "sticky",
           top: 0,
           zIndex: 60,
-          background: "rgba(11,15,20,.66)",
+          background: "var(--nav-bg)",
           backdropFilter: "blur(14px)",
           borderBottom: "1px solid var(--line)",
         }}
@@ -95,7 +96,7 @@ export function Nav() {
           >
             <Mark size={30} />
             <span
-              className="wordmark"
+              className="wordmark brandmark"
               style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-.035em" }}
             >
               shortkohdz
@@ -111,7 +112,9 @@ export function Nav() {
               const on =
                 l.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(l.href.replace("/#contact", "/"));
+                  : l.href.startsWith("/#")
+                    ? false
+                    : pathname.startsWith(l.href);
               return (
                 <Link
                   key={l.href}
@@ -131,24 +134,27 @@ export function Nav() {
             })}
           </nav>
 
-          <button
-            className="menu-btn"
-            aria-label="open menu"
-            onClick={() => setOpen(true)}
-            style={{
-              display: "none",
-              background: "none",
-              border: "1px solid var(--line)",
-              borderRadius: 8,
-              padding: "8px 10px",
-              color: "var(--paper)",
-            }}
-          >
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <line x1="3" y1="7" x2="21" y2="7" />
-              <line x1="3" y1="14" x2="21" y2="14" />
-            </svg>
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <AnimatedThemeToggler />
+            <button
+              className="menu-btn"
+              aria-label="open menu"
+              onClick={() => setOpen(true)}
+              style={{
+                display: "none",
+                background: "none",
+                border: "1px solid var(--line)",
+                borderRadius: 8,
+                padding: "8px 10px",
+                color: "var(--paper)",
+              }}
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <line x1="3" y1="7" x2="21" y2="7" />
+                <line x1="3" y1="14" x2="21" y2="14" />
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -216,14 +222,35 @@ export function Nav() {
   );
 }
 
-/* ---------------- Footer ---------------- */
+/* ---------------- Footer (large-name treatment) ---------------- */
+const FOOTER_COLS: { title: string; links: { href: string; label: string; ext?: boolean }[] }[] = [
+  {
+    title: "explore",
+    links: [
+      { href: "/", label: "home" },
+      { href: "/engineering", label: "the engineering" },
+      { href: "/#ventures", label: "the ventures" },
+      { href: "/#idea", label: "the thesis" },
+    ],
+  },
+  {
+    title: "connect",
+    links: [
+      { href: "https://github.com/ObeeJ", label: "github", ext: true },
+      { href: "https://linkedin.com/in/obanijesuajayi", label: "linkedin", ext: true },
+      { href: "mailto:ajayiobanijesu2000@gmail.com", label: "email", ext: true },
+    ],
+  },
+];
+
 export function Footer() {
   return (
     <footer
       id="contact"
-      style={{ padding: "70px 0 80px", borderTop: "1px solid var(--line)" }}
+      style={{ padding: "70px 0 0", borderTop: "1px solid var(--line)" }}
     >
       <div className="wrap">
+        {/* contact CTA */}
         <div className="rowhead">
           <span className="num">03</span>
           <h2>contact</h2>
@@ -233,45 +260,85 @@ export function Footer() {
           Open to partners, problems worth solving, and roles where the work
           reaches people, on the worst day, not just the best.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 26 }}>
-          {[
-            { href: "https://github.com/ObeeJ", label: "github" },
-            { href: "https://linkedin.com/in/obanijesuajayi", label: "linkedin" },
-            { href: "/engineering", label: "the engineering" },
-          ].map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              target={l.href.startsWith("http") ? "_blank" : undefined}
-              rel={l.href.startsWith("http") ? "noopener" : undefined}
-              className="mono"
-              style={{
-                fontSize: 12.5,
-                border: "1px solid var(--line)",
-                borderRadius: 8,
-                padding: "12px 18px",
-                textTransform: "lowercase",
-              }}
-            >
-              {l.label}
-            </a>
+
+        {/* columns */}
+        <div className="footgrid">
+          <div className="footbrand">
+            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 11 }}>
+              <Mark size={26} spin={false} />
+              <span className="wordmark" style={{ fontSize: 17, fontWeight: 600 }}>
+                shortkohdz
+              </span>
+            </Link>
+            <p style={{ color: "var(--muted)", fontSize: 13.5, maxWidth: 280, marginTop: 14, lineHeight: 1.6 }}>
+              A parent company building ventures that still answer on the worst
+              day. Engineered by{" "}
+              <a href="https://github.com/ObeeJ" target="_blank" rel="noopener" style={{ color: "var(--accent)" }}>
+                @ObeeJ
+              </a>
+              .
+            </p>
+          </div>
+          {FOOTER_COLS.map((col) => (
+            <div key={col.title}>
+              <h3 className="mono" style={{ color: "var(--faint)", marginBottom: 14 }}>{col.title}</h3>
+              <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 9 }}>
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      target={l.ext ? "_blank" : undefined}
+                      rel={l.ext ? "noopener" : undefined}
+                      className="footlink"
+                      style={{ fontSize: 13.5, color: "var(--muted)" }}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
+
         <div
           className="mono"
           style={{
             color: "var(--faint)",
-            marginTop: 42,
+            marginTop: 40,
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
             gap: 12,
           }}
         >
-          <span>© 2026 shortkohdz · solutions, on dial</span>
-          <span className="wordmark" style={{ color: "var(--accent)", letterSpacing: "-.035em" }}>shortkohdz</span>
+          <span>© {new Date().getFullYear()} shortkohdz · solutions, on dial</span>
+          <span>access first · friction last</span>
         </div>
       </div>
+
+      {/* giant wordmark */}
+      <div className="bigname-wrap" aria-hidden="true">
+        <h2 className="bigname wordmark">shortkohdz</h2>
+      </div>
+
+      <style>{`
+        .footgrid { margin-top:52px; display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:40px; padding-bottom:44px; border-bottom:1px solid var(--line); }
+        @media(max-width:760px){ .footgrid{ grid-template-columns:1fr 1fr; gap:32px; } .footbrand{ grid-column:1 / -1; } }
+        .footlink { position:relative; transition:color .2s var(--ease); }
+        .footlink:hover { color:var(--accent); }
+        .bigname-wrap { width:100%; overflow:hidden; line-height:0; margin-top:18px; }
+        .bigname {
+          text-align:center;
+          font-size:clamp(64px,18vw,230px);
+          letter-spacing:-.04em;
+          margin:0;
+          user-select:none;
+          color:var(--accent);
+          padding-bottom:.04em;
+        }
+        .dark .bigname { color:var(--paper); }
+      `}</style>
     </footer>
   );
 }
@@ -282,21 +349,28 @@ export function Reveal({
   delay = 0,
   className = "",
   as = "div",
+  style,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
   as?: "div" | "section";
+  style?: React.CSSProperties;
 }) {
   const reduce = useReducedMotion();
   const MotionTag = as === "section" ? motion.section : motion.div;
   if (reduce) {
     const Tag = as;
-    return <Tag className={className}>{children}</Tag>;
+    return (
+      <Tag className={className} style={style}>
+        {children}
+      </Tag>
+    );
   }
   return (
     <MotionTag
       className={className}
+      style={style}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}

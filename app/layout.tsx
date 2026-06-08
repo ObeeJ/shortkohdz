@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Sora, JetBrains_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Nav, Footer } from "./components/ui";
+import { GlassFilter } from "@/components/ui/liquid-glass";
+
+// Blocking script: apply saved theme before first paint (default dark) to avoid FOUC.
+const THEME_INIT = `(function(){try{var t=localStorage.getItem('skd-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 const sora = Sora({
   variable: "--font-sora",
@@ -47,9 +51,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${jetbrains.variable} ${instrument.variable}`}
+      className={`dark ${sora.variable} ${jetbrains.variable} ${instrument.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+      </head>
       <body>
+        <GlassFilter />
         <Nav />
         <main id="main">{children}</main>
         <Footer />

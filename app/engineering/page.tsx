@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { projects, industries, stacks, STATUS_LABEL, STATUS_DOT } from "../lib/data";
 import { TechIcon, StackBadge, primaryStack } from "../components/TechIcon";
+import { Mark } from "../components/ui";
 
 const CAPS = [
   {
@@ -45,9 +46,12 @@ export default function Engineering() {
 
   return (
     <>
-      {/* intro */}
-      <section style={{ padding: "72px 0 40px", borderBottom: "1px solid var(--line)" }}>
-        <div className="wrap">
+      {/* intro — redesigned hero */}
+      <section className="engine-hero">
+        <div aria-hidden className="engine-hero-mark">
+          <Mark size={540} spin={false} className="spin-slow" />
+        </div>
+        <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
           <div className="rowhead">
             <span className="num">01</span>
             <h2>the engineering</h2>
@@ -55,10 +59,11 @@ export default function Engineering() {
           <h1
             className="wordmark"
             style={{
-              fontSize: "clamp(36px,6vw,72px)",
-              letterSpacing: "-.03em",
-              lineHeight: 1,
-              marginBottom: 18,
+              fontSize: "clamp(38px,6.4vw,80px)",
+              letterSpacing: "-.035em",
+              lineHeight: 0.98,
+              marginBottom: 20,
+              maxWidth: 880,
             }}
           >
             the machinery{" "}
@@ -67,10 +72,18 @@ export default function Engineering() {
             </span>
           </h1>
           <p className="lead" style={{ maxWidth: 620 }}>
-            The systems the ventures stand on. Payment rails, security, ticketing,
-            infrastructure. Mostly Go, some Rust, most polyglot. Each one a human
-            problem taken seriously.
+            The systems every venture stands on. Payment rails, security,
+            ticketing, infrastructure. Mostly Go, some Rust, deliberately
+            polyglot. Each one a human problem taken seriously.
           </p>
+
+          <div className="engine-meta mono">
+            <span>go · rust</span>
+            <span className="engine-sep" />
+            <span>typescript · python</span>
+            <span className="engine-sep" />
+            <span>cka certified</span>
+          </div>
         </div>
       </section>
 
@@ -98,15 +111,18 @@ export default function Engineering() {
             </span>
           </p>
           <p className="lead" style={{ maxWidth: 680, marginBottom: 34 }}>
-            Four years of production work across Go, TypeScript, Python and Rust.
-            CKA certified, AWS Solutions Architect Associate in progress. I reach
-            for Go when correctness under concurrency matters, and I own the rest
-            of the stack so the system actually ships.
+            I build backend-first systems and carry them all the way to
+            production. CKA certified. I reach for Go when correctness under
+            concurrency matters, and I own the rest of the stack so the thing
+            actually ships.
           </p>
           <div className="caps">
-            {CAPS.map((cap) => (
+            {CAPS.map((cap, i) => (
               <div className="cap" key={cap.k}>
-                <div className="cap-k mono">{cap.k}</div>
+                <div className="cap-top">
+                  <span className="cap-no mono">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="cap-k mono">{cap.k}</div>
+                </div>
                 <h3>{cap.h}</h3>
                 <p>{cap.p}</p>
               </div>
@@ -142,7 +158,7 @@ export default function Engineering() {
       </div>
 
       {/* grid */}
-      <section style={{ padding: "46px 0 96px" }}>
+      <section id="systems" style={{ padding: "46px 0 96px", scrollMarginTop: 80 }}>
         <div className="wrap">
           <div className="egrid">
             {shown.map((p) => (
@@ -190,16 +206,24 @@ export default function Engineering() {
       </section>
 
       <style>{`
+        .engine-hero { position:relative; overflow:hidden; padding:84px 0 52px; border-bottom:1px solid var(--line); background:radial-gradient(ellipse 60% 70% at 88% 20%, var(--accent-soft), transparent 62%); }
+        .engine-hero-mark { position:absolute; top:-40px; right:-120px; color:var(--accent); opacity:.06; pointer-events:none; z-index:0; }
+        .engine-meta { margin-top:26px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:11px; }
+        .engine-sep { width:5px; height:5px; border-radius:50%; background:var(--accent); display:inline-block; }
+        @media(max-width:600px){ .engine-hero-mark{ right:-180px; opacity:.04; } }
+
         .caps { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
-        .cap { background:var(--ink-2); padding:26px 22px; min-height:200px; display:flex; flex-direction:column; transition:background .3s var(--ease); }
+        .cap { background:var(--ink-2); padding:26px 22px; min-height:208px; display:flex; flex-direction:column; transition:background .3s var(--ease), transform .3s var(--ease); }
         .cap:hover { background:var(--ink-3); }
-        .cap-k { font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:auto; }
+        .cap-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:auto; }
+        .cap-no { font-size:11px; color:var(--faint); }
+        .cap-k { font-size:10px; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; }
         .cap h3 { font-weight:600; font-size:18px; letter-spacing:-.01em; margin:22px 0 9px; }
         .cap p { font-size:13px; color:var(--muted); line-height:1.55; }
         @media(max-width:900px){ .caps{grid-template-columns:repeat(2,1fr)} }
         @media(max-width:520px){ .caps{grid-template-columns:1fr} }
 
-        .filterbar { border-bottom:1px solid var(--line); padding:18px 0; position:sticky; top:62px; background:rgba(11,15,20,.92); backdrop-filter:blur(10px); z-index:50; }
+        .filterbar { border-bottom:1px solid var(--line); padding:18px 0; position:sticky; top:62px; background:var(--nav-bg); backdrop-filter:blur(10px); z-index:50; }
         .filterbar-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
         .filtercount { color:var(--faint); font-size:11px; }
         .filter-toggle { display:none; align-items:center; gap:7px; font-size:11.5px; color:var(--paper); background:var(--ink-2); border:1px solid var(--line); border-radius:20px; padding:8px 16px; cursor:pointer; text-transform:lowercase; }
