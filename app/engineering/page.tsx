@@ -131,6 +131,46 @@ export default function Engineering() {
         </div>
       </section>
 
+      {/* open source */}
+      <section style={{ padding: "56px 0", borderBottom: "1px solid var(--line)" }}>
+        <div className="wrap">
+          <p className="mono" style={{ color: "var(--accent)", fontSize: 11, letterSpacing: ".14em", marginBottom: 18 }}>
+            open source
+          </p>
+          <p style={{ fontSize: "clamp(22px,3.4vw,34px)", fontWeight: 500, letterSpacing: "-.02em", lineHeight: 1.12, maxWidth: 760, marginBottom: 16 }}>
+            Contributing to the ecosystem.{" "}
+            <span className="serif accent" style={{ fontWeight: 400 }}>
+              Real fixes on real projects.
+            </span>
+          </p>
+          <div className="oss-list">
+            <a
+              href="https://github.com/gofiber/fiber/pull/4552"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="oss-card"
+            >
+              <div className="oss-top">
+                <span className="mono oss-repo">gofiber/fiber</span>
+                <span className="mono oss-badge">merged pr</span>
+              </div>
+              <h3 className="oss-title">Logger middleware — log injection fix</h3>
+              <p className="oss-desc">
+                Patched a security vulnerability where 15+ user-controlled tag functions
+                (path, url, ua, body, headers, cookies…) wrote unsanitized input directly
+                to the log buffer. An attacker could inject CRLF sequences to forge log
+                lines and evade SIEM detection. Added sanitization helpers matching the
+                strategy already used in the core log subsystem.
+              </p>
+              <div className="oss-meta mono">
+                <span className="dot" style={{ background: "var(--accent)" }} />
+                Go · security · middleware · #4341 → PR #4552
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* filters — collapsible on mobile, always open on desktop */}
       <div className="filterbar">
         <div className="wrap">
@@ -257,6 +297,20 @@ export default function Engineering() {
         .emore { margin-top:15px; font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.05em; display:flex; align-items:center; gap:6px; }
         .ecard:hover .emore { color:var(--accent); }
         .dot { width:6px; height:6px; border-radius:50%; display:inline-block; }
+
+        .oss-list { display:flex; flex-direction:column; gap:14px; }
+        .oss-card { display:block; border:1px solid var(--line); border-radius:16px; background:var(--ink-2); padding:28px 28px 22px; text-decoration:none; color:inherit; transition:transform .25s var(--ease), border-color .25s var(--ease); position:relative; overflow:hidden; }
+        .oss-card::before { content:""; position:absolute; inset:0; background:radial-gradient(120% 80% at 0% 0%, var(--accent-soft), transparent 60%); opacity:0; transition:opacity .3s var(--ease); }
+        .oss-card:hover { transform:translateY(-4px); border-color:var(--accent); }
+        .oss-card:hover::before { opacity:1; }
+        .oss-card > * { position:relative; }
+        .oss-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+        .oss-repo { font-size:11px; color:var(--accent); letter-spacing:.06em; }
+        .oss-badge { font-size:10px; color:var(--ink); background:var(--accent); border-radius:20px; padding:4px 10px; letter-spacing:.04em; }
+        .oss-title { font-weight:600; font-size:20px; letter-spacing:-.015em; margin-bottom:10px; }
+        .oss-desc { font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px; max-width:780px; }
+        .oss-meta { font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.05em; display:flex; align-items:center; gap:7px; }
+        .oss-card:hover .oss-meta { color:var(--accent); }
       `}</style>
     </>
   );
