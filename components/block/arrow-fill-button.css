@@ -1,0 +1,109 @@
+.skd-arrow-fill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.25rem;
+  padding-right: 3.75rem;
+  padding-left: 1.75rem;
+  position: relative;
+  width: fit-content;
+  border-radius: 1000px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  text-rendering: geometricPrecision;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.skd-arrow-fill-btn__text {
+  position: relative;
+  z-index: 1;
+}
+
+.skd-arrow-fill-btn__circle {
+  clip-path: inset(0.4rem 0.4rem 0.4rem calc(100% - 2.75rem) round 2rem);
+  position: absolute;
+  inset: -1px;
+  border-radius: 1000px;
+  display: flex;
+  align-items: center;
+  padding-right: 3.75rem;
+  padding-left: 1.75rem;
+  z-index: 2;
+  background-color: var(--btn-fill-bg);
+  color: var(--btn-fill-text);
+  transition:
+    clip-path 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    background-color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86),
+    color 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.skd-arrow-fill-btn__circle-text {
+  padding: 0 1px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.skd-arrow-fill-btn__icon {
+  width: 0.8rem;
+  height: 0.8rem;
+  position: absolute;
+  right: 1.15rem;
+  overflow: hidden;
+  flex: 0 0 auto;
+  color: var(--btn-arrow);
+}
+
+.skd-arrow-fill-btn:is(:hover, :focus-visible):not(:disabled) .skd-arrow-fill-btn__icon {
+  color: var(--btn-arrow-hover);
+}
+
+.skd-arrow-fill-btn__path {
+  transition: transform 0.45s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  transform-origin: center center;
+  fill: currentColor;
+}
+
+.skd-arrow-fill-btn__path:first-child {
+  transform: translateX(-120%) scale(0);
+}
+
+.skd-arrow-fill-btn:is(:hover, :focus-visible):not(:disabled) .skd-arrow-fill-btn__path:first-child {
+  transform: translateX(0) scale(1);
+}
+
+.skd-arrow-fill-btn:is(:hover, :focus-visible):not(:disabled) .skd-arrow-fill-btn__path:last-child {
+  transform: translateX(120%) scale(0);
+}
+
+.skd-arrow-fill-btn:is(:hover, :focus-visible):not(:disabled) .skd-arrow-fill-btn__circle {
+  clip-path: inset(0 round 2rem);
+  background-color: var(--btn-fill-bg-hover);
+  color: var(--btn-fill-text-hover);
+}
+
+.skd-arrow-fill-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.skd-arrow-fill-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skd-arrow-fill-btn__circle,
+  .skd-arrow-fill-btn__path {
+    transition: none;
+  }
+}

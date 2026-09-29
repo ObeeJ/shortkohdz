@@ -3,18 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3030",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3030",
     "lint": "eslint",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:preview": "opennextjs-cloudflare preview",
+    "cf:deploy": "opennextjs-cloudflare deploy",
+    "d1:migrate:local": "wrangler d1 migrations apply shortkohdz-db --local",
+    "d1:migrate:remote": "wrangler d1 migrations apply shortkohdz-db --remote"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
+    "gsap": "^3.13.0",
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",
     "next": "^16.2.7",

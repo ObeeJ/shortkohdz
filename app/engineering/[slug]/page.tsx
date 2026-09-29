@@ -66,22 +66,62 @@ export default async function ProjectDetail({
           ← all systems
         </Link>
 
-        <div className="mono" style={{ color: "var(--accent)", letterSpacing: ".1em", marginBottom: 14 }}>
-          {p.industry}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 16 }}>
+          <div className="mono" style={{ color: "var(--accent)", letterSpacing: ".1em" }}>
+            {p.industry}
+          </div>
+          {p.role && (
+            <div
+              className="mono"
+              style={{
+                fontSize: 10.5,
+                padding: "3px 10px",
+                background: "var(--ink-2)",
+                border: "1px solid var(--line-strong)",
+                color: "var(--accent)",
+                letterSpacing: ".06em",
+              }}
+            >
+              ROLE // {p.role.toUpperCase()}
+            </div>
+          )}
         </div>
-        <h1
-          className="wordmark"
-          style={{ fontSize: "clamp(40px,7vw,72px)", letterSpacing: "-.03em", lineHeight: 1, marginBottom: 14 }}
-        >
-          {p.name}
-        </h1>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 16, flexWrap: "wrap" }}>
+          {p.logo && (
+            <div
+              style={{
+                padding: "8px 14px",
+                background: "var(--ink-2)",
+                border: "1px solid var(--line)",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 4,
+              }}
+            >
+              <img
+                src={p.logo}
+                alt={`${p.name} logo`}
+                style={{ height: 32, maxWidth: 140, objectFit: "contain", filter: "brightness(1.05)" }}
+              />
+            </div>
+          )}
+          <h1
+            className="wordmark"
+            style={{ fontSize: "clamp(36px,6vw,68px)", letterSpacing: "-.03em", lineHeight: 1, margin: 0 }}
+          >
+            {p.name}
+          </h1>
+        </div>
+
         <p
           className="serif"
-          style={{ fontSize: "clamp(20px,3vw,26px)", color: "var(--paper)", maxWidth: 680, marginBottom: 26 }}
+          style={{ fontSize: "clamp(18px,2.6vw,24px)", color: "var(--paper)", maxWidth: 740, marginBottom: 24, lineHeight: 1.35 }}
         >
           {p.tagline}
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 48 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
           {p.chips.map((c) => (
             <span
               key={c}
@@ -98,6 +138,19 @@ export default async function ProjectDetail({
             </span>
           ))}
         </div>
+
+        {p.shot && (
+          <a href={p.live || undefined} target="_blank" rel="noopener noreferrer" className="hero-frame" aria-label={`Open ${p.name} live`}>
+            <div className="hero-chrome">
+              <i /> <i /> <i />
+              <span className="mono">
+                {p.favicon && <img src={p.favicon} alt="" width={12} height={12} />}
+                {(p.live || "").replace("https://", "")}
+              </span>
+            </div>
+            <img src={p.shot} alt={`${p.name} homepage`} />
+          </a>
+        )}
 
         <div className="dgrid">
           <div>
@@ -210,6 +263,12 @@ export default async function ProjectDetail({
         .aside { border:1px solid var(--line); border-radius:14px; background:var(--ink-2); padding:26px; align-self:start; position:sticky; top:96px; }
         .alink { font-size:12px; border:1px solid var(--line); border-radius:8px; padding:12px 15px; text-align:center; transition:border-color .2s,color .2s,background .2s; text-transform:lowercase; }
         .alink:hover { border-color:var(--accent); color:var(--accent); }
+        .hero-frame { display:block; max-width:980px; margin:0 0 56px; border:1px solid var(--line-strong); border-radius:12px; overflow:hidden; background:var(--ink-2); box-shadow:0 40px 80px -40px rgba(0,0,0,.65); transition:border-color .3s var(--ease), transform .3s var(--ease); }
+        .hero-frame:hover { border-color:var(--accent); transform:translateY(-3px); }
+        .hero-chrome { display:flex; align-items:center; gap:6px; padding:10px 14px; border-bottom:1px solid var(--line); }
+        .hero-chrome i { width:9px; height:9px; border-radius:50%; background:var(--line-strong); }
+        .hero-chrome span { margin-left:10px; display:flex; align-items:center; gap:7px; font-size:10.5px; color:var(--muted); background:var(--ink); padding:4px 12px; border-radius:20px; }
+        .hero-frame > img { display:block; width:100%; aspect-ratio:1366/720; object-fit:cover; object-position:top; }
         .alink.live { background:var(--accent); border-color:var(--accent); color:var(--ink); font-weight:500; }
         .alink.live:hover { color:var(--ink); filter:brightness(1.05); }
       `}</style>

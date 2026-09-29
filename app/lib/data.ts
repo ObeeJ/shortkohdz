@@ -6,6 +6,11 @@ import projectsJson from "../../projects.json";
 export type Project = {
   id: string;
   name: string;
+  role?: string;
+  logo?: string;
+  favicon?: string;
+  shot?: string; // hero screenshot of the live site
+  featured?: boolean;
   industry: string;
   tags: string[];
   go: boolean;
@@ -26,8 +31,9 @@ export type Project = {
   note?: string;
 };
 
-export const projects = (projectsJson as unknown as { projects: Project[] })
-  .projects;
+const all = (projectsJson as unknown as { projects: Project[] }).projects;
+// Live products first, in file order; everything else after.
+export const projects = [...all.filter((p) => p.shot), ...all.filter((p) => !p.shot)];
 
 export function getProject(id: string): Project | undefined {
   return projects.find((p) => p.id === id);
@@ -40,9 +46,9 @@ export const STATUS_LABEL: Record<string, string> = {
 };
 
 export const STATUS_DOT: Record<string, string> = {
-  full: "#00ADD8",
+  full: "#FF553D",
   wip: "#FF553D",
-  ship: "#3dd7c0",
+  ship: "#FF553D",
 };
 
 // Unique industries + a curated stack list for the filter pills.
@@ -117,4 +123,46 @@ export const ventures: Venture[] = [
     desc: "The asterisk has room. Six arms today; the mark is built to grow.",
     status: "tba",
   },
+];
+
+/* ============================================================
+   AI engineering — existing projects that ship AI/ML features,
+   plus additive local work that lives outside projects.json.
+   ============================================================ */
+export const aiProjectIds = ["topnorch", "corvus", "theflate"];
+
+export const aiProjectNotes: Record<string, string> = {
+  topnorch: "Autonomous agents that find, tailor and dispatch job applications.",
+  corvus: "Natural-language queries over live, versioned network scan data.",
+  theflate: "Whisper Large-v3 transcription running locally, no API round-trip.",
+};
+
+export const aiWork: { k: string; h: string; p: string; tags: string[] }[] = [
+  {
+    k: "llm integration",
+    h: "defi-ai-tracker",
+    p: "A Go backend that calls the OpenAI API (GPT-4o) for portfolio analysis and risk scoring over on-chain data.",
+    tags: ["Go", "GPT-4o", "go-ethereum"],
+  },
+  {
+    k: "local inference",
+    h: "Ollama",
+    p: "Models run on my own machine. qwen2.5-coder:7b for private, offline code assistance.",
+    tags: ["Ollama", "qwen2.5-coder"],
+  },
+  {
+    k: "ml tooling",
+    h: "PyTorch & Whisper",
+    p: "PyTorch and OpenAI Whisper installed for speech-to-text and model experiments in Python.",
+    tags: ["Python", "PyTorch", "Whisper"],
+  },
+];
+
+export const aiCapabilities = [
+  "LLM integration",
+  "RAG",
+  "vector databases",
+  "agentic workflows",
+  "natural-language interfaces",
+  "fine-tuning",
 ];

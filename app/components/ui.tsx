@@ -8,20 +8,22 @@ import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
 
-/* ---------------- The mark: a drawn asterisk, coral core ---------------- */
+/* ---------------- The mark: animated drawn asterisk, pulsing coral core ---------------- */
 const ARM = "-7,-18 7,-18 3.5,-92 -3.5,-92";
 export function Mark({
   size = 30,
   className = "",
   spin = true,
+  animate = true,
 }: {
   size?: number;
   className?: string;
   spin?: boolean;
+  animate?: boolean;
 }) {
   return (
     <svg
-      className={`mark ${className}`}
+      className={`mark ${animate ? "mark-animated" : ""} ${className}`}
       viewBox="-100 -100 200 200"
       width={size}
       height={size}
@@ -31,14 +33,14 @@ export function Mark({
       }}
       onMouseEnter={
         spin
-          ? (e) => (e.currentTarget.style.transform = "rotate(60deg)")
+          ? (e) => (e.currentTarget.style.transform = "rotate(60deg) scale(1.08)")
           : undefined
       }
       onMouseLeave={
         spin ? (e) => (e.currentTarget.style.transform = "none") : undefined
       }
     >
-      <g>
+      <g className="mark-arms">
         {[0, 60, 120, 180, 240, 300].map((d) => (
           <polygon
             key={d}
@@ -47,17 +49,18 @@ export function Mark({
             transform={d ? `rotate(${d})` : undefined}
           />
         ))}
-        <circle className="core" r="10" />
       </g>
+      <circle className="core" r="10" />
     </svg>
   );
 }
 
-/* ---------------- Sticky nav with *shortkohdz# lockup ---------------- */
+/* ---------------- Floating pill nav ---------------- */
 const LINKS = [
   { href: "/", label: "home" },
+  { href: "/about", label: "about" },
   { href: "/engineering", label: "engineering" },
-  { href: "/#contact", label: "contact" },
+  { href: "/guestbook", label: "guestbook" },
 ];
 
 export function Nav() {
@@ -73,68 +76,97 @@ export function Nav() {
       <header
         style={{
           position: "sticky",
-          top: 0,
+          top: 18,
           zIndex: 60,
-          background: "var(--nav-bg)",
-          backdropFilter: "blur(14px)",
-          borderBottom: "1px solid var(--line)",
+          display: "flex",
+          justifyContent: "center",
+          pointerEvents: "none",
         }}
       >
         <div
-          className="wrap"
+          className="navpill crosshair-corner crosshair-corner-tl crosshair-corner-tr crosshair-corner-bl crosshair-corner-br"
           style={{
+            pointerEvents: "auto",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
-            height: 62,
+            gap: 6,
+            padding: "6px 10px",
+            borderRadius: 0,
+            background: "var(--nav-bg)",
+            backdropFilter: "blur(16px)",
+            border: "1px solid var(--line-strong)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.14)",
           }}
         >
           <Link
             href="/"
             aria-label="shortkohdz home"
-            style={{ display: "flex", alignItems: "center", gap: 12 }}
+            style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 12px" }}
           >
-            <Mark size={30} />
+            <Mark size={20} />
             <span
-              className="wordmark brandmark"
-              style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-.035em" }}
+              className="wordmark"
+              style={{ fontSize: 14.5, fontWeight: 600, letterSpacing: "-.03em" }}
             >
               shortkohdz
+            </span>
+            <span className="skd-telemetry-stamp" style={{ display: "none" }} id="nav-telemetry">
+              <span className="skd-live-dot" />
+              <span>USSD *123#</span>
             </span>
           </Link>
 
           <nav
             aria-label="primary"
             className="nav-links"
-            style={{ display: "flex", alignItems: "center", gap: 26 }}
+            style={{ display: "flex", alignItems: "center", gap: 2 }}
           >
             {LINKS.map((l) => {
-              const on =
-                l.href === "/"
-                  ? pathname === "/"
-                  : l.href.startsWith("/#")
-                    ? false
-                    : pathname.startsWith(l.href);
+              const on = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
               return (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="mono nav-a"
+                  className="mono nav-pill-a"
                   aria-current={on ? "page" : undefined}
                   style={{
-                    fontSize: 12,
-                    textTransform: "lowercase",
-                    letterSpacing: ".05em",
-                    color: on ? "var(--paper)" : "var(--muted)",
+                    position: "relative",
+                    fontSize: 11,
+                    textTransform: "uppercase",
+                    letterSpacing: ".1em",
+                    padding: "8px 14px",
+                    borderRadius: 0,
+                    color: on ? "var(--ink)" : "var(--muted)",
+                    fontWeight: on ? 500 : 400,
                   }}
                 >
+                  {on && (
+                    <motion.span
+                      layoutId="nav-pill-active"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 0,
+                        background: "var(--paper)",
+                        zIndex: -1,
+                      }}
+                    />
+                  )}
                   {l.label}
                 </Link>
               );
             })}
           </nav>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, paddingLeft: 4 }}>
+            <Link
+              href="/engineering"
+              className="skd-btn skd-btn--coral"
+              style={{ padding: "6px 12px", fontSize: 10, letterSpacing: ".1em" }}
+            >
+              *DIAL#
+            </Link>
             <AnimatedThemeToggler />
             <button
               className="menu-btn"
@@ -144,7 +176,7 @@ export function Nav() {
                 display: "none",
                 background: "none",
                 border: "1px solid var(--line)",
-                borderRadius: 8,
+                borderRadius: 0,
                 padding: "8px 10px",
                 color: "var(--paper)",
               }}
@@ -213,10 +245,8 @@ export function Nav() {
           .nav-links { display: none !important; }
           .menu-btn { display: inline-flex !important; align-items: center; }
         }
-        .nav-a { position: relative; transition: color .2s; }
-        .nav-a::after { content:""; position:absolute; left:0; bottom:-5px; height:1px; width:0; background:var(--accent); transition:width .25s cubic-bezier(.22,.61,.36,1); }
-        .nav-a:hover { color: var(--paper); }
-        .nav-a:hover::after, .nav-a[aria-current="page"]::after { width:100%; }
+        .nav-pill-a { transition: color .2s var(--ease); }
+        .nav-pill-a:hover { color: var(--paper); }
       `}</style>
     </>
   );
@@ -228,9 +258,9 @@ const FOOTER_COLS: { title: string; links: { href: string; label: string; ext?: 
     title: "explore",
     links: [
       { href: "/", label: "home" },
+      { href: "/about", label: "about" },
       { href: "/engineering", label: "the engineering" },
-      { href: "/#ventures", label: "the ventures" },
-      { href: "/#idea", label: "the thesis" },
+      { href: "/guestbook", label: "say something" },
     ],
   },
   {
@@ -271,8 +301,8 @@ export function Footer() {
               </span>
             </Link>
             <p style={{ color: "var(--muted)", fontSize: 13.5, maxWidth: 280, marginTop: 14, lineHeight: 1.6 }}>
-              A parent company building ventures that still answer on the worst
-              day. Engineered by{" "}
+              Backend systems and infrastructure that still answer on the
+              worst day. Built by{" "}
               <a href="https://github.com/ObeeJ" target="_blank" rel="noopener" style={{ color: "var(--accent)" }}>
                 @ObeeJ
               </a>
@@ -329,15 +359,17 @@ export function Footer() {
         .footlink:hover { color:var(--accent); }
         .bigname-wrap { width:100%; overflow:hidden; line-height:0; margin-top:18px; }
         .bigname {
-          text-align:center;
-          font-size:clamp(64px,18vw,230px);
-          letter-spacing:-.04em;
-          margin:0;
-          user-select:none;
-          color:var(--accent);
-          padding-bottom:.04em;
+          font-family: var(--font-display), sans-serif;
+          font-weight: 700;
+          text-align: center;
+          font-size: clamp(64px, 18vw, 230px);
+          letter-spacing: -0.055em;
+          margin: 0;
+          user-select: none;
+          color: var(--accent);
+          padding-bottom: 0.04em;
         }
-        .dark .bigname { color:var(--paper); }
+        .dark .bigname { color: var(--paper); }
       `}</style>
     </footer>
   );
@@ -411,7 +443,7 @@ export function Murmuration() {
     }[] = [];
     const mouse = { x: -9999, y: -9999 };
     const ACCENT = "#FF553D";
-    const PAPER = "rgba(244,240,232,";
+    const PAPER = "rgba(248,250,252,";
 
     function size() {
       const r = c!.getBoundingClientRect();

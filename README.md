@@ -23,7 +23,7 @@ Ink / paper / coral editorial system — source of truth in [`design-system/shor
 
 ```bash
 bun install
-bun run dev      # http://localhost:3000
+bun run dev      # http://localhost:3030
 bun run build
 ```
 

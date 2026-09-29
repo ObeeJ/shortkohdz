@@ -8,10 +8,10 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 
 /* ============================================================
-   Hero3D — Three.js starfield + coral nebula + atmospheric
+   Hero3D — Three.js starfield + emerald nebula + atmospheric
    bloom, scoped to the hero container (not a full-page takeover).
    Recolored from the generic blue/pink cosmos to the brand
-   ink/paper/coral system. Camera drifts and parallaxes to the
+   ink/paper/emerald system. Camera drifts and parallaxes to the
    pointer. Full reduced-motion path (one static frame, no loop).
    ============================================================ */
 
@@ -67,9 +67,9 @@ export function Hero3D() {
         pos[j * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
         pos[j * 3 + 2] = radius * Math.cos(phi);
         const r = Math.random();
-        if (r < 0.72) c.setHSL(0.09, 0.18, 0.82 + Math.random() * 0.18); // warm paper
-        else if (r < 0.92) c.setHSL(0.025, 0.85, 0.62); // coral
-        else c.setHSL(0.07, 0.4, 0.7); // dim amber
+        if (r < 0.75) c.setRGB(0.97, 0.98, 1.0); // pure star white
+        else if (r < 0.92) c.setRGB(1.0, 0.333, 0.239); // brand coral #FF553D
+        else c.setRGB(1.0, 0.55, 0.45); // soft coral glow
         col[j * 3] = c.r;
         col[j * 3 + 1] = c.g;
         col[j * 3 + 2] = c.b;
@@ -115,9 +115,9 @@ export function Hero3D() {
     const nebMat = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
-        color1: { value: new THREE.Color(0x2a0d08) }, // deep ember
-        color2: { value: new THREE.Color(0xff553d) }, // coral
-        opacity: { value: 0.26 },
+        color1: { value: new THREE.Color(0x160705) }, // deep coral abyss
+        color2: { value: new THREE.Color(0xff553d) }, // signal coral #FF553D
+        opacity: { value: 0.22 },
       },
       vertexShader: `
         varying vec2 vUv; varying float vE; uniform float time;
@@ -146,7 +146,7 @@ export function Hero3D() {
     nebula.position.z = -900;
     scene.add(nebula);
 
-    // ---- coral atmosphere shell ----
+    // ---- brand coral atmosphere shell ----
     const atmMat = new THREE.ShaderMaterial({
       uniforms: { time: { value: 0 } },
       vertexShader: `
@@ -159,7 +159,7 @@ export function Hero3D() {
         varying vec3 vN; uniform float time;
         void main(){
           float i = pow(0.72 - dot(vN, vec3(0.0,0.0,1.0)), 2.0);
-          vec3 atm = vec3(1.0, 0.33, 0.24) * i;
+          vec3 atm = vec3(1.0, 0.333, 0.239) * i; // brand coral #FF553D
           atm *= sin(time*2.0)*0.1 + 0.9;
           gl_FragColor = vec4(atm, i*0.22);
         }`,

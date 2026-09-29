@@ -157,9 +157,9 @@ function VariantTerminal() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 16px", borderBottom: "1px solid var(--line)" }}>
-            <span style={{ width: 11, height: 11, borderRadius: 999, background: "#FF553D" }} />
-            <span style={{ width: 11, height: 11, borderRadius: 999, background: "#f4c04d" }} />
-            <span style={{ width: 11, height: 11, borderRadius: 999, background: "#3dd7c0" }} />
+            <span style={{ width: 11, height: 11, borderRadius: 999, background: "#ef4444" }} />
+            <span style={{ width: 11, height: 11, borderRadius: 999, background: "#eab308" }} />
+            <span style={{ width: 11, height: 11, borderRadius: 999, background: "#10b981" }} />
             <span className="mono" style={{ fontSize: 11, color: "var(--faint)", marginLeft: 8 }}>~/shortkohdz</span>
           </div>
           <div className="mono" style={{ padding: "26px 24px", fontSize: "clamp(13px,1.6vw,15px)", lineHeight: 1.9 }}>

@@ -1,14 +1,518 @@
 {
   "projects": [
     {
+      "id": "pcxpay",
+      "name": "PCXPay",
+      "role": "Senior Software Engineer — Backend, Payments & DevOps",
+      "logo": "/brands/pcxpay_logo.svg",
+      "favicon": "/brands/pcxpay_favicon.ico",
+      "featured": true,
+      "industry": "Fintech / Global Payments",
+      "tags": [
+        "Python",
+        "AWS",
+        "Go"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "Python",
+        "AWS",
+        "React",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Python",
+        "AWS ECS",
+        "GTBank Squad DVA",
+        "Smile ID",
+        "Sentry (20+ services)",
+        "Redis",
+        "Terraform"
+      ],
+      "tagline": "Cross-border payments infrastructure: one API across stablecoin, Lightning and traditional banking rails.",
+      "problem": "Businesses moving money across borders lose 3–5% to correspondent banks and wait days for settlement. Building compliant multi-country payment rails in-house takes years of banking partnerships, and every partner brings its own failure modes: duplicate webhooks, partial settlements, and reconciliation gaps that regulators notice.",
+      "solution": "Spearheaded backend, payments and DevOps work on the platform. Integrated the GTBank Squad gateway end to end, from technical scoping with the bank's engineers through production cutover, owning reconciliation, idempotency and gateway-specific error handling. Built and shipped AWS Lambda payment services in Python across UK, Nigerian and Canadian banking rails, and instrumented the whole fleet with Sentry distributed tracing.",
+      "system": "Event-driven microservices on AWS (Lambda, API Gateway, ECS) with Terraform-managed infrastructure and CloudHSM-backed key custody. Webhook-driven reconciliation flips transaction state on gateway callbacks and flags mismatches automatically. Live settlement runs across multiple banking partners under FCA oversight. The platform later spun out as an independent FCA-regulated money transfer operator.",
+      "dsa": "Idempotency keys with TTL windows and Bloom-filter deduplication make repeated webhook deliveries safe: the same callback processed twice produces one ledger effect. Reconciliation is a state machine, so every transaction is in exactly one auditable state.",
+      "why": "Python on Lambda keeps each payment concern small, independently deployable and cheap at idle; Terraform makes every environment reproducible; Sentry tracing across services turns a cross-border failure into a single followable trail instead of five log searches.",
+      "innovation": "Treating the bank gateway as an unreliable narrator: every inbound event is verified, deduplicated and reconciled against internal state before money moves, which is what lets the platform operate under FCA scrutiny.",
+      "metrics": [
+        "GTBank Squad integrated from scoping to production cutover",
+        "Settlement rails live across UK, Nigerian and Canadian banking partners",
+        "Sentry distributed tracing across the whole service fleet",
+        "Terraform-provisioned AWS with CloudHSM key custody",
+        "Platform spun out as an independent FCA-regulated money transfer operator"
+      ],
+      "potential": "Embedded finance for platforms that need global payouts without building banking partnerships themselves.",
+      "repos": [],
+      "live": "https://pcxpay.com",
+      "note": "Senior Software Engineer spearheading backend, payments integrations and cloud infrastructure on a 15–30 person, four-country engineering team.",
+      "shot": "/live/pcxpay.jpg"
+    },
+    {
+      "id": "dwelix",
+      "name": "Dwelix",
+      "role": "Lead Software Engineer",
+      "logo": "/brands/dwelix_logo.png",
+      "favicon": "/brands/dwelix_favicon.ico",
+      "featured": true,
+      "industry": "Proptech / Distributed Real Estate",
+      "tags": [
+        "Go",
+        "GCP",
+        "React"
+      ],
+      "go": true,
+      "status": "ship",
+      "stacks": [
+        "Go",
+        "React",
+        "GCP",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Go 1.25",
+        "Fiber",
+        "14 Microservices",
+        "gRPC",
+        "GCP Pub/Sub",
+        "3D Tours",
+        "Cloudflare",
+        "Documenso"
+      ],
+      "tagline": "A safer way to rent property: verified listings, controlled access and legally backed agreements.",
+      "problem": "Renting in emerging markets means agent extortion, fabricated listings, spoofed locations and paper leases nobody can audit. A trusted marketplace needs ground-truth verification, controlled physical access to properties, and money that moves only when the legal steps have actually happened.",
+      "solution": "Led the engineering team and built the platform: 12 Go microservices behind an API gateway covering auth, marketplace, property, search, geo, payments, legal agreements, uploads, referrals, users and blog. Scouts physically verify every property; keys stay in Dwelix custody with every entry logged; lawyers verify ownership and agreements are e-signed through Documenso; rent and deposits move through audited escrow.",
+      "system": "12 Go (Fiber) services, each independently containerised on GCP Cloud Run, talking gRPC with GCP Pub/Sub event streams for state transitions. 137 versioned PostgreSQL migrations, Redis caching, Cloudflare at the edge, Terraform-provisioned dev/staging/production, Cloud Build CI/CD and Sentry observability. A React + TypeScript frontend of 127 pages and 376 components serves role-based dashboards for tenants, landlords, scouts, agents, lawyers and admins.",
+      "dsa": "Geospatial bounding-box indexing flags coordinates that don't match a claimed address. Lease execution runs inside atomic database transactions paired with cryptographic document hashing, so a signed agreement and its escrow state can never disagree. Paystack callbacks drive a webhook reconciliation flow that flags mismatches automatically.",
+      "why": "Go and Fiber give small memory footprints and predictable latency during search spikes; gRPC keeps service contracts typed; Pub/Sub decouples property state changes from everything that reacts to them; Cloud Run lets each service scale to zero independently.",
+      "innovation": "Joining the physical and legal worlds in one pipeline: ground scouts, custodied keys, lawyer-verified ownership and e-signed leases feed an escrow that only releases when each real-world step is recorded.",
+      "metrics": [
+        "12 Go microservices plus an API gateway, gRPC + Pub/Sub",
+        "100,000+ lines of Go across 300+ files",
+        "137 versioned PostgreSQL migrations",
+        "127 frontend pages and 376 components across role-based dashboards",
+        "Documenso e-signed agreements with audited escrow",
+        "Terraform-provisioned GCP across dev, staging and production"
+      ],
+      "potential": "A standard for secure tenancy across African cities and a safe rental channel for diaspora property owners.",
+      "repos": [],
+      "live": "https://dwelix.com",
+      "note": "Lead Software Engineer: led the team, designed the architecture and owns the platform end to end.",
+      "shot": "/live/dwelix.jpg"
+    },
+    {
+      "id": "mopcare",
+      "name": "Mopcare",
+      "role": "Software Engineer & Technical Lead",
+      "logo": "/brands/mopcare_logo.svg",
+      "favicon": "/brands/mopcare_favicon.ico",
+      "featured": true,
+      "industry": "Healthtech / Elder Care",
+      "tags": [
+        "Go",
+        "React",
+        "TypeScript"
+      ],
+      "go": true,
+      "status": "ship",
+      "stacks": [
+        "Go",
+        "React",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Go (Golang)",
+        "React (TypeScript)",
+        "API Gateway",
+        "VMS",
+        "Healthcare LMS",
+        "Redis"
+      ],
+      "tagline": "Digital health platform for seniors: care, volunteers and learning in one system.",
+      "problem": "Elderly care programmes run on spreadsheets and WhatsApp groups: no reliable way to dispatch caregivers, certify volunteers, or give diaspora families visibility into how a parent is doing.",
+      "solution": "Direct backend development and technical leadership on a digital health platform serving close to 2,000 elderly patients. Owns the Go microservices, the volunteer management system with automated certificate generation, the accredited healthcare LMS, and the React portals for clients, caregivers and institutions. Migrated legacy services from Rust to Go for maintainability, and mentors the engineers on the team.",
+      "system": "Go microservices behind an API gateway with PostgreSQL and Redis caching for real-time task notifications and caregiver check-ins. Role-based access control isolates health data per role. React + TypeScript portals (Zustand, TanStack Query, Tailwind, shadcn/ui). Terraform-provisioned AWS, Docker, and CI/CD through GitHub Actions.",
+      "dsa": "Stateful task scheduling assigns caregivers with conflict resolution so one person is never double-booked. Certificates are generated with verifiable identifiers so a volunteer's accreditation can be checked by anyone.",
+      "why": "Go for a small, predictable backend that a small team can maintain, which is why the earlier Rust services were migrated; Redis for the low-latency notification path; RBAC because health data must be isolated per role by construction.",
+      "innovation": "A single API gateway unifying five role-based dashboards, so families abroad, caregivers and institutions all see one consistent picture of a senior's care.",
+      "metrics": [
+        "Serves close to 2,000 elderly patients",
+        "Five role-based portals behind one API gateway",
+        "Automated volunteer certificate verification and generation",
+        "Accredited healthcare LMS",
+        "Legacy services migrated from Rust to Go"
+      ],
+      "potential": "Care coordination for seniors across Nigeria and the diaspora.",
+      "repos": [],
+      "live": "https://mopcare.net",
+      "note": "Technical lead: backend, platform, infrastructure and engineering standards since 2022.",
+      "shot": "/live/mopcare.jpg"
+    },
+    {
+      "id": "scholelabs",
+      "name": "Scholelabs",
+      "role": "Backend Software Engineer",
+      "logo": "/brands/scholelabs_logo.svg",
+      "favicon": "/brands/scholelabs_favicon.ico",
+      "featured": true,
+      "industry": "Edtech / School OS",
+      "tags": [
+        "TypeScript",
+        "NestJS",
+        "Fastify"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "TypeScript",
+        "NestJS",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "NestJS",
+        "Fastify",
+        "Sequelize ORM",
+        "BullMQ",
+        "Redis",
+        "Resend",
+        "Railway",
+        "Sentry"
+      ],
+      "tagline": "Run an entire school from one platform: grading, enrolment, staff and communication.",
+      "problem": "Schools across Nigeria run on fragmented spreadsheets and handwritten logs: slow, insecure and error-prone. A shared platform must serve many schools at once without any school ever seeing another's data.",
+      "solution": "Owned the backend of a multi-tenant school management platform through to launch. Wrote the REST APIs and domain services behind student grading, bulk enrolment, performance data and staff portal management, and enforced role-based access control across administrators, staff and student records.",
+      "system": "TypeScript on NestJS with Fastify, Sequelize over PostgreSQL, BullMQ workers on Redis for bulk operations, Resend for email, and Sentry telemetry. Tenant-scoping middleware isolates every institution's data. Deployed continuously on Railway.",
+      "dsa": "Tenant identity is resolved once per request and injected into every query scope, so cross-tenant reads are structurally impossible rather than guarded case by case. Bulk enrolment runs as prioritised BullMQ jobs with retry and dead-letter handling.",
+      "why": "NestJS gives enforceable module boundaries for a growing domain; Fastify keeps request overhead low; BullMQ moves slow bulk work off the request path so grading stays responsive.",
+      "innovation": "Onboarding a whole school in days: bulk enrolment, role-based portals and CRM messaging arrive as one product instead of a stack of tools.",
+      "metrics": [
+        "Zero cross-tenant data leaks across hosted institutions",
+        "Async bulk enrolment through BullMQ and Redis",
+        "Role-based access for admins, staff and students",
+        "Email and SMS CRM, analytics and evaluations shipped",
+        "Anti-bot and user-purge mitigations running in production"
+      ],
+      "potential": "A single operating system for schools of every size across Africa.",
+      "repos": [],
+      "live": "https://scholelabs.com",
+      "note": "Backend engineer: APIs, domain services, multi-tenancy and production operations, from build to launch.",
+      "shot": "/live/scholelabs.jpg"
+    },
+    {
+      "id": "topnorch",
+      "name": "Topnorch",
+      "role": "Senior Full-Stack & Product Engineer",
+      "logo": "/brands/topnorch_logo.svg",
+      "featured": true,
+      "industry": "AI & Workforce Automation",
+      "tags": [
+        "Rust",
+        "Python",
+        "Go",
+        "React"
+      ],
+      "go": true,
+      "status": "ship",
+      "stacks": [
+        "Rust",
+        "Python",
+        "Go",
+        "React",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Rust",
+        "Python",
+        "Go",
+        "React (TS)",
+        "Prisma",
+        "Sentry",
+        "Modular Monolith",
+        "AI Pipeline"
+      ],
+      "tagline": "One tap, application sent. AI job matching that tailors every resume and cover letter.",
+      "problem": "Job hunting is repetitive: read a posting, rewrite a resume, rewrite a cover letter, repeat dozens of times. Blind auto-apply tools spam employers and damage the candidate's reputation.",
+      "solution": "Built a polyglot backend: a Rust parser for deep PDF resume extraction, Python NLP pipelines that tailor each resume and cover letter to a role, and Go orchestration services managing job dispatch queues, behind a React + TypeScript interface. A human stays in the loop: nothing is sent until the candidate taps apply.",
+      "system": "Modular monolith combining compiled Rust utilities, Python inference pipelines and Go orchestration daemons. PostgreSQL with Prisma for candidate profiles, Redis caching, distributed rate limiting to protect candidate accounts across job boards, and Sentry telemetry.",
+      "dsa": "Skill graphs from resumes are matched against parsed job descriptions with vector similarity. Token-bucket rate limiters, shared across workers, keep applications within each board's limits.",
+      "why": "Rust where parsing speed matters, Python where the NLP ecosystem lives, Go where concurrency and queues matter: each language sits where its strength is.",
+      "innovation": "Human-in-the-loop automation: the system does the tedious tailoring and matching, and the candidate keeps the final decision.",
+      "metrics": [
+        "Rust + Python + Go behind one React interface",
+        "Distributed rate limiting across global job boards",
+        "AI resume and cover-letter tailoring per posting",
+        "Human approval before any application is sent"
+      ],
+      "potential": "A career-acceleration layer for job seekers, starting with a waitlist launch.",
+      "repos": [],
+      "live": "https://topnorch.com",
+      "note": "Full-stack and product engineering across the Rust, Python and Go services and infrastructure.",
+      "shot": "/live/topnorch.jpg"
+    },
+    {
+      "id": "orhuebeauty",
+      "name": "Orhue Beauty",
+      "role": "Frontend Developer & Platform Engineering",
+      "logo": "/brands/orhuebeauty_logo.png",
+      "favicon": "/brands/orhuebeauty_favicon.ico",
+      "featured": true,
+      "industry": "Media / Luxury Beauty Tech",
+      "tags": [
+        "TypeScript",
+        "React",
+        "Cloudflare"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "React",
+        "TypeScript",
+        "Cloudflare"
+      ],
+      "chips": [
+        "React",
+        "TypeScript",
+        "FFmpeg Pipeline",
+        "Cloudflare R2",
+        "Tailwind CSS",
+        "Vite"
+      ],
+      "tagline": "Luxury bridal artistry showcase and high-definition video processing pipeline.",
+      "problem": "High-end luxury bridal portfolios require displaying ultra-high-definition 4K video reels and uncompressed imagery. Traditional video embeds cause massive mobile data egress, buffer latency, and noticeable compression artifacts that degrade brand perception.",
+      "solution": "Developed the frontend architecture and built an automated FFmpeg video processing pipeline that renders, scales, and compresses 4K beauty reels into optimized web formats, distributed globally through Cloudflare R2 object storage.",
+      "system": "Vite-powered React and TypeScript single-page application deployed with Cloudflare edge caching. Video assets are ingested, transcoded via FFmpeg into multi-bitrate streams, and stored in Cloudflare R2.",
+      "dsa": "FFmpeg multi-pass bitrate encoding with adaptive CRF quantization; lazy-loaded IntersectionObserver media mounts preventing bandwidth exhaustion on mobile viewports.",
+      "why": "TypeScript ensures compile-time interface safety across dynamic gallery media; Cloudflare R2 provides zero-egress-fee high-bandwidth media delivery.",
+      "innovation": "Lossless-perception video delivery on mobile networks, maintaining pristine bridal makeup detail and immediate video playback without layout shifts.",
+      "metrics": [
+        "Zero-egress-cost media distribution via Cloudflare R2",
+        "Automated FFmpeg compression maintaining 4K visual clarity with 70% smaller payloads",
+        "Sub-second initial paint on mobile devices"
+      ],
+      "potential": "High-end creative portfolio platform optimized for media creators with heavy video streaming needs.",
+      "repos": [],
+      "live": "https://orhuebeauty.com",
+      "note": "Frontend development and platform engineering for FFmpeg video compression and Cloudflare R2."
+    },
+    {
+      "id": "slum2stage",
+      "name": "Slum2Stage",
+      "role": "Fullstack Engineer",
+      "logo": "/brands/slum2stage_logo.svg",
+      "favicon": "/brands/slum2stage_favicon.ico",
+      "featured": true,
+      "industry": "Civic Empowerment / Non-Profit",
+      "tags": [
+        "Next.js",
+        "TypeScript"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "Next.js",
+        "React",
+        "TypeScript"
+      ],
+      "chips": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Airtable API",
+        "Tailwind CSS"
+      ],
+      "tagline": "Creative arts training and youth empowerment platform for underserved communities.",
+      "problem": "Grassroots non-profits operating in underserved communities face steep operational overhead when tracking student enrollments, volunteer applications, and donor sponsorships using static websites or disconnected forms.",
+      "solution": "Engineered a fullstack web platform in Next.js and TypeScript, integrating two-way Airtable synchronization so grassroots coordinators can manage admissions, track student performance, and coordinate donor campaigns directly from familiar spreadsheet interfaces.",
+      "system": "Next.js App Router frontend with server-side caching and dynamic revalidation against the Airtable REST API. Optimized image delivery and responsive accessibility for low-bandwidth mobile devices.",
+      "dsa": "Incremental static regeneration (ISR) with webhook-driven cache invalidation ensuring instantaneous updates whenever coordinators modify enrollment rosters.",
+      "why": "Next.js provides hybrid SSG/SSR for fast mobile loading; Airtable API eliminates complex database administration for non-technical field workers.",
+      "innovation": "Empowering non-technical community leaders with an automated, high-performance web presence that scales donor acquisition without cloud database maintenance costs.",
+      "metrics": [
+        "Live civic portal serving hundreds of aspiring youth artists",
+        "Zero-database administrative maintenance via synchronized Airtable backend",
+        "100% responsive Lighthouse score on mobile networks"
+      ],
+      "potential": "Scalable community empowerment platform adaptable for humanitarian NGOs globally.",
+      "repos": [],
+      "live": "https://slum2stage.org",
+      "note": "Fullstack engineer building Next.js platform with Airtable synchronization."
+    },
+    {
+      "id": "fourdat",
+      "name": "Fourdat",
+      "role": "Platform & Backend Systems Engineer",
+      "logo": "/brands/fourdat_logo.png",
+      "featured": true,
+      "industry": "Logistics & On-Demand Dispatch",
+      "tags": [
+        "Turborepo",
+        "Bun",
+        "Docker"
+      ],
+      "go": false,
+      "status": "full",
+      "stacks": [
+        "TypeScript",
+        "Bun",
+        "Docker",
+        "Postgres"
+      ],
+      "chips": [
+        "Turborepo Monorepo",
+        "Bun",
+        "OSRM Routing",
+        "KudiSMS",
+        "Docker Compose",
+        "PostgreSQL"
+      ],
+      "tagline": "Multi-tenant urban logistics dispatch and microsecond route optimization engine.",
+      "problem": "Urban delivery operations struggle with exorbitant routing API costs (e.g. Google Maps distance matrix), fragmented mobile apps between merchants, drivers, and customers, and unreliable SMS dispatch notifications.",
+      "solution": "Architected a unified Turborepo monorepo encompassing 5 distinct operational applications: Admin, API Gateway, Customer Portal, Driver App, and Merchant Dashboard. Integrated a self-hosted OSRM (Open Source Routing Machine) routing container for zero-cost distance calculations and KudiSMS for instant driver dispatch.",
+      "system": "Turborepo monorepo powered by Bun runtime, Docker Compose infrastructure orchestration, PostgreSQL database, and containerized OSRM routing engine. KudiSMS integration handles real-time SMS alerts.",
+      "dsa": "OSRM contraction hierarchies for sub-millisecond road-network distance matrix calculations and driver-to-package nearest-neighbor assignment.",
+      "why": "Turborepo + Bun provides blazing fast build times and unified TypeScript package sharing across 5 applications; self-hosted OSRM eliminates recurring commercial routing API fees.",
+      "innovation": "A self-contained, enterprise-grade logistics dispatch platform capable of routing thousands of urban deliveries locally with zero third-party mapping API dependencies.",
+      "metrics": [
+        "5 integrated applications managed inside a single Turborepo monorepo",
+        "Sub-millisecond route optimization via self-hosted OSRM engine",
+        "Automated SMS order dispatch via KudiSMS webhooks"
+      ],
+      "potential": "Private-fleet urban logistics network for commercial retail chains and on-demand delivery.",
+      "repos": [],
+      "live": null,
+      "note": "Pre-deployment. In-depth local monorepo architecture with OSRM and Bun."
+    },
+    {
+      "id": "mydigitalparents",
+      "name": "MyDigitalParents",
+      "role": "Full-Stack Engineer",
+      "logo": "/brands/mydigitalparents_logo.png",
+      "featured": true,
+      "industry": "Social Impact / Education",
+      "tags": [
+        "Next.js",
+        "NestJS",
+        "TypeScript"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "Next.js",
+        "NestJS",
+        "TypeScript",
+        "Postgres"
+      ],
+      "chips": [
+        "Next.js 16",
+        "NestJS",
+        "TanStack Query",
+        "Base UI",
+        "TypeScript",
+        "PostgreSQL"
+      ],
+      "tagline": "Sponsor a future, one fee at a time: anyone, anywhere, can fund an African child's education.",
+      "problem": "Families in underserved communities can't cover school fees, and would-be sponsors abroad have no trustworthy way to fund one child's education and see where the money went.",
+      "solution": "Built the operations side of the sponsorship platform: an admin dashboard where the team manages sponsorship applications, campaigns, the pooled funds account, the students being supported and the digital parents sponsoring them.",
+      "system": "Next.js 16 App Router with React 19, TanStack Query for server state and cache invalidation, Zustand for client state, Base UI headless components and Recharts for funding and sponsorship reporting. Organised into feature modules: applications, campaigns, funds pool, students, digital parents and auth.",
+      "dsa": "Server state is cached and invalidated per module, so a newly approved application updates the students list and the funds-pool totals without a page reload.",
+      "why": "The App Router and feature-module layout keep a multi-role admin surface maintainable; TanStack Query removes hand-written loading and refetch logic.",
+      "innovation": "Turning sponsorship into an accountable pipeline: application to approval to sponsored student to funds movement, visible in one dashboard.",
+      "metrics": [
+        "Admin dashboard across applications, campaigns, funds pool, students and sponsors",
+        "Next.js 16 + React 19 with TanStack Query and Zustand",
+        "Live at mydigitalparents.com"
+      ],
+      "potential": "Scaling sponsored education across more communities and countries.",
+      "repos": [],
+      "live": "https://mydigitalparents.com",
+      "note": "Full-stack engineer on the platform's admin and operations surface.",
+      "favicon": "/live/mydigitalparents-icon.png",
+      "shot": "/live/mydigitalparents.jpg"
+    },
+    {
+      "id": "onetimesurveys",
+      "name": "OneTimeSurveys",
+      "role": "Fullstack Systems Architect & Reliability Engineer",
+      "logo": "/brands/onetimesurveys_logo.png",
+      "featured": true,
+      "industry": "Data Integrity & Cryptographic Polling",
+      "tags": [
+        "Go",
+        "Next.js",
+        "Signal Protocol",
+        "Playwright"
+      ],
+      "go": true,
+      "status": "ship",
+      "stacks": [
+        "Go 1.25",
+        "Fiber",
+        "Next.js",
+        "TypeScript",
+        "Signal Protocol",
+        "Playwright"
+      ],
+      "chips": [
+        "Go 1.25",
+        "Fiber v2",
+        "Signal Protocol",
+        "Next.js",
+        "TypeScript",
+        "Playwright E2E",
+        "pgx/v5",
+        "Redis",
+        "Production Auto-Repair"
+      ],
+      "tagline": "Zero-knowledge, cryptographic polling infrastructure combining a Go 1.25 Fiber engine, Signal Protocol client-side encryption, and autonomous self-healing production diagnostics.",
+      "problem": "Online surveys and public opinion polls frequently suffer from ballot-stuffing, bot attacks, and silent production pipeline degradation where submission errors go unnoticed until after campaign deadlines.",
+      "solution": "Architected an end-to-end cryptographic polling platform uniting a high-throughput Go 1.25 (Fiber v2) backend with a Next.js App Router client. Integrated @privacyresearch/libsignal-protocol-typescript for client-side cryptographic tokenization and zero-knowledge ballot secrecy. Engineered an automated site-reliability daemon (diagnose-production, fix-production-issues, Playwright E2E) that actively detects and self-heals production drift in real-time.",
+      "system": "Compiled Go 1.25 Fiber microservices backend with pgx/v5 pooling and Redis locks, fronted by a Next.js client executing client-side Signal Protocol cryptographic blinding before ballot submission.",
+      "dsa": "SIGNAL PROTOCOL ENCRYPTION & TOKEN BLINDING: Single-use blinding tokens validated via atomic pgx transactions with Redis distributed locks; client-side Signal Protocol key exchanges guarantee zero correlation between respondent identities and submitted ballots.",
+      "why": "Go Fiber provides sub-millisecond throughput for high-volume vote casting; Signal Protocol delivers mathematical zero-knowledge privacy guarantees directly in the browser.",
+      "innovation": "Self-healing cryptographic voting architecture where ballot corruption is mathematically impossible and production incidents trigger automated diagnostic and repair runs.",
+      "metrics": [
+        "Go 1.25 Fiber + Signal Protocol zero-knowledge cryptography",
+        "Autonomous production diagnostic & auto-repair daemon",
+        "100% automated Playwright E2E test coverage"
+      ],
+      "potential": "Enterprise-grade verifiable polling and whistleblower submission infrastructure.",
+      "repos": [],
+      "live": null,
+      "note": "Go Fiber backend, Signal Protocol cryptography, and automated self-healing diagnostic suite."
+    },
+    {
       "id": "akin",
       "name": "Akin",
+      "role": "Systems Architect & Backend Engineer",
       "industry": "Mobility / Impact",
-      "tags": ["Go", "Polyglot"],
+      "tags": [
+        "Go",
+        "Polyglot"
+      ],
       "go": true,
       "status": "full",
-      "stacks": ["Go", "React", "Postgres", "Redis"],
-      "chips": ["Go", "Fiber", "GORM", "Postgres", "Redis", "Paystack", "React PWA"],
+      "stacks": [
+        "Go",
+        "React",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Go",
+        "Fiber",
+        "GORM",
+        "Postgres",
+        "Redis",
+        "Paystack",
+        "React PWA"
+      ],
       "tagline": "Keeps students in class when they cannot afford the commute.",
       "problem": "In a large cohort, attendance is bimodal. Some students quietly drop out because the daily trip costs more than they have, and the gap stays invisible until someone has already stopped showing up. A public donation board humiliates. Ad-hoc cash never reconciles. Just carpool has no safety net.",
       "solution": "Two coordinated rails over one shared identity and an audited ledger: a pooled cash Transport Fund that givers contribute to through Paystack, and an in-kind ride network. The metric it optimises for is retention with dignity, not money raised.",
@@ -16,21 +520,51 @@
       "dsa": "The wallet ledger uses pessimistic row locking (GORM clause.Locking strength UPDATE, a SELECT FOR UPDATE) so two concurrent disbursements can never double-spend the fund. Worker pools coordinate the two rails in real time.",
       "why": "Go and Fiber for concurrent coordination of two rails plus live WebSocket updates. A React PWA because the people who need this are on cheap phones and flaky networks, and the app has to load anyway.",
       "innovation": "Dignity is encoded into the architecture, not bolted on. A cash rail and an in-kind rail reconcile inside one ledger, so help looks like a quiet transaction rather than a charity feed with someone's name on it.",
-      "metrics": ["zero double-spend via locked-ledger disbursement", "real-time ride coordination over WebSocket", "designed for a 500-person cohort, scales to a campus", "11.5k lines of Go"],
+      "metrics": [
+        "zero double-spend via locked-ledger disbursement",
+        "real-time ride coordination over WebSocket",
+        "designed for a 500-person cohort, scales to a campus",
+        "11.5k lines of Go"
+      ],
       "potential": "Campus-wide rollouts, NGO and CSR-funded programs, and any community where transport cost is a silent dropout driver.",
-      "repos": [["full-stack", "https://github.com/ObeeJ/transport-api"], ["backend", "https://github.com/ObeeJ/akin-serverside"]],
+      "repos": [
+        [
+          "full-stack",
+          "https://github.com/ObeeJ/transport-api"
+        ],
+        [
+          "backend",
+          "https://github.com/ObeeJ/akin-serverside"
+        ]
+      ],
       "live": "https://useakin.vercel.app",
       "note": null
     },
     {
       "id": "corvus",
       "name": "Corvus",
+      "role": "Systems Architect & Core Engineer",
       "industry": "Security",
-      "tags": ["Go"],
+      "tags": [
+        "Go"
+      ],
       "go": true,
       "status": "full",
-      "stacks": ["Go", "Next.js", "React", "Postgres", "Redis"],
-      "chips": ["Go 1.25", "Fiber", "WebSocket", "bbolt", "Next.js 16", "NaCl mesh"],
+      "stacks": [
+        "Go",
+        "Next.js",
+        "React",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Go 1.25",
+        "Fiber",
+        "WebSocket",
+        "bbolt",
+        "Next.js 16",
+        "NaCl mesh"
+      ],
       "tagline": "A network scanner that remembers.",
       "problem": "nmap, masscan and rustscan answer one question, what is open right now, then throw the state away. In security the signal that matters is the change: what appeared, what vanished, when, and why.",
       "solution": "A stateful network intelligence engine. Corvus versions every host, port and service observation as a time series, diffs each scan against history, fuses passive intelligence before scanning, surfaces anomalies, correlates CVEs, and answers questions in plain English. Solo-built full-stack: 10.7k lines of Go across 24 packages plus a 7.6k-line Next.js dashboard.",
@@ -38,43 +572,99 @@
       "dsa": "Temporal records are keyed by big-endian timestamps, so the store's natural key order is chronological and history range-scans become a single cursor seek. The diff engine is a set reconciliation of ports seen this scan against ports the store believes open, which is how closed ports get detected. Token-bucket rate limiting governs scan rate, and worker pools fan out the scanning.",
       "why": "Go gives a single static binary, goroutine-driven concurrency for scanning thousands of endpoints at once, and a first-class network stack. Next.js carries the streaming dashboard.",
       "innovation": "Change is a first-class event, not a diff you compute by hand. Predictive intelligence scores a target from DNS, ASN and certificate-transparency data before a single packet is sent, so scanning starts smart instead of brute-forcing 65,535 ports.",
-      "metrics": ["thousands of hosts scanned concurrently per node", "sub-second delta detection per scan cycle", "horizontal scaling via a leaderless mesh", "race-tested CI on every push"],
+      "metrics": [
+        "thousands of hosts scanned concurrently per node",
+        "sub-second delta detection per scan cycle",
+        "horizontal scaling via a leaderless mesh",
+        "race-tested CI on every push"
+      ],
       "potential": "Continuous attack-surface monitoring and cloud-drift detection as a product. The temporal core is a moat competitors structurally lack.",
-      "repos": [["full-stack", "https://github.com/ObeeJ/corvus"], ["backend engine", "https://github.com/ObeeJ/corvus-serverside"]],
+      "repos": [
+        [
+          "full-stack",
+          "https://github.com/ObeeJ/corvus"
+        ],
+        [
+          "backend engine",
+          "https://github.com/ObeeJ/corvus-serverside"
+        ]
+      ],
       "live": null,
       "note": null
     },
     {
       "id": "gopayrollengine",
       "name": "go-payroll-engine",
+      "role": "Backend Systems Engineer",
       "industry": "Fintech",
-      "tags": ["Go"],
+      "tags": [
+        "Go"
+      ],
       "go": true,
       "status": "wip",
-      "stacks": ["Go", "Redis", "Postgres"],
-      "chips": ["Go 1.25", "Gin", "GORM", "Postgres", "Redis", "asynq", "Prometheus"],
+      "stacks": [
+        "Go",
+        "Redis",
+        "Postgres"
+      ],
+      "chips": [
+        "Go 1.25",
+        "Gin",
+        "GORM",
+        "Postgres",
+        "Redis",
+        "asynq",
+        "Prometheus"
+      ],
       "tagline": "Async bulk salary disbursement, built to fintech production standards.",
       "problem": "Paying thousands of people at once is a correctness problem, not a CRUD problem. Duplicate payouts, failed retries and compliance are where payroll systems break. And the salary-advance market beside it traps workers in roughly 30 percent interest loans.",
       "solution": "An async bulk disbursement engine that batches payouts onto a job queue, dedups aggressively, and treats every payment as idempotent. Compliance with PCI DSS, NDPR, SOC 2 and CBN is designed in from the start rather than retrofitted.",
       "system": "A Gin API in front of GORM, Postgres and Redis, with asynq running the disbursement workers off a queue, Prometheus for observability, golang-migrate for schema, and JWT auth. Provider webhooks feed back through deduplicated handlers.",
       "dsa": "A Redis-backed Bloom filter gives O(1) duplicate-webhook detection at roughly 1 percent false-positive and zero false-negative. An LRU cache holds per-key rate limiters so each tenant is throttled independently. Idempotency keys in Redis with a 24h TTL make retries safe. asynq provides priority worker queues.",
       "why": "Go for high-throughput concurrent disbursement with predictable latency, a mature async-queue ecosystem in asynq, and a strong fintech tooling story.",
-      "innovation": "Earned-wage access without the debt trap. Instead of a 30 percent loan, an employee draws a slice of pay they have already earned, accrued daily from verified work. Three guardrails keep it healthy: a tapering access curve that shrinks the available percentage as payday nears, an automatic micro-savings skim that locks a small cut of every advance into savings, and a financial-health score that rewards restraint with better terms. Early access that builds a cushion instead of a habit, riding the same idempotent, deduped rails the engine already runs.",
-      "metrics": ["thousands of payees per batch run", "near-zero duplicate payouts via bloom and idempotency", "bounded p99 via async queue back-pressure", "4.2k lines of Go"],
+      "innovation": "Earned-wage access without the debt trap. Instead of a 30 percent loan, an employee draws a slice of pay they have already earned, accrued daily from verified work. Three guardrails keep it healthy: a tapering access curve that shrinks the available percentage as payday nears, an automatic micro-savings skim that locks a small cut of every advance into savings, and a financial-health score that rewards restraint with better terms.",
+      "metrics": [
+        "thousands of payees per batch run",
+        "near-zero duplicate payouts via bloom and idempotency",
+        "bounded p99 via async queue back-pressure",
+        "4.2k lines of Go"
+      ],
       "potential": "Payroll-as-infrastructure for African SMEs, with the earned-wage-access layer as a humane alternative to predatory advances.",
-      "repos": [["repo", "https://github.com/ObeeJ/gopayrollengine"]],
+      "repos": [
+        [
+          "repo",
+          "https://github.com/ObeeJ/gopayrollengine"
+        ]
+      ],
       "live": null,
       "note": "Work in progress. Earned-wage-access layer in design."
     },
     {
       "id": "bukr",
       "name": "Bukr",
+      "role": "Systems Architect & Core Engineer",
       "industry": "Events",
-      "tags": ["Rust", "Polyglot"],
+      "tags": [
+        "Rust",
+        "Polyglot"
+      ],
       "go": true,
       "status": "full",
-      "stacks": ["Go", "Rust", "React", "Postgres", "Redis"],
-      "chips": ["Go/Fiber gateway", "Rust/Axum core", "gRPC", "Supabase", "Redis", "Vite/React"],
+      "stacks": [
+        "Go",
+        "Rust",
+        "React",
+        "Postgres",
+        "Redis"
+      ],
+      "chips": [
+        "Go/Fiber gateway",
+        "Rust/Axum core",
+        "gRPC",
+        "Supabase",
+        "Redis",
+        "Vite/React"
+      ],
       "tagline": "Cloud-native ticketing where inventory cannot oversell.",
       "problem": "Event ticketing fails in two predictable ways. It oversells under burst load when everyone buys at once, and the fee model quietly erodes trust. Both are architecture problems, not bad luck.",
       "solution": "A polyglot modular monolith. A Go and Fiber gateway owns auth, events, users and orchestration. A Rust and Axum core owns the correctness and throughput critical path: tickets, the gate scanner, payments and analytics. Supabase and Postgres for data and auth, Redis for cache and sessions.",
@@ -82,21 +672,49 @@
       "dsa": "SELECT FOR UPDATE row locking inside transactions guards invite-token redemption, credit balances and influencer earnings, so two concurrent requests cannot double-redeem or oversell. The system uses heap-based ordering and per-route rate limiting, and the gateway-core split is itself a decision about where correctness must be strongest.",
       "why": "Go for the I/O-bound gateway where developer velocity and concurrency win, and Rust for the hot path where memory safety and raw throughput on ticket inventory and payments matter most.",
       "innovation": "A dual-language modular monolith that puts the language where it earns its keep, plus an influencer-driven distribution engine and a hybrid smart-pricing fee model designed against local market benchmarks.",
-      "metrics": ["oversell-proof sales under burst via row locks", "low-latency gate validation from the Rust core", "Redis-cached hot reads and sessions", "11k Go plus a Rust core plus a 175-file React frontend"],
+      "metrics": [
+        "oversell-proof sales under burst via row locks",
+        "low-latency gate validation from the Rust core",
+        "Redis-cached hot reads and sessions",
+        "11k Go plus a Rust core plus a 175-file React frontend"
+      ],
       "potential": "A pan-African ticketing and event platform where reliability under a flash sale is the whole differentiator.",
-      "repos": [["architecture", "https://github.com/ObeeJ/Bukr/blob/main/BACKEND_ARCHITECTURE.md"], ["backend", "https://github.com/ObeeJ/Bukr/tree/main/backend"]],
+      "repos": [
+        [
+          "architecture",
+          "https://github.com/ObeeJ/Bukr/blob/main/BACKEND_ARCHITECTURE.md"
+        ],
+        [
+          "backend",
+          "https://github.com/ObeeJ/Bukr/tree/main/backend"
+        ]
+      ],
       "live": null,
       "note": null
     },
     {
       "id": "fleetform",
       "name": "Fleetform",
+      "role": "Core Systems Engineer",
       "industry": "DevOps / Infra",
-      "tags": ["Rust", "Go"],
+      "tags": [
+        "Rust",
+        "Go"
+      ],
       "go": true,
       "status": "wip",
-      "stacks": ["Rust", "Go", "Cloud/IaC"],
-      "chips": ["Rust core", "Go/Fiber UI", "petgraph", "HCL", "S3/Consul state"],
+      "stacks": [
+        "Rust",
+        "Go",
+        "Cloud/IaC"
+      ],
+      "chips": [
+        "Rust core",
+        "Go/Fiber UI",
+        "petgraph",
+        "HCL",
+        "S3/Consul state"
+      ],
       "tagline": "Infrastructure as code with a memory-safe core and a live graph.",
       "problem": "IaC planners are powerful but opaque. You apply and hope the ordering is right. And the dominant engines run on a garbage-collected runtime where a state-graph bug becomes a footgun.",
       "solution": "A Rust core engine that plans and applies infrastructure with a memory-safe state and dependency model, paired with a Go and Fiber web dashboard that streams plan progress and renders the dependency graph in real time. HCL config, a module system, and multi-backend state across file, S3 and Consul.",
@@ -104,99 +722,125 @@
       "dsa": "The heart of the planner is a resource dependency DAG with topological sort via petgraph toposort and cycle detection, so apply order is provably correct and cycles fail loudly instead of corrupting state.",
       "why": "Rust for the safety-critical graph and state engine where a bug means broken infrastructure, and Go with Fiber for the real-time web layer where iteration speed matters.",
       "innovation": "A live dependency-graph dashboard over a compiled, memory-safe core. An IaC tool that shows you the shape of your infrastructure as it plans.",
-      "metrics": ["deterministic plan ordering via toposort", "compiled-core speed over interpreted planners", "multi-backend state across file, S3 and Consul"],
+      "metrics": [
+        "deterministic plan ordering via toposort",
+        "compiled-core speed over interpreted planners",
+        "multi-backend state across file, S3 and Consul"
+      ],
       "potential": "An open-source IaC alternative for teams that want safety and visibility, not just parity.",
-      "repos": [["repo", "https://github.com/ObeeJ/fleetform"]],
+      "repos": [
+        [
+          "repo",
+          "https://github.com/ObeeJ/fleetform"
+        ]
+      ],
       "live": null,
       "note": "Early-stage. Rust core plus Go UI."
     },
     {
-      "id": "opstool",
-      "name": "OpsTool",
-      "industry": "DevOps / Infra",
-      "tags": ["Polyglot"],
-      "go": true,
-      "status": "ship",
-      "stacks": ["Go", "Python", "Redis", "Postgres"],
-      "chips": ["Go", "Gin", "Python", "Postgres", "Redis", "WebSocket", "cron"],
-      "tagline": "DevOps automation: Go performance, Python reach.",
-      "problem": "Ops automation usually ends up as a pile of unscheduled scripts with no visibility. Teams need scheduled, observable, repeatable automation behind one surface.",
-      "solution": "A platform that pairs a Go API for the performant concurrent core with Python workers for the automation ecosystem, scheduled and observable, with a dashboard on top.",
-      "system": "A Gin API over GORM, Postgres and Redis, gorilla/websocket for live job status, Prometheus metrics, and robfig/cron driving scheduled jobs. Python handles the automation glue, and a frontend dashboard surfaces it.",
-      "dsa": "Cron-based scheduling for recurring jobs, mutex-guarded shared state for concurrent workers, and per-route rate limiting. The Go and Python split is the core system-design call: performance where it counts, ecosystem where it helps.",
-      "why": "Go for the concurrent, low-latency API and scheduler, and Python because the operational automation libraries and glue live there.",
-      "innovation": "A hybrid internal-developer-platform shape: one language for speed, one for breadth, unified behind a single scheduled and observable control plane.",
-      "metrics": ["scheduled automation across fleets", "real-time job status over WebSocket", "Prometheus-instrumented throughout", "2k Go plus 17 Python modules"],
-      "potential": "An internal developer platform for small teams that cannot justify a full platform org.",
-      "repos": [["repo", "https://github.com/ObeeJ/opstool"]],
-      "live": null,
-      "note": null
+      "id": "cowri",
+      "name": "Cowri",
+      "role": "Lead Systems Architect & Core Developer",
+      "industry": "Fintech / Rotating Savings",
+      "tags": [
+        "Rust",
+        "GlideAPI",
+        "PostgreSQL",
+        "Paystack"
+      ],
+      "go": false,
+      "status": "full",
+      "stacks": [
+        "Rust",
+        "GlideAPI",
+        "Tokio",
+        "PostgreSQL",
+        "React 19",
+        "Paystack"
+      ],
+      "chips": [
+        "Rust",
+        "GlideAPI",
+        "Tokio",
+        "PostgreSQL",
+        "React 19",
+        "TanStack",
+        "Paystack DVA",
+        "Cloudflare"
+      ],
+      "tagline": "Rotating savings (Ajo/Esusu), multi-party bill-splitting, and automated Paystack DVA reconciliation.",
+      "problem": "Informal rotating credit associations (Ajo/Esusu) and shared group expenses suffer from manual book-keeping errors, default risks, and reconciliation drift between bank transfers and platform ledgers.",
+      "solution": "Built a cryptographic double-entry ledger with automated Paystack Dedicated Virtual Account (DVA) reconciliation. Enforces atomic balance reservations across group cycles with zero double-crediting.",
+      "system": "Compiled Rust backend built on GlideAPI and Tokio with PostgreSQL transactional isolation. Fronted by a React 19 single-page application with TanStack Router and Query.",
+      "dsa": "Two-phase atomic debit/credit operations with idempotency keys guarantee zero ledger leakage across ROSCA cycles; automated Paystack webhook signature verification.",
+      "why": "Rust and GlideAPI provide sub-millisecond execution and compile-time correctness guarantees for multi-party financial state machines.",
+      "innovation": "Combines cultural rotating savings mechanics with institutional-grade ledger guarantees and zero-human-touch bank account creation.",
+      "metrics": [
+        "Zero ledger drift across concurrent group disbursements",
+        "Automated Paystack DVA provisioning",
+        "React 19 + TanStack high-density UI"
+      ],
+      "potential": "Pan-African social liquidity and rotating group treasury platform.",
+      "repos": [
+        [
+          "repo",
+          "https://github.com/ObeeJ/Cowri"
+        ]
+      ],
+      "live": "https://github.com/ObeeJ/Cowri",
+      "note": "Production core in Rust (GlideAPI) and React 19."
     },
     {
-      "id": "carbonapi",
-      "name": "CarbonAPI",
-      "industry": "ClimateTech",
-      "tags": ["Go"],
-      "go": true,
-      "status": "ship",
-      "stacks": ["Go", "Cloud/IaC"],
-      "chips": ["Go", "REST", "Terraform", "Docker"],
-      "tagline": "Instant carbon footprint calculation as an API.",
-      "problem": "Every company now has to track emissions for ESG compliance, but the incumbents are slow, taking days to weeks, expensive at 10K to 100K dollar licenses, and manual through spreadsheet uploads. Carbon math should not take a procurement cycle.",
-      "solution": "A Go REST API that returns a carbon footprint for any activity in milliseconds, deployed reproducibly through Terraform. Post an activity, get a number.",
-      "system": "A stateless Go service over emission-factor lookup tables, containerised and provisioned with Terraform so it scales horizontally behind a load balancer. No session state means trivial replication.",
-      "dsa": "Emission-factor lookup tables for O(1) factor resolution, and a stateless compute model so throughput scales linearly with instances.",
-      "why": "Go for fast cold-start, a single cheap binary, and predictable latency at API scale, the qualities that let a calculation API undercut enterprise licences.",
-      "innovation": "Carbon as an API. A primitive you embed in a checkout, a logistics quote or a sustainability dashboard, rather than a six-figure platform.",
-      "metrics": ["millisecond calculations versus days", "stateless horizontal scale", "IaC-reproducible deploys"],
-      "potential": "Embed in e-commerce checkouts and logistics pricing, a usage-priced ESG primitive for developers.",
-      "repos": [["repo", "https://github.com/ObeeJ/Terraform-DevOps-Practices"]],
-      "live": null,
-      "note": "Focused Go plus Terraform build."
-    },
-    {
-      "id": "era",
-      "name": "ERA Full Cloud DevOps",
-      "industry": "DevOps / Infra",
-      "tags": ["Cloud"],
+      "id": "theflate",
+      "name": "theflate",
+      "role": "Systems Engineer & AI Pipeline Architect",
+      "industry": "Media / Audio & Video AI",
+      "tags": [
+        "Rust",
+        "GlideAPI",
+        "Whisper",
+        "FFmpeg"
+      ],
       "go": false,
       "status": "ship",
-      "stacks": ["Cloud/IaC", "Python"],
-      "chips": ["Terraform", "Kubernetes", "Kafka", "AWS", "Docker", "CI/CD"],
-      "tagline": "Taking an app cloud-native, end to end.",
-      "problem": "Plenty of apps work on a laptop and fall over in production. The gap is operational: reproducible infrastructure, orchestration, autoscaling, event flow and security.",
-      "solution": "An Enterprise Resource Allocation app transformed into a cloud-native platform: complete AWS infrastructure as code, Kubernetes orchestration with autoscaling, event-driven messaging with Kafka, and container-security best practices.",
-      "system": "Terraform provisions AWS. Kubernetes runs the services with horizontal autoscaling. Kafka carries events between microservices. CI/CD automates build and deploy. The application is the payload, the cloud architecture is the point.",
-      "dsa": "Event-driven decoupling via Kafka topics and capacity-aware scheduling through Kubernetes autoscaling policies. System design over algorithms here.",
-      "why": "This one is infrastructure-first. It exists to demonstrate the CKA and AWS skill set: making something real run reproducibly and scale on demand.",
-      "innovation": "A legacy-to-cloud-native transformation captured as code, with architecture decision records, so the how is reproducible rather than folklore.",
-      "metrics": ["reproducible environments via Terraform", "autoscaling under load on Kubernetes", "event-driven microservices over Kafka"],
-      "potential": "A template for taking ordinary applications to production-grade cloud infrastructure.",
-      "repos": [["repo", "https://github.com/ObeeJ/ERA-Full-Cloud-DevOps"]],
-      "live": null,
-      "note": "Application is Node. The value is the cloud and infrastructure layer."
-    },
-    {
-      "id": "productcatalog",
-      "name": "ProductCatalogAPI",
-      "industry": "E-commerce",
-      "tags": [".NET"],
-      "go": false,
-      "status": "ship",
-      "stacks": [".NET", "Postgres"],
-      "chips": [".NET 9", "ASP.NET Core", "EF Core", "Postgres/SQLite"],
-      "tagline": "An e-commerce API that refuses to oversell.",
-      "problem": "During traffic spikes, multiple customers buy the last unit at the same instant, and naive systems oversell, creating refunds, angry customers and reconciliation pain.",
-      "solution": "A clean-architecture .NET Core Web API for catalog and orders, with concurrency control that makes simultaneous purchases safe and stock decrements correct.",
-      "system": "ASP.NET Core with Entity Framework Core over Postgres, SQLite in dev, organised in SOLID layers. Order placement runs inside transactions with concurrency checks on stock.",
-      "dsa": "Concurrency control on inventory through row and optimistic locking and transactional order processing, so the last-unit race resolves to exactly one winner.",
-      "why": ".NET and EF Core for a strongly-typed, clean-architecture e-commerce backend. Included to show range beyond Go: the concurrency thinking is the same, the runtime is different.",
-      "innovation": "A reference implementation of correctness under concurrency for inventory, the failure mode most e-commerce demos ignore.",
-      "metrics": ["zero oversell under simultaneous orders", "transactional order processing", "SOLID clean-architecture layering"],
-      "potential": "A correctness baseline any commerce backend can adopt for inventory integrity.",
-      "repos": [["repo", "https://github.com/ObeeJ/ProductCatalogAPI"]],
-      "live": null,
-      "note": null
+      "stacks": [
+        "Rust",
+        "GlideAPI",
+        "FFmpeg",
+        "Whisper Large-v3",
+        "Next.js 16",
+        "SQLite"
+      ],
+      "chips": [
+        "Rust",
+        "GlideAPI",
+        "FFmpeg",
+        "Whisper Large-v3",
+        "Next.js 16",
+        "SQLite",
+        "Local AI"
+      ],
+      "tagline": "Instant media compression, multi-platform media downloader, and local OpenAI Whisper Large-v3 transcription.",
+      "problem": "Video compression and speech-to-text transcription typically demand expensive cloud APIs that compromise privacy and incur massive egress and model inference bills.",
+      "solution": "Engineered an edge media engine pairing a Rust backend (GlideAPI) with an automated multithreaded FFmpeg pipeline and an embedded OpenAI Whisper Large-v3 quantization engine running entirely on local CPU/GPU hardware.",
+      "system": "GlideAPI Rust server streaming raw audio and video buffers directly through FFmpeg sub-processes and local Whisper neural network pipelines, managed by Next.js 16 and SQLite persistence.",
+      "dsa": "Threaded FFmpeg streaming pipeline coupled with local OpenAI Whisper Large-v3 neural transcription on raw audio memory buffers; zero external network calls.",
+      "why": "Rust memory safety and GlideAPI streaming pipelines ensure zero buffer corruption when multiplexing high-bitrate video streams and large audio tensors.",
+      "innovation": "High-throughput media compression and speech-to-text transcription with complete data privacy and zero per-minute cloud API fees.",
+      "metrics": [
+        "Two-pass H.265 compression with >70% file size reduction",
+        "Local Whisper Large-v3 zero-cloud transcription",
+        "Sub-millisecond API response times via GlideAPI"
+      ],
+      "potential": "Self-hosted media workflow and transcription workstation for creators and privacy-first enterprises.",
+      "repos": [
+        [
+          "repo",
+          "https://github.com/ObeeJ/theflate"
+        ]
+      ],
+      "live": "https://github.com/ObeeJ/theflate",
+      "note": "Rust + GlideAPI backend, Next.js 16 frontend, local Whisper Large-v3."
     }
   ]
 }

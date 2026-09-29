@@ -1,0 +1,39 @@
+.skd-scroll-stack[data-contained] .scroll-stack-card {
+  width: 94%;
+  height: calc(var(--scroll-stack-viewport) * 0.64);
+  min-height: 220px;
+  border-radius: 24px;
+  padding: 6%;
+  flex-direction: row;
+}
+.skd-scroll-stack[data-contained] .scroll-stack-title {
+  font-size: clamp(20px, 4.5cqw, 34px);
+}
+.skd-scroll-stack[data-contained] .scroll-stack-description {
+  font-size: clamp(12px, 1.8cqw, 16px);
+  text-align: left;
+}
+.skd-scroll-stack .scroll-stack-signature {
+  width: 96px;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 12px;
+  opacity: 0.92;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skd-scroll-stack .scroll-stack-row {
+    min-height: 0;
+    margin-top: 0;
+    padding-bottom: 24px;
+  }
+  .skd-scroll-stack .scroll-stack-sticky {
+    position: relative;
+    top: 0;
+  }
+}
+.skd-scroll-stack[data-contained] {
+  padding: 0;
+}
+.skd-scroll-stack[data-contained] > div {
+  padding: 8% 4%;
+}
