@@ -925,6 +925,58 @@
       ],
       "live": "https://github.com/ObeeJ/theflate",
       "note": "Rust + GlideAPI backend, Next.js 16 frontend, local Whisper Large-v3."
+    },
+    {
+      "id": "glideapi",
+      "name": "GlideAPI",
+      "role": "Author & Maintainer",
+      "industry": "Developer Tools / Open Source",
+      "tags": [
+        "Rust"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "Rust"
+      ],
+      "chips": [
+        "Rust",
+        "Tokio",
+        "hyper",
+        "Serde",
+        "OpenAPI 3.0",
+        "Procedural Macros"
+      ],
+      "tagline": "A Rust web framework I published to crates.io: FastAPI-style ergonomics with Actix-level performance.",
+      "problem": "Rust web frameworks are fast but verbose: routing, validation, dependency wiring and API docs all ask for boilerplate. Teams coming from FastAPI or Express expect to declare a route and get docs, typed inputs and sane defaults for free.",
+      "solution": "Designed and published GlideAPI, an ergonomic web framework on Tokio and hyper. Routes are declared with #[get]/#[post]/#[put]/#[delete] attribute macros and auto-registered with a single .mount_routes() call. Typed State<T> injection replaces Arc<Mutex> noise, a unified Result<T> replaces Box<dyn Error>, and middleware is a composable async fn(req, next) chain.",
+      "system": "A Tokio + hyper core with a procedural-macro crate (glideapi_macros) that registers handlers at compile time via linkme. Every app gets an auto-generated OpenAPI 3.0 document at /_openapi.json and Swagger UI at /_docs, an x-request-id on every response, a default 1 MB body limit and 30 s request timeout, graceful shutdown on Ctrl+C / SIGTERM, and structured logging through tracing.",
+      "dsa": "Route registration happens at compile time (linkme distributed slices), so there is no runtime routing table to build by hand and no forgotten registration. Request validation and typed parameters are enforced by the macros before a handler runs.",
+      "why": "Rust for predictable latency and memory safety; Tokio and hyper for the async runtime and HTTP core; attribute macros to give a Python/TypeScript-style developer experience without giving up compile-time guarantees.",
+      "innovation": "Bringing decorator-style routing, automatic OpenAPI and Swagger UI, and typed dependency injection to Rust in one crate, with zero boilerplate to start a service.",
+      "metrics": [
+        "Published on crates.io as glideapi (v0.1.3), documented on docs.rs",
+        "Automatic OpenAPI 3.0 and Swagger UI on every app",
+        "Decorator-style routing with compile-time route registration",
+        "Runs in production-style projects of mine: Cowri and theflate"
+      ],
+      "potential": "A batteries-included Rust framework for teams who want FastAPI-style speed of development on a compiled, memory-safe stack.",
+      "repos": [
+        [
+          "crates.io",
+          "https://crates.io/crates/glideapi"
+        ],
+        [
+          "docs.rs",
+          "https://docs.rs/glideapi"
+        ],
+        [
+          "source",
+          "https://github.com/ObeeJ/glideapi"
+        ]
+      ],
+      "live": null,
+      "note": "Authored and published by me. Anyone can add it with `cargo add glideapi` and use it in their own services."
     }
   ]
 }

@@ -332,6 +332,19 @@ const PROPRIETARY_SYSTEMS = [
     href: "https://github.com/ObeeJ/theflate",
   },
   {
+    id: "glideapi",
+    name: "GlideAPI",
+    subtitle: "Published Rust Web Framework · crates.io",
+    tagline: "A framework I published for anyone to use: FastAPI-style ergonomics with Actix-level performance.",
+    solution:
+      "Decorator-style routing on Tokio and hyper. Declare #[get]/#[post] handlers, call .mount_routes() once, and get OpenAPI 3.0, Swagger UI, typed State<T>, middleware, request IDs, timeouts and graceful shutdown out of the box. Install it with cargo add glideapi.",
+    primitive: "Routes register at compile time, so there is no runtime routing table to build by hand and no forgotten registration.",
+    stack: ["Rust", "Tokio", "hyper", "Serde", "OpenAPI"],
+    metric: "On crates.io · v0.1.3 · docs on docs.rs",
+    badge: "Rust · Published",
+    href: "https://crates.io/crates/glideapi",
+  },
+  {
     id: "fleetform",
     name: "Fleetform",
     subtitle: "Memory-Safe IaC Engine & Topology Graph (In Active Development)",
@@ -774,18 +787,18 @@ export default function Home() {
                   className="system-card crosshair-corner crosshair-corner-tl crosshair-corner-tr crosshair-corner-bl crosshair-corner-br"
                 >
                   <div className="system-card-top">
-                    <div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-                        <h4 className="wordmark" style={{ fontSize: 24, margin: 0, color: "var(--paper)" }}>
+                    <div className="system-card-header-left">
+                      <div className="system-card-title-row">
+                        <h4 className="wordmark system-card-name">
                           {p.name}
                         </h4>
                         <span className="mono system-lang-pill">{p.badge}</span>
                       </div>
-                      <div className="mono" style={{ fontSize: 11, color: "var(--accent)", letterSpacing: ".06em" }}>
+                      <div className="mono system-card-subtitle">
                         {p.subtitle}
                       </div>
                     </div>
-                    <span className="mono" style={{ fontSize: 9.5, color: "var(--faint)", letterSpacing: ".12em" }}>
+                    <span className="mono system-card-sysid">
                       SYS // {p.id.toUpperCase()}
                     </span>
                   </div>
@@ -1024,16 +1037,53 @@ export default function Home() {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
+          gap: 16px;
           padding-bottom: 14px;
           border-bottom: 1px solid var(--line-2);
         }
+        .system-card-header-left {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-width: 0;
+          flex: 1;
+        }
+        .system-card-title-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+        .system-card-name {
+          font-size: 24px;
+          margin: 0;
+          color: var(--paper);
+          line-height: 1.1;
+        }
         .system-lang-pill {
           font-size: 9.5px;
-          padding: 2px 7px;
+          padding: 2px 8px;
           background: var(--ink-2);
           border: 1px solid var(--line);
           color: var(--accent);
           font-weight: 500;
+          border-radius: 2px;
+          white-space: nowrap;
+        }
+        .system-card-subtitle {
+          font-size: 11px;
+          color: var(--accent);
+          letter-spacing: .06em;
+          line-height: 1.4;
+          margin-top: 2px;
+        }
+        .system-card-sysid {
+          font-size: 9.5px;
+          color: var(--faint);
+          letter-spacing: .12em;
+          white-space: nowrap;
+          flex-shrink: 0;
+          padding-top: 4px;
         }
         .system-card-mid {
           padding: 16px 0;
@@ -1104,18 +1154,25 @@ export default function Home() {
           }
           .system-card-top {
             flex-direction: column;
-            gap: 6px;
+            align-items: flex-start;
+            gap: 8px;
+          }
+          .system-card-sysid {
+            padding-top: 0;
+            order: -1;
+            font-size: 9px;
+            opacity: 0.8;
           }
           .system-card-action {
             flex-direction: column;
             align-items: stretch;
             gap: 12px;
-            padding-top: 12px;
+            padding-top: 14px;
           }
           .system-inspect-btn {
             width: 100%;
             justify-content: center;
-            padding: 11px 16px;
+            padding: 12px 16px;
             font-size: 11px;
             font-weight: 600;
           }

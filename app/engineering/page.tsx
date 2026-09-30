@@ -371,6 +371,46 @@ export default function Engineering() {
             accent="Real fixes on real projects."
             lead="Security and correctness fixes to the Go libraries that half the internet's backends depend on."
           />
+          <div className="pub">
+            <div className="pub-main">
+              <div className="mono pub-k">published on crates.io</div>
+              <h3 className="pub-h">GlideAPI</h3>
+              <p className="pub-p">
+                A Rust web framework I wrote and published for anyone to use. Declare routes with <code>#[get]</code> and{" "}
+                <code>#[post]</code>, get OpenAPI docs, Swagger UI, typed state and middleware out of the box, on Tokio and
+                hyper. It also powers my own Cowri and theflate.
+              </p>
+              <div className="pub-cmd mono">
+                <span>$</span> cargo add glideapi
+              </div>
+              <div className="pub-actions">
+                <a className="skd-btn skd-btn--coral" href="https://crates.io/crates/glideapi" target="_blank" rel="noopener noreferrer">
+                  <span>VIEW ON CRATES.IO</span>
+                </a>
+                <a className="skd-btn skd-btn--ghost" href="https://docs.rs/glideapi" target="_blank" rel="noopener noreferrer">
+                  <span>DOCS</span>
+                </a>
+                <a className="skd-btn skd-btn--ghost" href="https://github.com/ObeeJ/glideapi" target="_blank" rel="noopener noreferrer">
+                  <span>SOURCE</span>
+                </a>
+                <Link className="pub-more mono" href="/engineering/glideapi">how it works →</Link>
+              </div>
+            </div>
+            <pre className="pub-code mono" aria-label="GlideAPI example">{`#[get("/users/:id")]
+async fn get_user(req: Request) -> Response {
+    let id: u32 = req.params["id"].parse().unwrap_or(0);
+    Json(User { id, name: format!("User {id}") }).into_response()
+}
+
+#[tokio::main]
+async fn main() {
+    App::new()
+        .mount_routes()   // auto-registers every route
+        .listen("0.0.0.0:3000")
+        .await;
+}`}</pre>
+          </div>
+
           <div className="oss-list">
             {OSS.map((o) => (
               <a key={o.href} href={o.href} target="_blank" rel="noopener noreferrer" className="oss-card">
@@ -508,6 +548,23 @@ export default function Engineering() {
         .sc:hover .sc-more { color:var(--accent); }
         .est { display:flex; flex-wrap:wrap; gap:6px; }
         .dot { width:6px; height:6px; border-radius:50%; display:inline-block; }
+
+        /* ---- published crate ---- */
+        .pub { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:28px; border:1px solid var(--accent); border-radius:16px; background:var(--ink-2); padding:28px; margin-bottom:20px; position:relative; overflow:hidden; }
+        .pub::before { content:""; position:absolute; inset:0; background:radial-gradient(90% 90% at 0% 0%, var(--accent-soft), transparent 60%); pointer-events:none; }
+        .pub > * { position:relative; min-width:0; }
+        .pub-k { font-size:10.5px; color:var(--accent); text-transform:uppercase; letter-spacing:.12em; margin-bottom:10px; }
+        .pub-h { font-size:clamp(26px,3.4vw,36px); font-weight:600; letter-spacing:-.03em; margin:0 0 10px; }
+        .pub-p { font-size:14.5px; color:var(--muted); line-height:1.6; margin:0 0 18px; max-width:520px; }
+        .pub-p code { font-family:var(--font-jetbrains),monospace; font-size:12.5px; color:var(--paper); background:var(--ink); padding:1px 6px; border:1px solid var(--line); }
+        .pub-cmd { display:inline-flex; gap:10px; align-items:center; font-size:13px; padding:10px 14px; border:1px solid var(--line-strong); background:var(--ink); margin-bottom:18px; max-width:100%; }
+        .pub-cmd span { color:var(--accent); }
+        .pub-actions { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+        .pub-actions .skd-btn { padding:10px 16px; font-size:11.5px; min-height:40px; }
+        .pub-more { font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:10px 4px; }
+        .pub-more:hover { color:var(--accent); }
+        .pub-code { margin:0; padding:20px; font-size:12px; line-height:1.65; color:var(--paper); background:var(--ink); border:1px solid var(--line); overflow-x:auto; white-space:pre; }
+        @media(max-width:900px){ .pub { grid-template-columns:minmax(0,1fr); padding:20px; } }
 
         /* ---- open source ---- */
         .oss-list { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
