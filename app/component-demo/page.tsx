@@ -6,10 +6,60 @@ import { LayoutGroup, motion } from "motion/react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { TextRotate } from "@/components/ui/text-rotate";
 import { Hero } from "@/components/ui/animated-hero";
+import { TerminalRibbonStamp, GlassHudStamp } from "../components/TelemetryStampVariants";
+import { HeroTelemetryStamp } from "../components/TelemetryStamp";
 
 export default function ComponentDemo() {
   return (
     <main>
+      {/* 0 · Telemetry Stamp Design Variants (Option 4 vs Option 5) */}
+      <section className="py-16 px-6 border-b border-[var(--line)] bg-[#080B11] text-white">
+        <div className="max-w-4xl mx-auto space-y-12">
+          <div>
+            <span className="text-[10px] font-mono tracking-widest text-[#FF553D] uppercase">
+              Design Exploration // Hero Telemetry Stamp
+            </span>
+            <h1 className="text-3xl font-bold mt-1 tracking-tight">Option 4 vs. Option 5</h1>
+            <p className="text-sm text-white/50 mt-1">
+              Live interactive preview comparing Option 4 (Terminal Ribbon) and Option 5 (Glass HUD) alongside Current.
+            </p>
+          </div>
+
+          {/* Current */}
+          <div className="p-6 rounded-lg bg-white/[0.02] border border-white/5 space-y-3">
+            <div className="flex items-center justify-between text-xs font-mono text-white/40">
+              <span>CURRENT: RECTANGULAR TELEMETRY STAMP</span>
+              <span>1px Dividers · Sharp</span>
+            </div>
+            <div>
+              <HeroTelemetryStamp />
+            </div>
+          </div>
+
+          {/* Option 4 */}
+          <div className="p-6 rounded-lg bg-white/[0.02] border border-[#FF553D]/20 space-y-3">
+            <div className="flex items-center justify-between text-xs font-mono">
+              <span className="text-[#FF553D] font-bold">OPTION 4: INTERACTIVE TERMINAL RIBBON</span>
+              <span className="text-white/40">UNIX Prompt `skd:~$` · Blinking Cursor · Live SLA Metric</span>
+            </div>
+            <div>
+              <TerminalRibbonStamp />
+            </div>
+          </div>
+
+          {/* Option 5 */}
+          <div className="p-6 rounded-lg bg-white/[0.02] border border-[#38BDF8]/20 space-y-3">
+            <div className="flex items-center justify-between text-xs font-mono">
+              <span className="text-[#38BDF8] font-bold">OPTION 5: HIGH-DENSITY GLASS HUD</span>
+              <span className="text-white/40">Apple Pro / Raycast Blur · Specular Border · Translucent Halo</span>
+            </div>
+            <div>
+              <GlassHudStamp />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 1 · animated-hero (shadcn Button + framer-motion rotating word) */}
       <section className="border-b border-[var(--line)]">
         <Hero />

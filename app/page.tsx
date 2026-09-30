@@ -8,9 +8,8 @@ import { ArrowRight, Terminal, Shield, Zap, RefreshCw, Cpu, Layers, ExternalLink
 import { Mark } from "./components/ui";
 import { TextRotate } from "@/components/ui/text-rotate";
 import { UssdConsole } from "./components/UssdConsole";
-import { HeroTelemetryStamp } from "./components/TelemetryStamp";
 import { TelemetryCorridor } from "./components/TelemetryCorridor";
-import { EngineerStudioScene } from "./components/EngineerStudioScene";
+import { TwoWaysIn } from "./components/TwoWaysIn";
 import { TechIcon } from "./components/TechIcon";
 
 const SOCIALS = [
@@ -419,8 +418,6 @@ export default function Home() {
                 marginBottom: 28,
               }}
             >
-              <HeroTelemetryStamp />
-
               <div className="social-row">
                 {SOCIALS.map((s) => (
                   <a
@@ -738,8 +735,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Living Studio Vignette Animation */}
-          <EngineerStudioScene />
+          {/* Two ways in: access first, friction last, acted out */}
+          <TwoWaysIn />
 
           {/* =========================================================================
               SECTION 03.1: PROPRIETARY SYSTEMS BUILT FROM ZERO (NOT A REPO DUMP)
@@ -824,17 +821,17 @@ export default function Home() {
                     </div>
 
                     <div className="system-card-action">
-                      <span className="mono" style={{ fontSize: 10, color: "var(--faint)", letterSpacing: ".06em" }}>
+                      <span className="mono system-card-metric">
                         {p.metric}
                       </span>
                       <a
                         href={p.href}
                         target="_blank"
                         rel="noopener"
-                        className="mono card-link"
+                        className="mono system-inspect-btn"
                       >
                         <span>INSPECT ARCHITECTURE</span>
-                        <ArrowRight size={11} className="arrow-shift" />
+                        <ArrowRight size={12} className="arrow-shift" />
                       </a>
                     </div>
                   </div>
@@ -969,7 +966,7 @@ export default function Home() {
         }
         @media (max-width: 900px) {
           .engineer-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 28px;
           }
         }
@@ -997,6 +994,7 @@ export default function Home() {
         }
 
         /* Systems Grid (Section 02.1) */
+        .system-card, .engineer-grid > *, .metrics-grid > * { min-width: 0; overflow-wrap: anywhere; }
         .systems-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -1004,7 +1002,7 @@ export default function Home() {
         }
         @media (max-width: 860px) {
           .systems-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
           }
         }
         .system-card {
@@ -1050,7 +1048,7 @@ export default function Home() {
         .system-card-bottom {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 14px;
           padding-top: 14px;
           border-top: 1px solid var(--line-2);
         }
@@ -1058,9 +1056,69 @@ export default function Home() {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 12px;
           border-top: 1px solid var(--line-2);
-          padding-top: 10px;
+          padding-top: 12px;
           margin-top: 4px;
+        }
+        .system-card-metric {
+          font-size: 10px;
+          color: var(--faint);
+          letter-spacing: .06em;
+          line-height: 1.4;
+          min-width: 0;
+        }
+        .system-inspect-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 10.5px;
+          letter-spacing: .08em;
+          white-space: nowrap;
+          padding: 7px 13px;
+          border-radius: 4px;
+          background: rgba(255, 85, 61, 0.06);
+          border: 1px solid rgba(255, 85, 61, 0.28);
+          color: var(--accent);
+          font-weight: 500;
+          text-decoration: none;
+          transition: all 0.2s var(--ease);
+          flex-shrink: 0;
+        }
+        .system-inspect-btn:hover {
+          background: var(--accent);
+          color: var(--ink);
+          border-color: var(--accent);
+          box-shadow: 0 0 16px rgba(255, 85, 61, 0.35);
+        }
+        .system-inspect-btn .arrow-shift {
+          transition: transform 0.2s var(--ease);
+        }
+        .system-inspect-btn:hover .arrow-shift {
+          transform: translateX(3px);
+        }
+
+        @media (max-width: 640px) {
+          .system-card {
+            padding: 20px 16px;
+          }
+          .system-card-top {
+            flex-direction: column;
+            gap: 6px;
+          }
+          .system-card-action {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            padding-top: 12px;
+          }
+          .system-inspect-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 11px 16px;
+            font-size: 11px;
+            font-weight: 600;
+          }
         }
 
         /* Ventures Bento Grid */
@@ -1071,7 +1129,7 @@ export default function Home() {
         }
         @media (max-width: 960px) {
           .ventures-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 20px;
           }
         }
@@ -1213,7 +1271,7 @@ export default function Home() {
         }
         @media (max-width: 540px) {
           .metrics-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
           }
         }
         .metric-box {

@@ -3,6 +3,12 @@ import projectsJson from "../../projects.json";
 /* ============================================================
    Engineering projects — sourced from projects.json
    ============================================================ */
+export type ProjectShot = {
+  src: string;
+  label?: string;
+  caption?: string;
+};
+
 export type Project = {
   id: string;
   name: string;
@@ -10,6 +16,8 @@ export type Project = {
   logo?: string;
   favicon?: string;
   shot?: string; // hero screenshot of the live site
+  socials?: { label: string; url: string }[]; // public profile links
+  shots?: (string | ProjectShot)[]; // multi-shot gallery / preview views
   featured?: boolean;
   industry: string;
   tags: string[];

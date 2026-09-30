@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload } from "react-icons/fa";
 import { ArrowRight, Shield, Cpu, Terminal, ExternalLink, Award, CheckCircle2 } from "lucide-react";
 import { Mark } from "../components/ui";
-import { EngineerStudioScene } from "../components/EngineerStudioScene";
 
 const SOCIALS = [
   { href: "https://github.com/ObeeJ", label: "GitHub · @ObeeJ", Icon: FaGithub },
@@ -74,7 +73,7 @@ export default function About() {
             <h2>the engineer // philosophy</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 48, alignItems: "flex-start" }}>
+          <div className="ab-hero-grid">
             <div>
               <span className="skd-telemetry-stamp" style={{ marginBottom: 20 }}>
                 <span className="skd-live-dot" />
@@ -227,9 +226,6 @@ export default function About() {
               </div>
             </div>
           </div>
-
-          {/* Living Studio Vignette Animation: Dad & Daughter Playing Rock-Paper-Scissors */}
-          <EngineerStudioScene />
         </div>
       </section>
 
@@ -241,7 +237,7 @@ export default function About() {
             <h2>the expertise // architectural pillars</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 24 }}>
+          <div className="ab-two">
             {EXPERTISE.map((exp, i) => (
               <div
                 key={exp.title}
@@ -294,7 +290,7 @@ export default function About() {
             <h2>track record // production milestones</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+          <div className="ab-three">
             {NOTABLE_WORK.map((item) => (
               <div
                 key={item.title}
@@ -372,6 +368,14 @@ export default function About() {
           </div>
         </div>
       </section>
+      <style>{`
+        .ab-hero-grid { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:48px; align-items:flex-start; }
+        .ab-two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+        .ab-three { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+        .ab-hero-grid > *, .ab-two > *, .ab-three > * { min-width:0; overflow-wrap:anywhere; }
+        @media (max-width: 960px) { .ab-hero-grid { grid-template-columns:minmax(0,1fr); gap:36px; } .ab-three { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+        @media (max-width: 640px) { .ab-two, .ab-three { grid-template-columns:minmax(0,1fr); } }
+      `}</style>
     </div>
   );
 }

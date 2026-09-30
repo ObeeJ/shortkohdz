@@ -49,7 +49,17 @@
       "repos": [],
       "live": "https://pcxpay.com",
       "note": "Senior Software Engineer spearheading backend, payments integrations and cloud infrastructure on a 15–30 person, four-country engineering team.",
-      "shot": "/live/pcxpay.jpg"
+      "shot": "/live/pcxpay.jpg",
+      "socials": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/pcxpay-ltd/"
+        },
+        {
+          "label": "X",
+          "url": "https://x.com/_PCXPAY"
+        }
+      ]
     },
     {
       "id": "dwelix",
@@ -102,14 +112,36 @@
       "repos": [],
       "live": "https://dwelix.com",
       "note": "Lead Software Engineer: led the team, designed the architecture and owns the platform end to end.",
-      "shot": "/live/dwelix.jpg"
+      "shot": "/live/dwelix.jpg",
+      "socials": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/dwelix-proptech-limited/"
+        },
+        {
+          "label": "X",
+          "url": "https://x.com/Dwelixpt247"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/dwelixpt247"
+        },
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/dwelixpt247"
+        },
+        {
+          "label": "TikTok",
+          "url": "https://www.tiktok.com/@dwelixpt247"
+        }
+      ]
     },
     {
       "id": "mopcare",
       "name": "Mopcare",
       "role": "Software Engineer & Technical Lead",
       "logo": "/brands/mopcare_logo.svg",
-      "favicon": "/brands/mopcare_favicon.ico",
+      "favicon": "/brands/mopcare_icon.svg",
       "featured": true,
       "industry": "Healthtech / Elder Care",
       "tags": [
@@ -202,7 +234,17 @@
       "repos": [],
       "live": "https://scholelabs.com",
       "note": "Backend engineer: APIs, domain services, multi-tenancy and production operations, from build to launch.",
-      "shot": "/live/scholelabs.jpg"
+      "shot": "/live/scholelabs.jpg",
+      "socials": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/scholelabsltd/"
+        },
+        {
+          "label": "X",
+          "url": "https://x.com/scholelabs"
+        }
+      ]
     },
     {
       "id": "topnorch",
@@ -254,7 +296,19 @@
       "repos": [],
       "live": "https://topnorch.com",
       "note": "Full-stack and product engineering across the Rust, Python and Go services and infrastructure.",
-      "shot": "/live/topnorch.jpg"
+      "shot": "/live/topnorch.jpg",
+      "shots": [
+        {
+          "src": "/live/topnorch.jpg",
+          "label": "Hero & Value Prop",
+          "caption": "Topnorch landing page: AI-driven autonomous application flow, tailored resumes, and direct candidate control."
+        },
+        {
+          "src": "/live/topnorch-matching.jpg",
+          "label": "Smart Job Matching & Workflow",
+          "caption": "Interactive application workflow: live company matching (Google, etc.), real-time status badges, and human-in-the-loop approval triggers."
+        }
+      ]
     },
     {
       "id": "orhuebeauty",
@@ -419,8 +473,8 @@
       ],
       "tagline": "Sponsor a future, one fee at a time: anyone, anywhere, can fund an African child's education.",
       "problem": "Families in underserved communities can't cover school fees, and would-be sponsors abroad have no trustworthy way to fund one child's education and see where the money went.",
-      "solution": "Built the operations side of the sponsorship platform: an admin dashboard where the team manages sponsorship applications, campaigns, the pooled funds account, the students being supported and the digital parents sponsoring them.",
-      "system": "Next.js 16 App Router with React 19, TanStack Query for server state and cache invalidation, Zustand for client state, Base UI headless components and Recharts for funding and sponsorship reporting. Organised into feature modules: applications, campaigns, funds pool, students, digital parents and auth.",
+      "solution": "Built the operations side (Next.js front end against a NestJS backend) of the sponsorship platform: an admin dashboard where the team manages sponsorship applications, campaigns, the pooled funds account, the students being supported and the digital parents sponsoring them.",
+      "system": "Next.js 16 App Router with React 19 on the front end, backed by a NestJS API (TypeScript, PostgreSQL). TanStack Query handles server state and cache invalidation, Zustand client state, Base UI headless components and Recharts funding and sponsorship reporting. Organised into feature modules: applications, campaigns, funds pool, students, digital parents and auth.",
       "dsa": "Server state is cached and invalidated per module, so a newly approved application updates the students list and the funds-pool totals without a page reload.",
       "why": "The App Router and feature-module layout keep a multi-role admin surface maintainable; TanStack Query removes hand-written loading and refetch logic.",
       "innovation": "Turning sponsorship into an accountable pipeline: application to approval to sponsored student to funds movement, visible in one dashboard.",
@@ -434,7 +488,37 @@
       "live": "https://mydigitalparents.com",
       "note": "Full-stack engineer on the platform's admin and operations surface.",
       "favicon": "/live/mydigitalparents-icon.png",
-      "shot": "/live/mydigitalparents.jpg"
+      "shot": "/live/mydigitalparents.jpg",
+      "socials": [
+        {
+          "label": "LinkedIn",
+          "url": "https://www.linkedin.com/company/mydigitalparents/"
+        },
+        {
+          "label": "X",
+          "url": "https://x.com/mydigiparents"
+        },
+        {
+          "label": "Instagram",
+          "url": "https://www.instagram.com/mydigitalparents"
+        },
+        {
+          "label": "Facebook",
+          "url": "https://www.facebook.com/MyDigitalparents"
+        },
+        {
+          "label": "TikTok",
+          "url": "https://www.tiktok.com/@mydigiparents"
+        },
+        {
+          "label": "YouTube",
+          "url": "https://youtube.com/@mydigitalparents"
+        },
+        {
+          "label": "WhatsApp",
+          "url": "https://whatsapp.com/channel/0029Vb6c7SJ8F2pAeGfwln0L"
+        }
+      ]
     },
     {
       "id": "onetimesurveys",

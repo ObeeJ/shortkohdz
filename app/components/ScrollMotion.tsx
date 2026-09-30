@@ -8,7 +8,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
 // Containers whose children animate individually instead of the container itself.
-const GRIDS = ".caps, .egrid, .oss-list, .ai-grid";
+const GRIDS = ".caps, .egrid, .oss-list, .ai-grid, .live-grid, .stat-strip";
 // Elements that own their motion (framer-motion, GSAP stacks, canvases).
 const SKIP = "[data-nomotion], canvas, .hero, .skd-hero";
 

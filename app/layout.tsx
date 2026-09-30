@@ -7,6 +7,9 @@ import { WelcomeIntro } from "./components/WelcomeIntro";
 import { ScrollMotion } from "./components/ScrollMotion";
 
 // Blocking script: apply saved theme before first paint (default dark) to avoid FOUC.
+// Marks returning visitors before first paint so the welcome curtain never flashes twice in a session.
+const WELCOME_INIT = `(function(){var d=document.documentElement;try{var force=location.search.indexOf('welcome')>-1;d.setAttribute('data-welcome',(!force&&sessionStorage.getItem('skd_welcome_seen'))?'seen':'show');}catch(e){d.setAttribute('data-welcome','show');}})();`;
+
 const THEME_INIT = `(function(){try{var t=localStorage.getItem('skd-theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`;
 
 // Animated dynamic favicon script: rotates asterisk 4 degrees every 160ms with brand core color #FF553D
@@ -85,6 +88,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
+        <script dangerouslySetInnerHTML={{ __html: WELCOME_INIT }} />
         <script dangerouslySetInnerHTML={{ __html: FAVICON_ANIMATOR }} />
       </head>
       <body>
