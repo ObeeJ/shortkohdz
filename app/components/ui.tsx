@@ -268,7 +268,7 @@ const FOOTER_COLS: { title: string; links: { href: string; label: string; ext?: 
     links: [
       { href: "https://github.com/ObeeJ", label: "github", ext: true },
       { href: "https://linkedin.com/in/obanijesuajayi", label: "linkedin", ext: true },
-      { href: "mailto:ajayiobanijesu2000@gmail.com", label: "email", ext: true },
+      { href: "mailto:ajayioba2000@gmail.com", label: "email", ext: true },
     ],
   },
 ];
@@ -347,9 +347,16 @@ export function Footer() {
         </div>
       </div>
 
-      {/* giant wordmark */}
-      <div className="bigname-wrap" aria-hidden="true">
-        <h2 className="bigname wordmark">shortkohdz</h2>
+      {/* giant wordmark with aligned r-t intersection ligature & animation */}
+      <div className="bigname-wrap" aria-label="shortkohdz">
+        <h2 className="bigname wordmark">
+          <span className="bigname-part">sho</span>
+          <span className="bigname-ligature-rt">
+            <span className="bigname-char char-r">r</span>
+            <span className="bigname-char char-t">t</span>
+          </span>
+          <span className="bigname-part">kohdz</span>
+        </h2>
       </div>
 
       <style>{`
@@ -368,8 +375,47 @@ export function Footer() {
           user-select: none;
           color: var(--accent);
           padding-bottom: 0.04em;
+          display: flex;
+          justify-content: center;
+          align-items: baseline;
+          cursor: default;
+          transition: letter-spacing 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .dark .bigname { color: var(--paper); }
+        .bigname:hover { letter-spacing: -0.045em; }
+        .bigname-part { display: inline-block; }
+        .bigname-ligature-rt {
+          display: inline-flex;
+          align-items: baseline;
+          position: relative;
+          animation: rt-intersect-pulse 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        .bigname:hover .bigname-ligature-rt {
+          color: var(--accent);
+          filter: drop-shadow(0 0 24px rgba(255, 85, 61, 0.4));
+        }
+        .char-r {
+          position: relative;
+          z-index: 1;
+          margin-right: -0.082em;
+          display: inline-block;
+          transform-origin: right center;
+        }
+        .char-t {
+          position: relative;
+          z-index: 2;
+          display: inline-block;
+          transform-origin: left center;
+        }
+        @keyframes rt-intersect-pulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.025);
+            color: var(--accent);
+          }
+        }
       `}</style>
     </footer>
   );

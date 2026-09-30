@@ -15,7 +15,7 @@ import { TechIcon } from "./components/TechIcon";
 const SOCIALS = [
   { href: "https://github.com/ObeeJ", label: "GitHub", Icon: FaGithub },
   { href: "https://linkedin.com/in/obanijesuajayi", label: "LinkedIn", Icon: FaLinkedin },
-  { href: "mailto:ajayiobanijesu2000@gmail.com", label: "Email", Icon: FaEnvelope },
+  { href: "mailto:ajayioba2000@gmail.com", label: "Email", Icon: FaEnvelope },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -359,6 +359,45 @@ const PROPRIETARY_SYSTEMS = [
   },
 ];
 
+const SKILL_CATEGORIES = [
+  {
+    title: "Languages & Core Runtimes",
+    badge: "PRIMARY COMPILERS",
+    desc: "Production development across statically typed compiled languages and modern runtimes. Zero-allocation hot paths, strict concurrency primitives, and deterministic execution.",
+    skills: ["Go", "Rust", "TypeScript", "Python", "SQL", "Bash", "C#"],
+  },
+  {
+    title: "Distributed Backend & Concurrency",
+    badge: "HIGH THROUGHPUT",
+    desc: "Goroutine worker pools, pessimistic row locking (SELECT FOR UPDATE), idempotent payment processors, and resilient gRPC/WebSocket stream handling.",
+    skills: ["Distributed Ledgers", "gRPC", "Kafka", "Redis", "PostgreSQL", "WebSocket", "BullMQ", "Paystack"],
+  },
+  {
+    title: "Cloud Infrastructure & Orchestration",
+    badge: "CKA CERTIFIED",
+    desc: "Certified Kubernetes Administrator (CKA). Declarative Infrastructure as Code with Terraform, zero-downtime rolling cutovers, container hardening, and multi-region telemetry.",
+    skills: ["Kubernetes", "Docker", "Terraform", "AWS", "AWS Lambda", "GCP", "Cloud Run", "Linux", "GitHub Actions", "Cloudflare"],
+  },
+  {
+    title: "Production AI & Agentic Systems",
+    badge: "AGENTIC WORKFLOWS",
+    desc: "Verified credentials in Agentic AI Architectures and OpenAI Fine-Tuning. Vector database indexing, autonomous tool-calling loops, and RAG pipelines designed for reliability.",
+    skills: ["Agentic AI", "OpenAI API", "PyTorch", "Ollama", "Vector Search", "RAG Pipelines", "Tool Calling"],
+  },
+  {
+    title: "Databases, Ledgers & Storage",
+    badge: "DATA INTEGRITY",
+    desc: "ACID compliance, write-ahead logs, Redis Bloom filter deduplication, and chronological audit chains built for banking compliance and zero ledger drift.",
+    skills: ["PostgreSQL", "Redis", "SQLite", "Supabase", "Prisma", "Sequelize"],
+  },
+  {
+    title: "Frontend Engineering & UI Systems",
+    badge: "PRECISION CLIENTS",
+    desc: "High-performance client architectures with Next.js App Router, SSR/SSG caching strategies, and tactile brutalist interfaces with zero layout shift.",
+    skills: ["Next.js", "React", "Tailwind CSS", "TanStack Query", "Fastify", "Gin", "Vitest", "Jest"],
+  },
+];
+
 const METRICS = [
   { num: "100%", label: "Verified System Invariants", sub: "Pessimistic row locking · zero ledger drift" },
   { num: "99.998%", label: "Uptime SLA Target", sub: "Designed for resilient degradation" },
@@ -623,11 +662,6 @@ export default function Home() {
 
           <div className="engineer-grid">
             <div>
-              <span className="skd-telemetry-stamp" style={{ marginBottom: 18 }}>
-                <span className="skd-live-dot" />
-                <span>OBANIJESU AJAYI · FULL-STACK &amp; INFRASTRUCTURE</span>
-              </span>
-
               <h2
                 className="wordmark"
                 style={{
@@ -660,8 +694,16 @@ export default function Home() {
                 </p>
               </div>
 
+              {/* Verified Identity Telemetry Stamp */}
+              <div style={{ marginTop: 24, marginBottom: 4 }}>
+                <span className="skd-telemetry-stamp">
+                  <span className="skd-live-dot" />
+                  <span>OBANIJESU AJAYI · FULL-STACK &amp; INFRASTRUCTURE</span>
+                </span>
+              </div>
+
               {/* Action Buttons: Resume & Socials */}
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12, marginTop: 32 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12, marginTop: 24 }}>
                 <a
                   href="/Ajayi_ObaniJesu_Resume.pdf"
                   download="Ajayi_ObaniJesu_Software_Engineer_Resume.pdf"
@@ -804,7 +846,7 @@ export default function Home() {
                   </div>
 
                   <div className="system-card-mid">
-                    <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: 10, margin: "0 0 12px 0" }}>
+                    <div style={{ margin: "0 0 12px 0" }}>
                       <p style={{ fontSize: 14, color: "var(--paper)", fontWeight: 500, margin: 0, lineHeight: 1.45 }}>
                         {p.tagline}
                       </p>
@@ -814,8 +856,8 @@ export default function Home() {
                     </p>
 
                     <div className="system-guarantee-box">
-                      <span className="mono" style={{ fontSize: 9.5, color: "var(--accent)", letterSpacing: ".1em", display: "block", marginBottom: 4 }}>
-                        ARCHITECTURAL GUARANTEE:
+                      <span className="mono">
+                        THE GUARANTEE
                       </span>
                       <p style={{ fontSize: 12, color: "var(--paper)", margin: 0, lineHeight: 1.5 }}>
                         {p.primitive}
@@ -856,12 +898,54 @@ export default function Home() {
       </section>
 
       {/* =========================================================================
-          SECTION 04: TELEMETRY BY THE NUMBERS
+          SECTION 04: THE SKILLS & TECHNICAL ARSENAL
+          ========================================================================= */}
+      <section id="skills" className="skd-ruled-b" style={{ padding: "96px 0", background: "var(--ink)" }}>
+        <div className="wrap">
+          <div className="rowhead" style={{ marginBottom: 32 }}>
+            <span className="num">04</span>
+            <h2>the skills // technical arsenal &amp; competencies</h2>
+          </div>
+
+          <div className="skills-grid">
+            {SKILL_CATEGORIES.map((cat, idx) => (
+              <div
+                key={cat.title}
+                className="skill-card crosshair-corner crosshair-corner-tl"
+              >
+                <div>
+                  <div className="skill-card-top">
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span className="mono skill-idx">0{idx + 1}</span>
+                      <h3 className="wordmark skill-title">{cat.title}</h3>
+                    </div>
+                    <span className="mono skill-badge">{cat.badge}</span>
+                  </div>
+
+                  <p className="skill-desc">{cat.desc}</p>
+                </div>
+
+                <div className="chips-row skill-chips">
+                  {cat.skills.map((s) => (
+                    <span key={s} className="mono stack-chip skill-chip">
+                      <TechIcon name={s} size={11} />
+                      <span>{s}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION 05: TELEMETRY BY THE NUMBERS
           ========================================================================= */}
       <section className="skd-ruled-b" style={{ padding: "96px 0", background: "var(--ink-2)" }}>
         <div className="wrap">
           <div className="rowhead">
-            <span className="num">04</span>
+            <span className="num">05</span>
             <h2>the metrics // by the numbers</h2>
           </div>
 
@@ -882,12 +966,12 @@ export default function Home() {
       </section>
 
       {/* =========================================================================
-          SECTION 05: DIRECT LINE CTA
+          SECTION 06: DIRECT LINE CTA
           ========================================================================= */}
       <section className="skd-ruled-b" style={{ padding: "104px 0", background: "var(--ink)", color: "var(--paper)" }}>
         <div className="wrap">
           <div className="rowhead" style={{ marginBottom: 28 }}>
-            <span className="num" style={{ color: "var(--accent)" }}>05</span>
+            <span className="num" style={{ color: "var(--accent)" }}>06</span>
             <h2 style={{ color: "var(--muted)" }}>the direct line // get in touch</h2>
           </div>
 
@@ -933,7 +1017,7 @@ export default function Home() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <a
-                href="mailto:ajayiobanijesu2000@gmail.com"
+                href="mailto:ajayioba2000@gmail.com"
                 className="skd-btn skd-btn--coral"
                 style={{ padding: "16px 24px", fontSize: 13 }}
               >
@@ -1002,7 +1086,7 @@ export default function Home() {
         }
         .social-link:hover {
           color: var(--accent);
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           transform: translateY(-1px);
         }
 
@@ -1029,7 +1113,7 @@ export default function Home() {
           transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
         }
         .system-card:hover {
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           transform: translateY(-2px);
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
         }
@@ -1091,9 +1175,18 @@ export default function Home() {
         }
         .system-guarantee-box {
           background: var(--ink-2);
-          border-left: 2px solid var(--accent);
-          padding: 10px 12px;
-          margin-top: 12px;
+          border: 1px solid var(--line);
+          padding: 14px 16px;
+          margin-top: 14px;
+        }
+        .system-guarantee-box > .mono {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 9.5px;
+          letter-spacing: .14em;
+          color: var(--muted);
+          margin-bottom: 8px;
         }
         .system-card-bottom {
           display: flex;
@@ -1138,7 +1231,7 @@ export default function Home() {
         .system-inspect-btn:hover {
           background: var(--accent);
           color: var(--ink);
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           box-shadow: 0 0 16px rgba(255, 85, 61, 0.35);
         }
         .system-inspect-btn .arrow-shift {
@@ -1202,7 +1295,7 @@ export default function Home() {
           transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
         }
         .venture-card:hover {
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
         }
         .venture-brand-mark {
@@ -1227,15 +1320,13 @@ export default function Home() {
           letter-spacing: .08em;
           color: var(--accent);
           background: var(--ink);
-          border: 1px solid var(--accent);
+          border:1px solid var(--stroke-hi);
           padding: 5px 10px;
           display: inline-flex;
           align-items: center;
           border-radius: 2px;
         }
         .venture-tagline-box {
-          border-left: 2px solid var(--accent);
-          padding-left: 12px;
           margin: 10px 0 14px 0;
         }
         .card-top {
@@ -1258,8 +1349,7 @@ export default function Home() {
         .dsa-box {
           background: var(--ink);
           border: 1px solid var(--line);
-          border-left: 3px solid var(--accent);
-          padding: 12px 14px;
+          padding: 14px 16px;
           margin-top: 14px;
           border-radius: 2px;
         }
@@ -1312,7 +1402,92 @@ export default function Home() {
         }
         .venture-card:hover .card-link,
         .system-card:hover .card-link {
+          color: var(--paper);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+        }
+        @media (max-width: 1024px) {
+          .skills-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 680px) {
+          .skills-grid {
+            grid-template-columns: minmax(0, 1fr);
+          }
+        }
+        .skill-card {
+          background: var(--ink-2);
+          border: 1px solid var(--line);
+          padding: 26px 22px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          min-height: 250px;
+          transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+        }
+        .skill-card:hover {
+          border-color: var(--accent);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        }
+        .skill-card-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 12px;
+          border-bottom: 1px solid var(--line-2);
+          padding-bottom: 12px;
+          margin-bottom: 12px;
+        }
+        .skill-idx {
+          font-size: 10px;
+          color: var(--faint);
+          letter-spacing: .12em;
+        }
+        .skill-title {
+          font-size: 17px;
+          color: var(--paper);
+          margin: 0;
+          line-height: 1.2;
+        }
+        .skill-badge {
+          font-size: 9.5px;
           color: var(--accent);
+          background: var(--ink);
+          border: 1px solid var(--line);
+          padding: 2px 7px;
+          white-space: nowrap;
+          border-radius: 2px;
+        }
+        .skill-desc {
+          font-size: 12.5px;
+          color: var(--muted);
+          line-height: 1.55;
+          margin: 0 0 18px 0;
+        }
+        .skill-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          border-top: 1px solid var(--line-2);
+          padding-top: 14px;
+        }
+        .skill-chip {
+          background: var(--ink);
+          border: 1px solid var(--line);
+          color: var(--paper);
+          font-size: 10px;
+          padding: 4px 8px;
+          transition: border-color 0.15s, color 0.15s;
+        }
+        .skill-card:hover .skill-chip {
+          border-color: var(--line-strong);
         }
 
         /* Metrics Grid */

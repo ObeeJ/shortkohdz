@@ -3,7 +3,9 @@
   "name": "shortkohdz",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-09-27",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
@@ -15,7 +17,7 @@
     {
       "binding": "DB",
       "database_name": "shortkohdz-db",
-      "database_id": "REPLACE_WITH_DATABASE_ID",
+      "database_id": "311c60a5-1363-4f45-a7b0-e427efd65904",
       "migrations_dir": "migrations"
     }
   ]

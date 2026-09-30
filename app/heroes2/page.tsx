@@ -136,7 +136,7 @@ function IndexDir() {
     ["01", "shortkohdz", "the parent workshop"],
     ["02", "backend systems", "Go services correct under load"],
     ["03", "full stack", "the product shipped around them"],
-    ["04", "based in", "Lagos, Nigeria"],
+    ["04", "availability", "Global Remote"],
   ];
   return (
     <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", padding: "60px 28px", borderBottom: "1px solid var(--line)", background: "var(--ink)" }}>

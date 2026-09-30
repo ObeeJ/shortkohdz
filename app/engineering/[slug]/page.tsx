@@ -251,8 +251,8 @@ export default async function ProjectDetail({
         @media(max-width:840px){ .dgrid{grid-template-columns:1fr; gap:36px} }
         .aside { border:1px solid var(--line); border-radius:14px; background:var(--ink-2); padding:26px; align-self:start; position:sticky; top:96px; }
         .alink { font-size:12px; border:1px solid var(--line); border-radius:8px; padding:12px 15px; text-align:center; transition:border-color .2s,color .2s,background .2s; text-transform:lowercase; }
-        .alink:hover { border-color:var(--accent); color:var(--accent); }
-        .alink.live { background:var(--accent); border-color:var(--accent); color:var(--ink); font-weight:500; }
+        .alink:hover { border-color:var(--stroke-hi); color:var(--accent); }
+        .alink.live { background:var(--accent); border-color:var(--stroke-hi); color:var(--ink); font-weight:500; }
         .alink.live:hover { color:var(--ink); filter:brightness(1.05); }
       `}</style>
     </section>

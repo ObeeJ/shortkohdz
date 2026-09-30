@@ -46,6 +46,7 @@
   --paper-2: #1E293B;
   --accent: #FF553D;
   --accent-soft: rgba(255, 85, 61, 0.12);
+  --stroke-hi: rgba(8, 11, 17, 0.55); /* emphasis stroke: neutral, like the logo's white arms */
   --line: rgba(8, 11, 17, 0.10);
   --line-2: rgba(8, 11, 17, 0.05);
   --line-strong: rgba(8, 11, 17, 0.20);
@@ -81,6 +82,7 @@
   --paper-2: #E2E8F0;
   --accent: #FF553D;
   --accent-soft: rgba(255, 85, 61, 0.16);
+  --stroke-hi: rgba(248, 250, 252, 0.6);
   --line: rgba(255, 255, 255, 0.10);
   --line-2: rgba(255, 255, 255, 0.05);
   --line-strong: rgba(255, 255, 255, 0.22);
@@ -279,17 +281,43 @@ svg {
 }
 .skd-btn--ghost:hover {
   transform: translateY(-2px);
-  box-shadow: inset 0 0 0 1px var(--accent);
+  box-shadow: inset 0 0 0 1px var(--stroke-hi);
   color: var(--accent);
 }
 
-.skd-btn--paper {
-  background: var(--paper);
-  color: var(--ink);
+.skd-btn--paper,
+.email-cta-btn {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--paper);
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
 }
-.skd-btn--paper:hover {
+.skd-btn--paper:hover,
+.email-cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 4px 18px var(--accent-soft), 0 0 0 1px var(--accent);
+}
+
+:root .skd-btn--paper,
+:root .email-cta-btn {
+  background: #FFFFFF;
+  color: #080B11;
+  border: 1.5px solid #080B11;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.dark .skd-btn--paper,
+.dark .email-cta-btn,
+[data-theme="dark"] .skd-btn--paper,
+[data-theme="dark"] .email-cta-btn {
+  background: #080B11;
+  color: #F8FAFC;
+  border: 1.5px solid rgba(248, 250, 252, 0.75);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .skd-btn .arrow-shift {
@@ -384,17 +412,40 @@ svg {
   align-items: center;
   gap: 8px;
 }
+/* ---- Micro Brand Asterisk Mark (replaces glowing dot globally) ---- */
 .skd-live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(255, 85, 61, 0.6);
-  animation: pulse-dot 2s infinite ease-in-out;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  min-height: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform 0.3s ease;
+  animation: spin-dot 24s linear infinite;
+  /* Dark mode default brand mark (slate arms, coral core) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'%3E%3Cg fill='%2394A3B8'%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(0)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(60)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(120)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(180)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(240)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(300)'/%3E%3C/g%3E%3Ccircle cx='0' cy='0' r='16' fill='%23FF553D'/%3E%3C/svg%3E");
 }
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+
+:root .skd-live-dot {
+  /* Light mode brand mark (dark slate arms, coral core) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'%3E%3Cg fill='%23334155'%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(0)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(60)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(120)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(180)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(240)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(300)'/%3E%3C/g%3E%3Ccircle cx='0' cy='0' r='16' fill='%23FF553D'/%3E%3C/svg%3E");
+}
+
+.dark .skd-live-dot,
+[data-theme="dark"] .skd-live-dot {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-100 -100 200 200'%3E%3Cg fill='%2394A3B8'%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(0)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(60)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(120)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(180)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(240)'/%3E%3Cpolygon points='-7,-18 7,-18 3.5,-92 -3.5,-92' transform='rotate(300)'/%3E%3C/g%3E%3Ccircle cx='0' cy='0' r='16' fill='%23FF553D'/%3E%3C/svg%3E");
+}
+
+@keyframes spin-dot {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Legacy buttons for compatibility */
@@ -425,7 +476,7 @@ svg {
   box-shadow: inset 0 0 0 1px var(--line-strong);
 }
 .btn-ghost:hover {
-  border-color: var(--accent);
+  border-color:var(--stroke-hi);
   color: var(--accent);
 }
 .btn .arr {
@@ -1145,7 +1196,7 @@ section.paper .rowhead h2 {
 }
 
 .hero-telemetry-stamp:hover {
-  border-color: var(--accent);
+  border-color:var(--stroke-hi);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
@@ -1243,7 +1294,7 @@ section.paper .rowhead h2 {
 }
 
 .telemetry-dial-btn:hover {
-  border-color: var(--accent);
+  border-color:var(--stroke-hi);
   color: var(--accent);
   background: var(--accent-soft);
 }
@@ -1253,7 +1304,7 @@ section.paper .rowhead h2 {
 }
 
 .telemetry-dial-btn.is-copied {
-  border-color: var(--accent);
+  border-color:var(--stroke-hi);
   color: var(--accent);
   background: var(--accent-soft);
 }
@@ -1274,7 +1325,7 @@ section.paper .rowhead h2 {
 
 .telemetry-console-link:hover {
   color: var(--accent);
-  border-color: var(--accent);
+  border-color:var(--stroke-hi);
   background: var(--accent-soft);
 }
 
@@ -1303,7 +1354,7 @@ section.paper .rowhead h2 {
 }
 
 .stack-chip:hover {
-  border-color: var(--accent);
+  border-color:var(--stroke-hi);
   background: var(--accent-soft);
 }
 
@@ -1317,4 +1368,61 @@ section.paper .rowhead h2 {
   .telemetry-divider {
     display: none;
   }
+}
+
+
+/* =========================================================================
+   ROUNDED SYSTEM
+   One radius scale for the whole site. Everything that used to have a square
+   edge is rounded here (with !important so it wins over component-level and
+   inline styles): pills for buttons, chips and nav; large radii for cards,
+   frames and panels; a mid radius for code boxes and inner wells.
+   ========================================================================= */
+:root {
+  --r-pill: 999px;
+  --r-card: 26px;
+  --r-panel: 20px;
+  --r-well: 14px;
+}
+
+/* pills: buttons, chips, tabs, nav, small badges */
+.skd-btn, .skd-chip-btn, .skd-keypad-key, .skd-keypad-ctrl, .skd-console-btn-sm,
+.tw-code, .tw-n, .chip-f, .subnav a, .social-link, .social-icons a, .nav-pill-a,
+.navpill, .menu-btn, .att-btn, .hero-telemetry-stamp, .skd-telemetry-stamp,
+.stack-chip, .tw-chips span, .oss-badge, .chip, .wl-skip, .filter-toggle,
+a.mono, span.mono, button.mono,
+[style*="border-radius:0"]:is(a, button, span),
+[style*="border-radius: 0"]:is(a, button, span) {
+  border-radius: var(--r-pill) !important;
+}
+.skd-keypad-key { border-radius: var(--r-well) !important; }
+.navpill { padding-left: 14px !important; padding-right: 14px !important; }
+.navpill .nav-pill-a > span[style*="position:absolute"] { border-radius: var(--r-pill) !important; } /* active tab highlight */
+
+/* cards, frames and big panels */
+.system-card, .metric-box, .skd-console-frame, .cor, .tw, .pub, .hero-frame, .cor-frame, .caps,
+.crosshair-corner:not(.navpill):not(.hero-telemetry-stamp):not(.skd-telemetry-stamp),
+div[style*="border-radius:0"], div[style*="border-radius: 0"],
+section[style*="border-radius:0"] {
+  border-radius: var(--r-card) !important;
+}
+.skd-console-frame, .cor, .tw, .pub, .hero-frame, .cor-frame, .caps, .system-card, .metric-box { overflow: hidden; }
+
+/* inner wells: guarantee boxes, screens, code, inputs */
+.system-guarantee-box, .skd-screen, .skd-dial-pane, .skd-dial-display, .cor-metric, .pub-cmd,
+.pub-code, .shot-viewport, .shot-meta-bar, code, pre, input, textarea, select,
+.lv-metric, .tw-out, .tw-col, .rail {
+  border-radius: var(--r-panel) !important;
+}
+.cor-metric, .lv-metric { border-radius: var(--r-well) !important; }
+.lv-shot, .ethumb { border-radius: 0 !important; } /* clipped by their already-rounded card */
+
+/* decorative square corner ticks don't belong on rounded shapes */
+.crosshair-corner::before, .crosshair-corner::after { display: none !important; }
+
+/* metric callouts: the thin accent bar curls on rounded shapes, so use a soft outline box */
+.lv-metric, .cor-metric, .metric-line {
+  border: 1px solid var(--line-strong) !important;
+  border-radius: var(--r-well) !important;
+  padding: 7px 12px !important;
 }

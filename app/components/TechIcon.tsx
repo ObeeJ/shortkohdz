@@ -53,7 +53,7 @@ import {
   SiPostman,
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa6";
-import { FiCloud, FiCreditCard, FiCpu, FiRadio, FiTerminal } from "react-icons/fi";
+import { FiCloud, FiCreditCard, FiCpu, FiRadio, FiTerminal, FiShield } from "react-icons/fi";
 import type { IconType } from "react-icons";
 
 /* ============================================================
@@ -160,6 +160,18 @@ const TECH: Record<string, Tech> = {
   "Airtable": { icon: SiAirtable, color: "#18BFFF" },
   WebSocket: { icon: FiRadio, color: "var(--accent)" },
   gRPC: { icon: FiCpu, color: "#244C5A" },
+
+  // Specialized architecture & expertise tags
+  "Distributed Ledgers": { icon: SiBitcoin, color: "#F7931A" },
+  "Kubernetes (CKA)": { icon: SiKubernetes, color: "#326CE5" },
+  "FCA Compliance": { icon: FiShield, color: "#3FCF8E" },
+  "Idempotent APIs": { icon: FiTerminal, color: "#00ADD8" },
+  "Bloom Filters": { icon: FiCpu, color: "#FF553D" },
+  "CloudHSM": { icon: FaAws, color: "#FF9900" },
+  "Agentic Workflows": { icon: SiOllama, color: "var(--paper)" },
+  "Vector DBs": { icon: SiPostgresql, color: "#4169E1" },
+  "RAG Pipelines": { icon: SiPytorch, color: "#EE4C2C" },
+  "Tool Calling": { icon: FiTerminal, color: "var(--accent)" },
 };
 
 const esc = (k: string) => k.replace(/[.*+?^${}()|[\]\\\/]/g, "\\$&");

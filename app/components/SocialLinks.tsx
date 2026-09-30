@@ -30,7 +30,7 @@ export function SocialLinks({ socials, className = "", size = 13 }: { socials?: 
         .social-icons { position:relative; z-index:2; display:inline-flex; align-items:center; gap:6px; }
         .social-icons a { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border:1px solid var(--line-strong); color:var(--muted); transition:color .2s, border-color .2s, background .2s; }
         @media (pointer: coarse) { .social-icons a { width:40px; height:40px; } }
-        .social-icons a:hover { color:var(--ink); background:var(--accent); border-color:var(--accent); }
+        .social-icons a:hover { color:var(--ink); background:var(--accent); border-color:var(--stroke-hi); }
       `}</style>
     </span>
   );

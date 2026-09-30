@@ -6,11 +6,15 @@ const MAX_NAME = 60;
 const MAX_MESSAGE = 500;
 const MAX_SIGNATURE_BYTES = 250_000; // base64 string length cap
 
+// Sample entries exist for local development only. In production the guestbook shows
+// real visitors' signatures or nothing; it never falls back to invented entries.
+const demo = () => (process.env.NODE_ENV === "production" ? [] : SEED_GUESTBOOK_ENTRIES);
+
 export async function GET() {
   try {
     const db = await getDb();
     if (!db) {
-      return NextResponse.json({ entries: SEED_GUESTBOOK_ENTRIES });
+      return NextResponse.json({ entries: demo() });
     }
     const res = await db
       .prepare(
@@ -19,12 +23,12 @@ export async function GET() {
       .all();
     const results = res?.results as GuestbookEntry[] | undefined;
     if (!results || results.length === 0) {
-      return NextResponse.json({ entries: SEED_GUESTBOOK_ENTRIES });
+      return NextResponse.json({ entries: demo() });
     }
     return NextResponse.json({ entries: results });
   } catch (err) {
     console.error("D1 guestbook fetch error:", err);
-    return NextResponse.json({ entries: SEED_GUESTBOOK_ENTRIES });
+    return NextResponse.json({ entries: demo() });
   }
 }
 
@@ -46,7 +50,8 @@ export async function POST(req: NextRequest) {
 
   const db = await getDb();
   if (!db) {
-    return NextResponse.json({ success: true, seeded: true });
+    if (process.env.NODE_ENV !== "production") return NextResponse.json({ success: true, seeded: true });
+    return NextResponse.json({ error: "guestbook is temporarily unavailable" }, { status: 503 });
   }
   const now = new Date().toISOString();
   await db

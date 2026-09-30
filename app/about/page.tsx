@@ -5,11 +5,12 @@ import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload } from "react-icons/fa";
 import { ArrowRight, Shield, Cpu, Terminal, ExternalLink, Award, CheckCircle2 } from "lucide-react";
 import { Mark } from "../components/ui";
+import { TechIcon } from "../components/TechIcon";
 
 const SOCIALS = [
   { href: "https://github.com/ObeeJ", label: "GitHub · @ObeeJ", Icon: FaGithub },
   { href: "https://linkedin.com/in/obanijesuajayi", label: "LinkedIn · ObaniJesu", Icon: FaLinkedin },
-  { href: "mailto:ajayiobanijesu2000@gmail.com", label: "Email Direct", Icon: FaEnvelope },
+  { href: "mailto:ajayioba2000@gmail.com", label: "Email Direct", Icon: FaEnvelope },
 ];
 
 const EXPERTISE = [
@@ -75,11 +76,6 @@ export default function About() {
 
           <div className="ab-hero-grid">
             <div>
-              <span className="skd-telemetry-stamp" style={{ marginBottom: 20 }}>
-                <span className="skd-live-dot" />
-                <span>OBANIJESU AJAYI · FULL-STACK &amp; INFRASTRUCTURE ENGINEER</span>
-              </span>
-
               <h1
                 className="wordmark"
                 style={{
@@ -114,8 +110,16 @@ export default function About() {
                 </p>
               </div>
 
+              {/* Verified Identity Telemetry Stamp */}
+              <div style={{ marginTop: 28, marginBottom: 4 }}>
+                <span className="skd-telemetry-stamp">
+                  <span className="skd-live-dot" />
+                  <span>OBANIJESU AJAYI · FULL-STACK &amp; INFRASTRUCTURE ENGINEER</span>
+                </span>
+              </div>
+
               {/* Action Buttons: Resume & Socials */}
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, marginTop: 36 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 14, marginTop: 28 }}>
                 <a
                   href="/Ajayi_ObaniJesu_Resume.pdf"
                   download="Ajayi_ObaniJesu_Software_Engineer_Resume.pdf"
@@ -168,11 +172,6 @@ export default function About() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div>
-                  <span className="mono" style={{ fontSize: 10, color: "var(--faint)", letterSpacing: ".1em" }}>LOCATION</span>
-                  <div className="wordmark" style={{ fontSize: 15, marginTop: 2 }}>Lagos, Nigeria · Global Remote</div>
-                </div>
-
-                <div>
                   <span className="mono" style={{ fontSize: 10, color: "var(--faint)", letterSpacing: ".1em" }}>VERIFIED CERTIFICATIONS &amp; CREDENTIALS</span>
                   <div style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 6 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -218,8 +217,8 @@ export default function About() {
                 <div style={{ borderTop: "1px solid var(--line)", paddingTop: 14 }}>
                   <span className="mono" style={{ fontSize: 10, color: "var(--accent)" }}>DIRECT CONTACT</span>
                   <div className="mono" style={{ fontSize: 12, marginTop: 4 }}>
-                    <a href="mailto:ajayiobanijesu2000@gmail.com" style={{ color: "var(--paper)" }}>
-                      ajayiobanijesu2000@gmail.com
+                    <a href="mailto:ajayioba2000@gmail.com" style={{ color: "var(--paper)" }}>
+                      ajayioba2000@gmail.com
                     </a>
                   </div>
                 </div>
@@ -271,8 +270,22 @@ export default function About() {
 
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6, paddingTop: 16, borderTop: "1px solid var(--line-2)" }}>
                   {exp.tags.map((t) => (
-                    <span key={t} className="mono" style={{ fontSize: 9.5, padding: "3px 8px", background: "var(--ink-2)", border: "1px solid var(--line)", color: "var(--faint)" }}>
-                      {t}
+                    <span
+                      key={t}
+                      className="mono stack-chip"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                        fontSize: 10,
+                        padding: "4px 9px",
+                        background: "var(--ink-2)",
+                        border: "1px solid var(--line)",
+                        color: "var(--paper)",
+                      }}
+                    >
+                      <TechIcon name={t} size={12} />
+                      <span>{t}</span>
                     </span>
                   ))}
                 </div>
@@ -357,9 +370,9 @@ export default function About() {
                 <span>DOWNLOAD RESUME</span>
               </a>
               <a
-                href="mailto:ajayiobanijesu2000@gmail.com"
-                className="skd-btn skd-btn--paper"
-                style={{ border: "1px solid var(--line-strong)", padding: "14px 22px" }}
+                href="mailto:ajayioba2000@gmail.com"
+                className="skd-btn skd-btn--paper email-cta-btn"
+                style={{ padding: "14px 22px" }}
               >
                 <span>SEND DIRECT EMAIL</span>
                 <ArrowRight size={13} className="arrow-shift" />

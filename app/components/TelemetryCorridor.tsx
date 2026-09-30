@@ -238,7 +238,7 @@ export function TelemetryCorridor() {
         .rn { position:relative; flex:none; width:136px; height:74px; padding:0; border:1px solid var(--line-strong); background:var(--ink-2); cursor:pointer; overflow:hidden; border-radius:8px; transition:border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease); }
         .rn-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top; opacity:.5; filter:saturate(.6); transition:opacity .3s var(--ease), filter .3s var(--ease), transform .5s var(--ease); }
         .rn:hover .rn-bg { opacity:.85; filter:none; }
-        .rn.on { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 10px 28px -12px var(--accent); }
+        .rn.on { border-color:var(--stroke-hi); transform:translateY(-2px); box-shadow:0 10px 28px -12px var(--accent); }
         .rn.on .rn-bg { opacity:1; filter:none; transform:scale(1.05); }
         .rn-fade { position:absolute; inset:0; background:linear-gradient(180deg, transparent 35%, rgba(5,7,17,.88)); }
         .rn-meta { position:absolute; left:8px; right:8px; bottom:6px; display:flex; align-items:center; gap:6px; font-size:9.5px; color:#fff; letter-spacing:.03em; white-space:nowrap; }
@@ -259,12 +259,12 @@ export function TelemetryCorridor() {
         .cor-name img { border-radius:6px; object-fit:contain; background:#fff; padding:2px; }
         .cor-role { font-size:11px; color:var(--muted); letter-spacing:.04em; margin-bottom:14px; }
         .cor-line { color:var(--paper); font-size:15px; line-height:1.55; margin:0 0 14px; max-width:460px; }
-        .cor-metric { display:inline-block; max-width:100%; font-size:10.5px; padding:6px 12px; border-left:2px solid var(--accent); background:var(--ink-2); margin-bottom:14px; }
+        .cor-metric { display:inline-block; max-width:100%; font-size:10.5px; padding:6px 12px; border:1px solid var(--line-strong); background:var(--ink-2); margin-bottom:14px; }
         .cor-stack { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
         .cor-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
         .cor-actions .skd-btn { padding:10px 16px; font-size:11.5px; min-height:40px; }
         .cor-frame { display:block; border:1px solid var(--line-strong); border-radius:10px; overflow:hidden; background:var(--ink-2); box-shadow:0 30px 60px -30px rgba(0,0,0,.6); transition:transform .3s var(--ease), border-color .3s var(--ease); }
-        .cor-frame:hover { transform:translateY(-3px); border-color:var(--accent); }
+        .cor-frame:hover { transform:translateY(-3px); border-color:var(--stroke-hi); }
         .cor-chrome { display:flex; align-items:center; gap:6px; padding:8px 12px; border-bottom:1px solid var(--line); background:var(--ink-2); }
         .cor-chrome i { width:8px; height:8px; border-radius:50%; background:var(--line-strong); }
         .cor-chrome span { margin-left:10px; display:flex; align-items:center; gap:6px; font-size:10px; color:var(--muted); background:var(--ink); padding:3px 10px; border-radius:20px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }

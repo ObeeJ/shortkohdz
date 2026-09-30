@@ -151,7 +151,7 @@ export function ProjectShotGallery({
         }
 
         .hero-frame:hover {
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           transform: translateY(-3px);
         }
 
@@ -220,12 +220,12 @@ export function ProjectShotGallery({
 
         .chrome-tab-btn:hover {
           color: var(--paper);
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
         }
 
         .chrome-tab-btn.is-active {
           background: rgba(0, 229, 255, 0.12);
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           color: var(--accent);
           font-weight: 600;
         }
@@ -238,7 +238,7 @@ export function ProjectShotGallery({
           font-size: 10px;
           color: var(--accent);
           background: rgba(0, 229, 255, 0.08);
-          border: 1px solid var(--accent);
+          border:1px solid var(--stroke-hi);
           padding: 4px 10px;
           border-radius: 6px;
           text-decoration: none;

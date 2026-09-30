@@ -2,99 +2,72 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/**
- * "Two ways in": Tech Architecture comparison.
- * Left: The Convoluted Way (Bloated Enterprise SaaS, microservice ceremony, vendor lock-in).
- * Right: The Shortcode Way (Direct Solutions in Tech: compiled primitives, sub-ms latency, zero bloat).
- * Depicts the philosophy of "shortkohdz": a short code to solutions in tech.
- */
-
-interface TechSolution {
+interface ShortcodeSolution {
   code: string;
-  label: string;
   name: string;
-  output: string[];
+  label: string;
+  p1: string;
+  p2: string;
   chips: string[];
 }
 
-const TECH_SOLUTIONS: TechSolution[] = [
+const SHORTCODES: ShortcodeSolution[] = [
   {
     code: "*GO#",
-    label: "Low-Latency Engine",
-    name: "Go Fiber Daemon",
-    output: [
-      "> dial(*GO#) // DISPATCH",
-      "[1/2] Compile standalone binary (14MB)... OK",
-      "[2/2] Fiber router mounted: sub-millisecond p99",
-      "✓ Solved: 0 cold starts · 50k req/sec",
-    ],
-    chips: ["single binary", "sub-ms latency", "0 cold starts"],
+    name: "Low-latency daemon",
+    label: "Go Fiber Daemon",
+    p1: "Standalone compiled binary with sub-millisecond Fiber routing.",
+    p2: "50k req/sec out of the box with zero runtime cold starts.",
+    chips: ["single binary", "sub-ms p99", "zero cold starts"],
   },
   {
     code: "*ACID#",
-    label: "Atomic Ledger",
-    name: "ACID Row Locking",
-    output: [
-      "> dial(*ACID#) // LEDGER",
-      "[1/2] SELECT FOR UPDATE pessimistic lock active",
-      "[2/2] Idempotent Paystack webhook reconciled",
-      "✓ Solved: 0 double-spend · 100% idempotent",
-    ],
-    chips: ["ACID verified", "pessimistic lock", "0 leakage"],
+    name: "Atomic ledger",
+    label: "ACID Row Locking",
+    p1: "Pessimistic row locking (SELECT FOR UPDATE) in raw PostgreSQL.",
+    p2: "Guarantees two concurrent disbursements never double-spend.",
+    chips: ["ACID verified", "pessimistic lock", "zero double-spend"],
   },
   {
     code: "*RUST#",
-    label: "Zero-Cost Parser",
-    name: "Rust Tokio Rail",
-    output: [
-      "> dial(*RUST#) // COMPILE",
-      "[1/2] Zero-cost memory safety verified",
-      "[2/2] PDF extraction pipeline: 24ms per resume",
-      "✓ Solved: 0 GC pauses · 10x throughput",
-    ],
-    chips: ["zero GC pause", "memory safe", "10x throughput"],
+    name: "Zero-cost parser",
+    label: "Rust Tokio Rail",
+    p1: "Compiled zero-cost abstractions for deep PDF and resume extraction.",
+    p2: "Zero memory leaks, zero garbage collection pauses, 10x throughput.",
+    chips: ["memory safe", "zero GC pause", "10x throughput"],
   },
   {
     code: "*STREAM#",
-    label: "Realtime Mesh",
-    name: "WebSocket Dispatch",
-    output: [
-      "> dial(*STREAM#) // WEBSOCKET",
-      "[1/2] Epoll socket pool initialized",
-      "[2/2] Bidirectional transit coordinate mesh live",
-      "✓ Solved: < 12ms roundtrip · 0 polling",
-    ],
-    chips: ["real-time mesh", "< 12ms ping", "0 polling bloat"],
+    name: "Realtime mesh",
+    label: "WebSocket Dispatch",
+    p1: "Bidirectional WebSocket coordination over persistent sessions.",
+    p2: "Instant telemetry and coordinates with sub-12ms roundtrips.",
+    chips: ["epoll sockets", "sub-12ms ping", "zero polling"],
   },
   {
-    code: "*SHORTKOHDZ#",
-    label: "Direct Primitive",
-    name: "Modular Monolith",
-    output: [
-      "> dial(*SHORTKOHDZ#) // GATEWAY",
-      "[1/2] Bypass 12 microservices & K8s ceremony",
-      "[2/2] Single audited codebase & Postgres ledger",
-      "✓ Solved: Direct line to production scale",
-    ],
-    chips: ["modular monolith", "zero vendor lock", "direct-to-metal"],
+    code: "*MONO#",
+    name: "Direct primitive",
+    label: "Modular Monolith",
+    p1: "Start with one audited codebase and a Postgres ledger.",
+    p2: "Split into services only when scale demands it.",
+    chips: ["modular monolith", "one codebase", "split when needed"],
   },
 ];
 
-const BLOATED_STEPS = [
-  { label: "Propose 12 microservices", tag: "needs a k8s cluster" },
-  { label: "Add 8 third-party cloud vendors", tag: "needs $6k/mo saas budget" },
-  { label: "Layer Kafka brokers & Redis queues", tag: "distributed lock contention" },
-  { label: "Write 6,000 lines of glue code", tag: "network boundary fragility" },
-  { label: "Fight cold starts & cascading downtime", tag: "p99 latency spikes" },
+const HEAVY_STEPS = [
+  { n: 1, title: "Propose a dozen microservices", sub: "needs a cluster just to run" },
+  { n: 2, title: "Add a vendor for every concern", sub: "more contracts, more lock-in" },
+  { n: 3, title: "Layer on brokers and queues", sub: "more ways to fail" },
+  { n: 4, title: "Write the glue code between them", sub: "fragile network boundaries" },
+  { n: 5, title: "Chase cold starts and outages", sub: "latency you can't explain" },
 ];
 
 export function TwoWaysIn() {
-  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [selectedIdx, setSelectedIdx] = useState(4); // Default to *MONO# matching user's spec
   const [isAutoCycle, setIsAutoCycle] = useState(true);
   const [inView, setInView] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 
-  // Intersection observer
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -103,166 +76,101 @@ export function TwoWaysIn() {
     return () => io.disconnect();
   }, []);
 
-  // Auto-cycle through tech shortcodes
+  // Smooth auto-cycle through shortcodes when in view
   useEffect(() => {
     if (!inView || !isAutoCycle) return;
     const interval = setInterval(() => {
-      setSelectedIdx((prev) => (prev + 1) % TECH_SOLUTIONS.length);
-    }, 4200);
+      setSelectedIdx((prev) => (prev + 1) % SHORTCODES.length);
+    }, 4500);
     return () => clearInterval(interval);
   }, [inView, isAutoCycle]);
 
-  const activeSolution = TECH_SOLUTIONS[selectedIdx];
+  const active = SHORTCODES[selectedIdx];
 
-  const handleSelectCode = (idx: number) => {
+  const handleSelect = (idx: number) => {
     setIsAutoCycle(false);
     setSelectedIdx(idx);
   };
 
   return (
     <div className="tw" ref={root}>
-      {/* Top Header */}
+      {/* Editorial Header */}
       <div className="tw-head">
         <div className="tw-title mono">
           <span className="skd-live-dot" />
-          <span>TWO WAYS IN // A SHORTCODE TO SOLUTIONS IN TECH</span>
+          <span>two ways in // philosophy</span>
         </div>
         <div className="tw-sub mono">
-          <span>THE TASK: ARCHITECTING FOR HIGH CONCURRENCY &amp; SCALE</span>
+          <span>a shortcode to solutions in tech</span>
         </div>
       </div>
 
       <div className="tw-grid">
-        {/* The Convoluted Way: Bloated Enterprise Stack */}
-        <section className="tw-panel convoluted" aria-label="The convoluted way">
-          <div className="tw-panel-label-row">
-            <span className="tw-label mono">THE CONVOLUTED WAY</span>
-            <span className="tw-sublabel mono">BLOATED CEREMONY</span>
-          </div>
+        {/* The Heavy Way */}
+        <section className="tw-col" aria-label="The heavy way">
+          <h3 className="tw-h mono">the heavy way</h3>
 
-          <ol className="tw-steps">
-            {BLOATED_STEPS.map((s, i) => (
-              <li key={s.label} className="tw-step done">
-                <span className="tw-n mono">{i + 1}</span>
-                <span className="tw-text">
-                  <span className="tw-step-name">{s.label}</span>
-                  <em className="mono">{s.tag}</em>
+          <ol className="tw-list">
+            {HEAVY_STEPS.map((s) => (
+              <li key={s.n}>
+                <span className="tw-n mono">{s.n}</span>
+                <span>
+                  <b>{s.title}</b>
+                  <em className="mono">{s.sub}</em>
                 </span>
               </li>
             ))}
           </ol>
 
-          <div className="tw-foot">
-            <span className="tw-count mono">
-              <b>5</b> / 5 layers of ceremony
-            </span>
-            <div className="tw-chips mono">
-              <i>k8s cluster</i>
-              <i>cloud bills</i>
-              <i>vendor lock-in</i>
-              <i>cold starts</i>
-            </div>
-          </div>
+          <p className="tw-tot mono">
+            <b>5</b> steps before it works
+          </p>
         </section>
 
-        {/* The Shortcode Way: Direct Tech Solutions */}
-        <section className="tw-panel direct won" aria-label="The direct shortcode way">
-          <div className="tw-panel-label-row">
-            <span className="tw-label mono direct-text">THE SHORTCODE WAY</span>
-            <span className="tw-sublabel mono direct-badge">SHORTKOHDZ PRIMITIVE</span>
+        {/* The Shortcode Way */}
+        <section className="tw-col direct" aria-label="The shortcode way">
+          <h3 className="tw-h mono">the shortcode way</h3>
+
+          <div className="tw-codes" role="tablist" aria-label="Choose a shortcode">
+            {SHORTCODES.map((s, idx) => (
+              <button
+                key={s.code}
+                type="button"
+                role="tab"
+                aria-selected={selectedIdx === idx}
+                onClick={() => handleSelect(idx)}
+                className={`tw-code mono ${selectedIdx === idx ? "on" : ""}`}
+              >
+                {s.code}
+              </button>
+            ))}
           </div>
 
-          {/* Tech Shortcode Matrix */}
-          <div className="tw-shortcode-container">
-            <div className="tw-terminal-box">
-              <div className="tw-term-chrome mono">
-                <div className="tw-term-dots" aria-hidden="true">
-                  <i /> <i /> <i />
-                </div>
-                <span className="tw-term-title">SHORTCODE://{activeSolution.code}</span>
-                <span className="tw-term-pill mono">{activeSolution.label}</span>
-              </div>
-
-              {/* Terminal Execution Output */}
-              <div className="tw-screen mono">
-                {activeSolution.output.map((line, idx) => (
-                  <div
-                    key={line}
-                    className={`tw-term-line ${
-                      line.startsWith("✓")
-                        ? "ok"
-                        : line.startsWith(">")
-                        ? "command"
-                        : "metric"
-                    }`}
-                  >
-                    {line}
-                    {idx === activeSolution.output.length - 1 && (
-                      <span className="tw-caret" />
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Interactive Shortcode Dial Pad */}
-              <div className="tw-pad-label mono">
-                <span>DIAL DIRECT TECH SHORTCODE:</span>
-                {isAutoCycle && <span className="tw-pad-live">AUTO-CYCLING ●</span>}
-              </div>
-              <div className="tw-keys-grid" role="group" aria-label="Tech shortcode options">
-                {TECH_SOLUTIONS.map((sol, idx) => (
-                  <button
-                    key={sol.code}
-                    type="button"
-                    onClick={() => handleSelectCode(idx)}
-                    className={`tw-key-btn mono ${
-                      selectedIdx === idx ? "is-active" : ""
-                    }`}
-                    title={`Dial ${sol.code} (${sol.label})`}
-                  >
-                    <span className="key-code">{sol.code}</span>
-                    <span className="key-desc">{sol.label}</span>
-                  </button>
-                ))}
-              </div>
+          <div className="tw-out" aria-live="polite">
+            <div className="tw-out-k mono">
+              <span>dial {active.code}</span>
+              <i>{active.name}</i>
             </div>
-
-            {/* Direct Solution Principles */}
-            <ol className="tw-mini mono">
-              <li className="on">
-                <span className="mini-num">01</span>
-                <span>Target the structural bottleneck</span>
-              </li>
-              <li className="on">
-                <span className="mini-num">02</span>
-                <span>Dial the compiled primitive ({activeSolution.code})</span>
-              </li>
-              <li className="on ok">
-                <span className="mini-num">03</span>
-                <span>Ship zero-dependency resilience</span>
-              </li>
-            </ol>
-          </div>
-
-          <div className="tw-foot">
-            <span className="tw-count mono direct-count">
-              <b>2</b> / 2 direct actions
-            </span>
-            <div className="tw-chips mono good">
-              {activeSolution.chips.map((chip) => (
-                <i key={chip}>{chip}</i>
+            <p>{active.p1}</p>
+            <p>{active.p2}</p>
+            <div className="tw-chips mono">
+              {active.chips.map((chip) => (
+                <span key={chip}>{chip}</span>
               ))}
             </div>
           </div>
+
+          <p className="tw-tot mono good">
+            <b>1</b> code, straight to the solution
+          </p>
         </section>
       </div>
 
-      {/* Manifesto Footer */}
+      {/* Philosophy Manifesto Footer */}
       <p className="tw-note mono">
-        <strong>A SHORTCODE TO SOLUTIONS IN TECH.</strong>{" "}
-        The fastest, most resilient architecture has no bloated middleware, no vendor tax,
-        and no unnecessary indirection. That is the Shortkohdz standard: solve the bottleneck
-        at the metal, remove every layer that isn&apos;t the problem itself.
+        <strong>A SHORTCODE TO SOLUTIONS IN TECH.</strong> The fastest, most resilient architecture
+        has no bloated middleware, no vendor tax, and no unnecessary indirection. Direct
+        primitives, zero-overhead execution, and systems that answer on the worst day.
       </p>
 
       <style>{`
@@ -271,6 +179,7 @@ export function TwoWaysIn() {
           background: var(--ink-2);
           margin: 40px 0 0;
           overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .tw-head {
@@ -279,9 +188,9 @@ export function TwoWaysIn() {
           align-items: center;
           gap: 12px;
           flex-wrap: wrap;
-          padding: 12px 18px;
+          padding: 12px 20px;
           border-bottom: 1px solid var(--line);
-          background: rgba(14, 18, 26, 0.6);
+          background: var(--ink-2);
         }
 
         .tw-title {
@@ -290,12 +199,15 @@ export function TwoWaysIn() {
           gap: 10px;
           font-size: 11px;
           letter-spacing: 0.12em;
+          text-transform: uppercase;
           color: var(--muted);
+          font-weight: 600;
         }
 
         .tw-sub {
           font-size: 10px;
           letter-spacing: 0.1em;
+          text-transform: uppercase;
           color: var(--faint);
         }
 
@@ -306,68 +218,51 @@ export function TwoWaysIn() {
           gap: 1px;
         }
 
-        .tw-panel {
+        .tw-col {
           background: var(--ink);
-          padding: 24px;
+          padding: 26px 24px;
           display: flex;
           flex-direction: column;
           min-width: 0;
-          transition: box-shadow 0.4s var(--ease);
-        }
-
-        .tw-panel.won {
-          box-shadow: inset 0 0 0 1px rgba(0, 229, 255, 0.4);
-        }
-
-        .tw-panel-label-row {
-          display: flex;
-          align-items: center;
           justify-content: space-between;
-          gap: 10px;
-          margin-bottom: 18px;
+          position: relative;
         }
 
-        .tw-label {
-          font-size: 11px;
+        .tw-col.direct {
+          background: var(--ink);
+        }
+
+        .tw-h {
+          font-size: 11.5px;
           letter-spacing: 0.14em;
-          color: #FF553D;
+          text-transform: uppercase;
+          margin: 0 0 20px 0;
+          color: var(--accent);
+          font-weight: 700;
         }
 
-        .tw-label.direct-text {
+        .tw-col.direct .tw-h {
           color: var(--accent);
         }
 
-        .tw-sublabel {
-          font-size: 9.5px;
-          letter-spacing: 0.08em;
-          color: var(--faint);
-          padding: 2px 7px;
-          border: 1px solid var(--line);
-          background: var(--ink-2);
-        }
-
-        .tw-sublabel.direct-badge {
-          color: var(--accent);
-          border-color: rgba(0, 229, 255, 0.35);
-          background: rgba(0, 229, 255, 0.06);
-        }
-
-        /* Bloated steps */
-        .tw-steps {
+        /* The Heavy Way List */
+        .tw-list {
           list-style: none;
           margin: 0;
           padding: 0;
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 14px;
           flex: 1;
         }
 
-        .tw-step {
+        .tw-list li {
           display: flex;
           align-items: flex-start;
           gap: 12px;
-          opacity: 0.85;
+          overflow-wrap: break-word;
+          word-break: normal;
+          hyphens: none;
         }
 
         .tw-n {
@@ -377,255 +272,125 @@ export function TwoWaysIn() {
           display: grid;
           place-items: center;
           border: 1px solid var(--line-strong);
-          font-size: 11px;
-          color: var(--muted);
           background: var(--ink-2);
+          font-size: 11px;
+          color: var(--paper);
+          font-weight: 600;
+          border-radius: 4px;
         }
 
-        .tw-text {
+        .tw-list li span:last-child {
           display: flex;
           flex-direction: column;
-          gap: 3px;
+          gap: 2px;
           min-width: 0;
         }
 
-        .tw-step-name {
+        .tw-list li b {
           font-size: 13.5px;
           color: var(--paper);
+          font-weight: 600;
           line-height: 1.35;
         }
 
-        .tw-text em {
+        .tw-list li em {
           font-style: normal;
-          font-size: 10px;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          color: #FF553D;
-          opacity: 0.85;
+          font-size: 10.5px;
+          letter-spacing: 0.05em;
+          color: var(--faint);
+          font-weight: 500;
         }
 
-        /* Shortcode Terminal side */
-        .tw-shortcode-container {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          flex: 1;
-        }
-
-        .tw-terminal-box {
-          border: 1px solid var(--line-strong);
-          border-radius: 6px;
-          background: var(--ink-2);
-          overflow: hidden;
-          padding: 12px;
-        }
-
-        .tw-term-chrome {
+        /* The Shortcode Way */
+        .tw-codes {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 8px;
-          padding-bottom: 8px;
-          border-bottom: 1px solid var(--line);
-          margin-bottom: 10px;
+          gap: 6px;
+          flex-wrap: wrap;
+          margin-bottom: 18px;
         }
 
-        .tw-term-dots {
-          display: flex;
-          gap: 5px;
-        }
-
-        .tw-term-dots i {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: var(--line-strong);
-        }
-
-        .tw-term-title {
-          font-size: 10.5px;
-          color: var(--accent);
-          letter-spacing: 0.08em;
-        }
-
-        .tw-term-pill {
-          font-size: 9px;
-          color: var(--muted);
-          background: var(--ink);
-          padding: 2px 6px;
-          border-radius: 2px;
-          border: 1px solid var(--line);
-        }
-
-        .tw-screen {
-          min-height: 86px;
-          padding: 10px 12px;
-          background: #05070B;
-          border: 1px solid var(--line);
+        .tw-code {
+          padding: 6px 12px;
+          background: var(--ink-2);
+          border: 1px solid var(--line-strong);
           border-radius: 4px;
-          font-size: 11px;
-          line-height: 1.6;
-          color: #94A3B8;
+          font-size: 10.5px;
+          letter-spacing: 0.08em;
+          color: var(--muted);
+          cursor: pointer;
+          transition: all 0.18s ease;
+          font-weight: 500;
+        }
+
+        .tw-code:hover {
+          color: var(--paper);
+          border-color: var(--accent);
+          background: var(--accent-soft);
+        }
+
+        .tw-code.on {
+          color: var(--accent);
+          background: var(--accent-soft);
+          border-color: var(--accent);
+          box-shadow: 0 0 12px var(--accent-soft);
+          font-weight: 700;
+        }
+
+        /* Tactical Output Well */
+        .tw-out {
+          background: var(--ink-3);
+          border: 1px solid var(--line-strong);
+          border-radius: 6px;
+          padding: 18px 20px;
+          flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: center;
-          margin-bottom: 12px;
+          margin-bottom: 20px;
+          min-height: 170px;
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
-        .tw-term-line.command {
-          color: var(--paper);
-          font-weight: 500;
-        }
-
-        .tw-term-line.metric {
-          color: #94A3B8;
-        }
-
-        .tw-term-line.ok {
-          color: #38BDF8;
-          font-weight: 600;
-        }
-
-        .tw-caret {
-          display: inline-block;
-          width: 6px;
-          height: 11px;
-          margin-left: 4px;
-          background: var(--accent);
-          vertical-align: -1px;
-          animation: twBlink 0.9s steps(2) infinite;
-        }
-
-        @keyframes twBlink {
-          50% { opacity: 0; }
-        }
-
-        .tw-pad-label {
+        .tw-out-k {
           display: flex;
+          align-items: center;
           justify-content: space-between;
-          align-items: center;
-          font-size: 9px;
-          letter-spacing: 0.1em;
-          color: var(--faint);
-          margin-bottom: 8px;
-        }
-
-        .tw-pad-live {
-          color: var(--accent);
-          font-size: 8.5px;
-        }
-
-        .tw-keys-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-          gap: 6px;
-        }
-
-        .tw-key-btn {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 2px;
-          padding: 6px 8px;
-          background: var(--ink);
-          border: 1px solid var(--line);
-          border-radius: 3px;
-          cursor: pointer;
-          transition: all 0.15s ease;
-          text-align: left;
-        }
-
-        .tw-key-btn:hover {
-          border-color: var(--accent);
-          background: rgba(0, 229, 255, 0.06);
-        }
-
-        .tw-key-btn.is-active {
-          border-color: var(--accent);
-          background: rgba(0, 229, 255, 0.12);
-          box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
-        }
-
-        .key-code {
-          font-size: 10px;
-          font-weight: 700;
-          color: var(--paper);
-          letter-spacing: 0.05em;
-        }
-
-        .tw-key-btn.is-active .key-code {
-          color: var(--accent);
-        }
-
-        .key-desc {
-          font-size: 8.5px;
-          color: var(--faint);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 100%;
-        }
-
-        /* Mini checklist */
-        .tw-mini {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          font-size: 12px;
-          color: var(--muted);
-        }
-
-        .tw-mini li {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .mini-num {
-          font-size: 9.5px;
-          color: var(--accent);
-          opacity: 0.8;
-          border: 1px solid rgba(0, 229, 255, 0.25);
-          padding: 1px 4px;
-          border-radius: 2px;
-        }
-
-        .tw-mini li.ok span:last-child {
-          color: var(--paper);
-          font-weight: 500;
-        }
-
-        /* Footer */
-        .tw-foot {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
           gap: 12px;
-          flex-wrap: wrap;
-          margin-top: 18px;
-          padding-top: 14px;
-          border-top: 1px solid var(--line);
+          padding-bottom: 10px;
+          margin-bottom: 12px;
+          border-bottom: 1px solid var(--line);
+          font-size: 10.5px;
         }
 
-        .tw-count {
-          font-size: 10.5px;
+        .tw-out-k span {
+          color: var(--accent);
+          letter-spacing: 0.08em;
+          font-weight: 700;
+        }
+
+        .tw-out-k i {
+          font-style: normal;
+          color: var(--faint);
+          font-size: 9.5px;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          color: var(--faint);
+          font-weight: 500;
         }
 
-        .tw-count b {
-          font-size: 18px;
+        .tw-out p {
+          margin: 0 0 6px 0;
+          font-size: 14px;
+          line-height: 1.5;
           color: var(--paper);
-          font-weight: 600;
-          margin-right: 3px;
+          font-weight: 500;
         }
 
-        .direct-count b {
-          color: var(--accent);
+        .tw-out p:last-of-type {
+          color: var(--muted);
+          font-size: 13px;
+          margin-bottom: 14px;
+          font-weight: 400;
         }
 
         .tw-chips {
@@ -634,35 +399,44 @@ export function TwoWaysIn() {
           flex-wrap: wrap;
         }
 
-        .tw-chips i {
-          font-style: normal;
-          font-size: 9.5px;
+        .tw-chips span {
+          font-size: 10px;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          padding: 4px 8px;
+          padding: 3px 9px;
+          border-radius: 3px;
           border: 1px solid var(--line-strong);
+          color: var(--paper);
+          background: var(--ink-2);
+          font-weight: 500;
+        }
+
+        /* Footers */
+        .tw-tot {
+          font-size: 11px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
           color: var(--muted);
+          margin: 16px 0 0;
+          padding-top: 14px;
+          border-top: 1px solid var(--line);
+          font-weight: 500;
         }
 
-        .tw-chips i::before {
-          content: "✕ ";
-          color: #FF553D;
-        }
-
-        .tw-chips.good i {
-          border-color: rgba(0, 229, 255, 0.35);
+        .tw-tot b {
+          font-size: 19px;
           color: var(--accent);
-          background: rgba(0, 229, 255, 0.04);
+          font-weight: 700;
+          margin-right: 4px;
         }
 
-        .tw-chips.good i::before {
-          content: "✓ ";
-          color: inherit;
+        .tw-tot.good b {
+          color: var(--accent);
         }
 
         .tw-note {
           margin: 0;
-          padding: 16px 22px;
+          padding: 16px 20px;
           border-top: 1px solid var(--line);
           background: var(--ink-2);
           font-size: 12px;
@@ -677,20 +451,26 @@ export function TwoWaysIn() {
           letter-spacing: 0.08em;
         }
 
-        @media (max-width: 840px) {
+        @media (max-width: 820px) {
           .tw-grid {
             grid-template-columns: minmax(0, 1fr);
           }
-          .tw-panel {
-            padding: 18px 16px;
+          .tw-col {
+            padding: 20px 16px;
           }
-          .tw-keys-grid {
-            grid-template-columns: repeat(2, 1fr);
+          .tw-out {
+            padding: 14px 16px;
           }
-          .tw-foot {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
+          .tw-codes {
+            gap: 4px;
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .tw-code {
+            padding: 5px 8px;
+            font-size: 9.5px;
+            flex: 1 1 auto;
+            text-align: center;
           }
           .tw-note {
             padding: 14px 16px;

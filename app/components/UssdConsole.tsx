@@ -149,7 +149,7 @@ SYSTEM STATUS:    ALL SYSTEMS NOMINAL`;
         setSession("contact");
         responseText = `[USSD 200 OK] 04 · DIRECT LINE
 ENGINEER:         Obanijesu Ajayi
-EMAIL:            ajayiobanijesu2000@gmail.com
+EMAIL:            ajayioba2000@gmail.com
 GITHUB:           github.com/ObeeJ
 LINKEDIN:         linkedin.com/in/obanijesuajayi
 STATUS:           AVAILABLE FOR ADVISORY & INFRASTRUCTURE ROLES`;
@@ -339,7 +339,7 @@ Valid codes: *100#, *200#, *300#, *400#, *999# (or dial 0 for Menu).`;
         }
         .skd-console-btn-sm:hover {
           color: var(--paper);
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
         }
         .skd-console-body {
           display: grid;
@@ -452,7 +452,7 @@ Valid codes: *100#, *200#, *300#, *400#, *999# (or dial 0 for Menu).`;
           transition: all .18s;
         }
         .skd-chip-btn:hover {
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
           color: var(--accent);
         }
         .skd-chip-code {
@@ -487,7 +487,7 @@ Valid codes: *100#, *200#, *300#, *400#, *999# (or dial 0 for Menu).`;
         .skd-keypad-key:hover {
           background: var(--accent);
           color: #050711;
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
         }
         .skd-keypad-key:active {
           transform: scale(0.96);
@@ -509,7 +509,7 @@ Valid codes: *100#, *200#, *300#, *400#, *999# (or dial 0 for Menu).`;
         }
         .skd-keypad-ctrl:hover {
           color: var(--paper);
-          border-color: var(--accent);
+          border-color:var(--stroke-hi);
         }
       `}</style>
     </div>

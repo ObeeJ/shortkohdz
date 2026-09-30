@@ -977,6 +977,110 @@
       ],
       "live": null,
       "note": "Authored and published by me. Anyone can add it with `cargo add glideapi` and use it in their own services."
+    },
+    {
+      "id": "productcatalogapi",
+      "name": "ProductCatalogAPI",
+      "role": "Author & Systems Software Engineer",
+      "featured": false,
+      "industry": "E-Commerce / Inventory Concurrency",
+      "tags": [
+        ".NET",
+        "C#",
+        "Postgres"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        ".NET",
+        "Postgres",
+        "Docker"
+      ],
+      "chips": [
+        ".NET 9.0",
+        "ASP.NET Core",
+        "C#",
+        "EF Core",
+        "PostgreSQL",
+        "SQLite",
+        "Clean Architecture",
+        "xUnit"
+      ],
+      "tagline": "Production-grade ASP.NET Core Web API with verified concurrency control to prevent inventory overselling.",
+      "problem": "During flash sales and high-traffic shopping spikes, simultaneous customer checkout requests trigger severe database race conditions, causing e-commerce engines to oversell remaining stock and forcing painful cancellations.",
+      "solution": "Built a clean architecture ASP.NET Core Web API implementing strict database-level concurrency control and atomic inventory transactions. Orders validate available stock under row lock, guaranteeing zero oversold items under concurrent bursts.",
+      "system": "Developed on .NET 9.0 LTS with ASP.NET Core Web API. Employs Entity Framework Core with dual-database abstractions: SQLite for instant, zero-dependency testing suites and PostgreSQL for production workloads. Includes AutoMapper DTO projections, FluentValidation pipeline behaviors, Serilog structured JSON logging, and full containerized Docker deployment.",
+      "dsa": "Database-level concurrency tokens and atomic transactional operations on product stock balances eliminate overselling. State machines ensure orders transition deterministically between pending, validated, and processed states.",
+      "why": ".NET 9.0 provides world-class execution performance and strict memory safety; EF Core concurrency tracking eliminates dirty reads and phantom updates; Clean Architecture isolates business domain rules from external data providers.",
+      "innovation": "Combining strict EF Core concurrency tracking with Clean Architecture domain boundaries to achieve mathematically verified inventory integrity under simultaneous checkout load.",
+      "metrics": [
+        "Production-grade ASP.NET Core Web API with zero oversell tolerance",
+        ".NET 9.0 LTS runtime with Clean Architecture and SOLID design",
+        "Dual-database abstraction: PostgreSQL for production and SQLite for test isolation",
+        "Automated xUnit test suite for race condition and boundary validation",
+        "FluentValidation and Serilog structured logging pipelines"
+      ],
+      "potential": "High-throughput commerce backbone for high-demand product drops and concurrent retail settlement.",
+      "repos": [
+        [
+          "source",
+          "https://github.com/ObeeJ/ProductCatalogAPI"
+        ]
+      ],
+      "live": "https://github.com/ObeeJ/ProductCatalogAPI",
+      "note": "Authored and engineered by me. Production-grade C# .NET showcasing concurrency control and clean architecture."
+    },
+    {
+      "id": "terraform-cloud-infra",
+      "name": "CarbonAPI & Terraform IaC",
+      "role": "Cloud Infrastructure & DevOps Engineer",
+      "featured": false,
+      "industry": "Cloud Infrastructure / ESG Telemetry",
+      "tags": [
+        "Cloud/IaC",
+        "AWS",
+        "Terraform"
+      ],
+      "go": false,
+      "status": "ship",
+      "stacks": [
+        "Cloud/IaC",
+        "AWS",
+        "Terraform",
+        "Docker"
+      ],
+      "chips": [
+        "Terraform (HCL)",
+        "AWS Lambda",
+        "AWS RDS",
+        "AWS VPC",
+        "Sub-100ms",
+        "GitHub Actions",
+        "Bash"
+      ],
+      "tagline": "Infrastructure as Code for real-time ESG calculation: sub-100ms carbon footprint telemetry on AWS.",
+      "problem": "Enterprise ESG compliance calculations traditionally require weeks of manual spreadsheet audits and costly enterprise software ($10K-$100K+). Building a sub-100ms calculation API requires zero-touch, automated, multi-region cloud provisioning with isolated private network boundaries.",
+      "solution": "Architected and provisioned the complete AWS serverless infrastructure with modular Terraform (HCL). Deployed multi-AZ VPC networking, secure private database subnets with RDS PostgreSQL, automated Lambda deployments behind API Gateway, and CI/CD deployment automation.",
+      "system": "Modular Terraform codebase containing separated concerns: networking (networking.tf — VPC, public/private subnets, NAT gateways), database (database.tf — encrypted RDS PostgreSQL instance), serverless compute (lambda.tf — IAM execution roles, API Gateway triggers, CloudWatch logs), and output definitions. Includes automated zero-friction deployment via deploy.sh.",
+      "dsa": "Sub-100ms calculation pipelines utilizing cached emission factors based on latest IPCC standards. Infrastructure enforces strict zero-trust security boundaries with zero public exposure of database layers.",
+      "why": "Terraform codifies the entire multi-resource AWS architecture into reproducible state files; serverless Lambda provides instant auto-scaling from zero to thousands of concurrent requests; private VPC subnets guarantee SOC2/compliance isolation.",
+      "innovation": "Zero-touch declarative IaC that spins up an entire auditable, production-ready ESG computation infrastructure in minutes with sub-100ms API response latency.",
+      "metrics": [
+        "100% Declarative Terraform AWS Infrastructure as Code",
+        "Sub-100ms global API calculation response time",
+        "Modular HCL architecture: VPC, Subnets, RDS, Lambda, API Gateway",
+        "Isolated private database network with zero public attack surface",
+        "Automated GitHub Actions CI/CD deployment pipelines"
+      ],
+      "potential": "Turnkey real-time ESG calculation infrastructure for enterprise carbon disclosure and logistics APIs.",
+      "repos": [
+        [
+          "source",
+          "https://github.com/ObeeJ/Terraform-DevOps-Practices"
+        ]
+      ],
+      "live": "https://github.com/ObeeJ/Terraform-DevOps-Practices",
+      "note": "Authored and engineered by me. Complete modular Terraform AWS infrastructure for real-time calculation APIs."
     }
   ]
 }
