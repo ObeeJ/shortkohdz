@@ -25,6 +25,10 @@
     {
       "pattern": "shortkohdz.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "www.shortkohdz.com",
+      "custom_domain": true
     }
   ],
   "workers_dev": true,

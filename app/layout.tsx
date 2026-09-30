@@ -65,11 +65,39 @@ const MARK_FAVICON =
       .join("")}</g><circle class="core" r="10" fill="#FF553D"/></svg>`
   );
 
+const SITE = "https://shortkohdz.com";
+const TITLE = "shortkohdz · solutions, on dial";
+const DESC =
+  "shortkohdz is backend and infrastructure engineering built to work on the worst day, not just the best.";
+
 export const metadata: Metadata = {
-  title: "shortkohdz · solutions, on dial",
-  description:
-    "shortkohdz is backend and infrastructure engineering built to work on the worst day, not just the best.",
-  icons: { icon: "/favicon.svg" },
+  metadataBase: new URL(SITE),
+  title: TITLE,
+  description: DESC,
+  applicationName: "shortkohdz",
+  alternates: { canonical: "/" },
+  // The tab favicon is the animated SVG; link previews and old browsers get the static brand mark.
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  openGraph: {
+    type: "website",
+    url: SITE,
+    siteName: "shortkohdz",
+    title: TITLE,
+    description: DESC,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "shortkohdz: a direct line to systems that hold up" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESC,
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({
